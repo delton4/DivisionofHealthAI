@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="hero">
+    <h1>Division of Health AI</h1>
+    <p class="lede">
+      A live, data-driven snapshot of researchers, projects, and publications powered directly by the shared Excel sheet.
+    </p>
+  </section>
+
+  <section class="card-grid">
+    {% for section in sections %}
+      <a class="card" href="{{ base_url }}{{ section.slug }}/index.html">
+        <h2>{{ section.title }}</h2>
+        <p>{{ section.count }} entries</p>
+      </a>
+    {% endfor %}
+  </section>
+{% endblock %}

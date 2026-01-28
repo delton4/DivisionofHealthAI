@@ -1,28 +1,23 @@
-# Division of Health AI - Futuristic Command Center
+# Division of Health AI Site
 
-This is a cinematic, futuristic single-page experience for the Division of Health AI (Neural & Data Science Lab). It combines layered visuals, interactive components, and progressive enhancement for WebGL and scroll-based motion.
+This repo builds a static site from a single Excel source of truth: `DataForSite.xlsx`.
 
-## Files
-- `index.html` - Primary structure and content.
-- `variables.css` - Design tokens and fonts.
-- `components.css` - Component styles and layout.
-- `utilities.css` - Utility classes.
-- `styles.css` - Base styles and section backgrounds.
-- `fallbacks.css` - Progressive enhancement and mobile fallbacks.
-- `print.css` - Print-friendly styles.
-- `animations.js` - Interactions, cursor, scroll, counters, and particles.
-- `3d-scene.js` - Three.js neural command center with fallback.
-- `assets/` - Noise texture, cursors, icons, and SVG assets.
+## For researchers (content updates)
+1. Open `DataForSite.xlsx`.
+2. Update researchers, projects, or publications in their respective sheets.
+3. Save the file and commit it to the repo.
+4. Push to `main`. GitHub Pages will rebuild the site automatically.
 
-## Usage
-Open `index.html` in a local server for best results (fonts and CDN scripts load correctly). No build step is required.
+## For developers (local build)
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python scripts/build.py
+```
+Then open `dist/index.html` in a browser.
 
 ## Notes
-- WebGL content is optional; the layout falls back to animated CSS or static visuals if WebGL is unavailable.
-- Motion respects `prefers-reduced-motion` and reduces effects automatically.
-
-## Source-of-truth policy
-- The PowerPoint deck `DHAI_Projects.pptx` is the sole source of truth for project, researcher, and metric details.
-- https://zanoslab.github.io is used only for tone and flavor text, not for factual project or personnel information.
-- When in doubt, update the site copy to match `DHAI_Projects.pptx` verbatim data and numbers.
-# DivisionofHealthAI
+- The build script normalizes and validates the Excel data.
+- Validation warnings are written to `data/errors.json` and copied into `dist/data/errors.json`.
+- GitHub Pages uses `BASE_URL=/<repo-name>` for links. If you deploy on a custom domain or a user site, update the workflow env accordingly.

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="page-header">
+    <a class="back-link" href="{{ base_url }}{{ section }}/index.html">Back to {{ section }}</a>
+    <h1>{{ entity.name or entity.title or entity.id }}</h1>
+    {% if entity.title and entity.name %}
+      <p class="lede">{{ entity.title }}</p>
+    {% endif %}
+  </section>
+
+  <section class="detail-grid">
+    <div>
+      {% if entity.image %}
+        {% set image_src = entity.image %}
+        {% if entity.image and not (entity.image.startswith('http') or entity.image.startswith('//') or entity.image.startswith('data:')) %}
+          {% set image_src = base_url ~ entity.image %}
+        {% endif %}
+        <img class="detail-image" src="{{ image_src }}" alt="{{ entity.name or entity.title }}" />
+      {% endif %}
+      {% if entity.journal %}
+        <dl class="meta-list">
+          <div>
+            <dt>Journal</dt>
+            <dd>{{ entity.journal }}</dd>
+          </div>
+        </dl>
+      {% endif %}
+    </div>
+    <div>
+      {% if entity.about %}
+        <p>{{ entity.about }}</p>
+      {% endif %}
+      {% if entity.abstract %}
+        <p>{{ entity.abstract }}</p>
+      {% endif %}
+      {% if entity.publicationUrl %}
+        <p>
+          <a class="cta-button" href="{{ entity.publicationUrl }}" target="_blank" rel="noopener">Read Article</a>
+        </p>
+      {% endif %}
+    </div>
+  </section>
+
+  {% if related_projects %}
+    <section>
+      <h2>Projects</h2>
+      <ul class="related-list">
+        {% for item in related_projects %}
+          <li><a href="{{ base_url }}{{ item.path }}">{{ item.name or item.title or item.id }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if related_researchers %}
+    <section>
+      <h2>Researchers</h2>
+      <ul class="related-list">
+        {% for item in related_researchers %}
+          <li><a href="{{ base_url }}{{ item.path }}">{{ item.name or item.title or item.id }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if related_publications %}
+    <section>
+      <h2>Publications</h2>
+      <ul class="related-list">
+        {% for item in related_publications %}
+          <li><a href="{{ base_url }}{{ item.path }}">{{ item.name or item.title or item.id }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+{% endblock %}

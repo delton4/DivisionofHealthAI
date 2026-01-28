@@ -1,0 +1,176 @@
+:root {
+  color-scheme: light;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  line-height: 1.6;
+  color: #0b1b2a;
+  background-color: #f5f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(120deg, #f5f7fb 0%, #eef3ff 45%, #f9fbff 100%);
+}
+
+a {
+  color: #0b4f6c;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e1e5ee;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #09203f;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.hero {
+  padding: 2rem 0 1rem;
+}
+
+.lede {
+  font-size: 1.1rem;
+  color: #30475e;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.card {
+  display: block;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(10, 37, 64, 0.08);
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.list-item {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(10, 37, 64, 0.06);
+  margin-bottom: 1.5rem;
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: #63718a;
+}
+
+.subtle {
+  color: #4c5b74;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.detail-image {
+  max-width: 100%;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  border: 1px solid #e3e7f2;
+}
+
+.meta-list {
+  margin: 0;
+}
+
+.meta-list div {
+  margin-bottom: 0.75rem;
+}
+
+.meta-list dt {
+  font-weight: 600;
+  color: #1b2a4e;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #0b4f6c;
+  color: #ffffff;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.cta-button:hover {
+  background: #06374b;
+  text-decoration: none;
+}
+
+.related-list {
+  list-style: none;
+  padding: 0;
+}
+
+.related-list li {
+  padding: 0.35rem 0;
+}
+
+.site-footer {
+  border-top: 1px solid #e1e5ee;
+  background: #ffffff;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: #0b4f6c;
+}
+
+@media (max-width: 720px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+  }
+}
