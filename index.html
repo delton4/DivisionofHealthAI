@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Division of Health AI - Digital Command Center</title>
+    <meta
+      name="description"
+      content="Division of Health AI develops cutting-edge ML and DL systems for early diagnosis, disease severity assessment, and adaptive therapy."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;600&family=Orbitron:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="variables.css" />
+    <link rel="stylesheet" href="components.css" />
+    <link rel="stylesheet" href="utilities.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="fallbacks.css" />
+    <link rel="stylesheet" href="print.css" media="print" />
+  </head>
+  <body class="noise">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div id="cursor" aria-hidden="true">
+      <span class="cursor-dot"></span>
+      <span class="cursor-ring"></span>
+    </div>
+
+    <nav class="nav" role="navigation" aria-label="Primary">
+      <div class="nav__brand">
+        <span class="brand-mark">D</span>
+        <div>
+          <p class="brand-title">Division of Health AI</p>
+          <p class="brand-subtitle">Neural &amp; Data Science Lab</p>
+        </div>
+      </div>
+      <div class="nav__links">
+        <a href="#home" class="nav-link" data-section="home">Home</a>
+        <a href="#mission" class="nav-link" data-section="mission">Mission</a>
+        <a href="#research" class="nav-link" data-section="research">Research</a>
+        <a href="#impact" class="nav-link" data-section="impact">Impact</a>
+        <a href="#team" class="nav-link" data-section="team">Team</a>
+        <a href="#publications" class="nav-link" data-section="publications">Publications</a>
+        <a href="#tech" class="nav-link" data-section="tech">Tech</a>
+        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+      </div>
+      <div class="nav__actions">
+        <button class="ghost-button" id="sound-toggle" aria-pressed="false">Sound: Off</button>
+        <a class="primary-button" href="#contact">Collaborate</a>
+      </div>
+      <div class="nav__minimap" aria-hidden="true">
+        <span class="mini-dot" data-target="home"></span>
+        <span class="mini-dot" data-target="mission"></span>
+        <span class="mini-dot" data-target="research"></span>
+        <span class="mini-dot" data-target="impact"></span>
+        <span class="mini-dot" data-target="team"></span>
+        <span class="mini-dot" data-target="publications"></span>
+        <span class="mini-dot" data-target="tech"></span>
+        <span class="mini-dot" data-target="contact"></span>
+      </div>
+      <div class="nav__glow" aria-hidden="true"></div>
+    </nav>
+
+    <main id="main">
+      <section id="home" class="section hero">
+        <canvas id="particle-canvas" aria-hidden="true"></canvas>
+        <div class="hero__scan" aria-hidden="true"></div>
+        <div class="hero__grid" aria-hidden="true"></div>
+        <div class="hero__content">
+          <div class="hero__tag">Nature Communications - Clinical AI Breakthrough</div>
+          <h1 class="hero__title">
+            Building <span class="text-glow">clinical AI</span> for early diagnosis, severity assessment, and adaptive therapy.
+          </h1>
+          <p class="hero__subtitle">
+            The Division of Health AI designs machine learning systems that anticipate deterioration, elevate
+            clinician awareness, and personalize care across hospital settings.
+          </p>
+          <div class="hero__pillars mono">Predict / Prevent / Personalize / Deploy</div>
+          <div class="hero__typed">
+            <span class="mono" aria-hidden="true">></span>
+            <span
+              id="typed-text"
+              data-words="Wearable deterioration prediction.,Early diagnosis signals.,Disease severity intelligence.,Adaptive therapy personalization."
+              aria-live="polite"
+            ></span>
+          </div>
+          <div class="hero__cta">
+            <a class="primary-button" href="#research">Explore Research</a>
+            <a class="ghost-button" href="#publications">View Publications</a>
+          </div>
+        </div>
+        <div class="hero__panels">
+          <div class="holo-panel">
+            <p class="panel-label">Early Warning Lead</p>
+            <p class="panel-metric">~17 hrs</p>
+            <p class="panel-caption">Avg. lead time before deterioration</p>
+          </div>
+          <div class="holo-panel">
+            <p class="panel-label">Model Sensitivity</p>
+            <p class="panel-metric">&gt;94%</p>
+            <p class="panel-caption">Alert detection performance</p>
+          </div>
+          <div class="holo-panel">
+            <p class="panel-label">Wearable Coverage</p>
+            <p class="panel-metric">&gt;8k</p>
+            <p class="panel-caption">&gt;18k days of data collected</p>
+          </div>
+        </div>
+        <div class="hero__3d" aria-hidden="true">
+          <div id="three-container">
+            <div class="three-fallback">
+              <div class="orb"></div>
+              <div class="orb"></div>
+              <div class="orb"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="mission" class="section mission" aria-label="Mission">
+        <div class="section__header">
+          <p class="eyebrow">Mission Protocol</p>
+          <h2>Engineering AI that anticipates deterioration and personalizes care.</h2>
+          <p class="section__lead">
+            We build machine learning and deep learning systems for early diagnosis, disease severity assessment,
+            and adaptive therapy across healthcare. Our research spans bioelectronic medicine, neural interfaces,
+            and clinical AI at scale.
+          </p>
+        </div>
+        <div class="mission__grid">
+          <div class="mission-card">
+            <h3>Early diagnosis intelligence</h3>
+            <p>Predictive models that surface subtle signals before clinical deterioration escalates.</p>
+          </div>
+          <div class="mission-card">
+            <h3>Severity & personalization</h3>
+            <p>Adaptive algorithms that stratify risk and tailor interventions to each patient.</p>
+          </div>
+          <div class="mission-card">
+            <h3>Bioelectronic medicine</h3>
+            <p>Data-driven neuromodulation that links nervous system signals to immune and inflammatory control.</p>
+          </div>
+        </div>
+        <div class="mission__wave" aria-hidden="true"></div>
+      </section>
+
+      <section id="research" class="section research" aria-label="Research focus areas">
+        <div class="section__header">
+          <p class="eyebrow">Research Focus</p>
+          <h2>Multimodal intelligence for complex clinical environments.</h2>
+          <p class="section__lead">
+            Our programs span point-of-care decision support, wearable monitoring, clinical phenotyping, and
+            maternal-neonatal risk prediction.
+          </p>
+        </div>
+        <div class="research__grid">
+          <article class="research-card" data-tilt>
+            <div class="research-card__head">
+              <h3>In-hospital Deterioration AI</h3>
+              <span class="chip">Point-of-care</span>
+            </div>
+            <p class="research-card__body">
+              Trained on &gt;1.5M hospitalizations using 18 EHR features to predict deaths, ICU transfers, and RRT calls
+              with &gt;90% accuracy, outperforming the Epic Deterioration Model.
+            </p>
+            <div class="research-card__viz">
+              <div class="sparkline" data-spark="0.2,0.4,0.35,0.7,0.6,0.8"></div>
+              <div class="pulse-nodes">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <button class="text-button">Expand Briefing</button>
+          </article>
+          <article class="research-card" data-tilt>
+            <div class="research-card__head">
+              <h3>Wearable Deterioration Prediction</h3>
+              <span class="chip">Wearables</span>
+            </div>
+            <p class="research-card__body">
+              RNN model trained on &gt;1.3k clinical patches achieves &gt;94% sensitivity and ~17-hour lead time for clinical
+              alerts; algorithm is wearable-agnostic.
+            </p>
+            <div class="research-card__viz">
+              <div class="sparkline" data-spark="0.1,0.35,0.25,0.55,0.45,0.75"></div>
+              <div class="pulse-nodes">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <button class="text-button">Expand Briefing</button>
+          </article>
+          <article class="research-card" data-tilt>
+            <div class="research-card__head">
+              <h3>Clinical Phenotyping</h3>
+              <span class="chip">Unsupervised</span>
+            </div>
+            <p class="research-card__body">
+              Unsupervised learning clusters patients into phenotypes (lung inflammation, kidney dysfunction, immune)
+              to explain outcomes and optimize clinical trial recruitment.
+            </p>
+            <div class="research-card__viz">
+              <div class="sparkline" data-spark="0.15,0.3,0.5,0.45,0.7,0.9"></div>
+              <div class="pulse-nodes">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <button class="text-button">Expand Briefing</button>
+          </article>
+          <article class="research-card" data-tilt>
+            <div class="research-card__head">
+              <h3>Maternal Fever Prediction</h3>
+              <span class="chip">Monitoring</span>
+            </div>
+            <p class="research-card__body">
+              Continuous vitals from 336 laboring patients, with HRV as a key signal, predict fever 2-3 hours before onset,
+              supporting neonatal sepsis prevention.
+            </p>
+            <div class="research-card__viz">
+              <div class="sparkline" data-spark="0.3,0.45,0.4,0.6,0.55,0.8"></div>
+              <div class="pulse-nodes">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <button class="text-button">Expand Briefing</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="impact" class="section impact" aria-label="Impact metrics">
+        <div class="section__header">
+          <p class="eyebrow">Impact Metrics</p>
+          <h2>Measured outcomes with real-world significance.</h2>
+          <p class="section__lead">
+            Deep learning with wearables predicts clinical alerts hours earlier, with high sensitivity and
+            scalable multi-device coverage.
+          </p>
+        </div>
+        <div class="impact__grid" aria-live="polite">
+          <div class="impact-card">
+            <p class="impact-label">Average Early Warning</p>
+            <p class="impact-value" data-count="17" data-suffix=" hrs">0</p>
+            <div class="ring" data-progress="68"></div>
+          </div>
+          <div class="impact-card">
+            <p class="impact-label">Sensitivity</p>
+            <p class="impact-value" data-count="94" data-prefix="&gt;" data-suffix="%">0</p>
+            <div class="ring" data-progress="94"></div>
+          </div>
+          <div class="impact-card">
+            <p class="impact-label">Patients Monitored</p>
+            <p class="impact-value" data-count="8000" data-prefix="&gt;" data-suffix=" patients">0</p>
+            <div class="ring" data-progress="74"></div>
+          </div>
+          <div class="impact-card">
+            <p class="impact-label">Days of Data</p>
+            <p class="impact-value" data-count="18000" data-prefix="&gt;" data-suffix=" days">0</p>
+            <div class="ring" data-progress="66"></div>
+          </div>
+        </div>
+        <p class="impact-note">
+          The algorithm is wearable-agnostic as long as signals are accurate, achieving &gt;94% sensitivity on
+          more than 1.3k clinical patches.
+          Multi-device monitoring already includes &gt;8k patients and &gt;18k days of data, targeting 10k patients
+          and &gt;25k days within a year.
+        </p>
+        <div class="impact__grid impact__grid--secondary" aria-label="Northwell scale">
+          <div class="impact-card">
+            <p class="impact-label">Hospitals</p>
+            <p class="impact-value" data-count="28">0</p>
+            <div class="ring" data-progress="72"></div>
+          </div>
+          <div class="impact-card">
+            <p class="impact-label">Outpatient Clinics</p>
+            <p class="impact-value" data-count="1000" data-prefix="&gt;" data-suffix=" clinics">0</p>
+            <div class="ring" data-progress="65"></div>
+          </div>
+          <div class="impact-card">
+            <p class="impact-label">Patients Treated Annually</p>
+            <p class="impact-value" data-count="2000000" data-prefix="&gt;" data-suffix=" patients/yr">0</p>
+            <div class="ring" data-progress="78"></div>
+          </div>
+          <div class="impact-card">
+            <p class="impact-label">Annual Encounters</p>
+            <p class="impact-value" data-count="5500000" data-suffix=" encounters">0</p>
+            <div class="ring" data-progress="82"></div>
+          </div>
+        </div>
+        <p class="impact-note impact-note--secondary">
+          Serving one of the most ethnically, culturally, genetically, socially, and economically diverse patient
+          populations in the United States.
+        </p>
+      </section>
+
+      <section id="team" class="section team" aria-label="Team">
+        <div class="section__header">
+          <p class="eyebrow">Command Team</p>
+          <h2>Interdisciplinary experts powering health AI.</h2>
+          <p class="section__lead">
+            Researchers advancing machine learning in medicine, neural data science, and bioelectronic systems.
+          </p>
+        </div>
+        <div class="team__grid">
+          <article class="team-card">
+            <div class="team-card__hex">
+              <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=400&q=80" alt="Theodoros Zanos, PhD" loading="lazy" />
+            </div>
+            <h3>Theodoros Zanos, PhD</h3>
+            <p class="team-role">Director, Division of Health AI</p>
+            <p class="team-meta">Neural &amp; Data Science Lab, Bioelectronic Medicine</p>
+          </article>
+          <article class="team-card">
+            <div class="team-card__hex">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80" alt="Todd Levy, MS" loading="lazy" />
+            </div>
+            <h3>Todd Levy, MS</h3>
+            <p class="team-role">Senior Biomedical Engineer</p>
+            <p class="team-meta">Operational AI and bioelectronic medicine systems</p>
+          </article>
+          <article class="team-card">
+            <div class="team-card__hex">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80" alt="Shubham Debnath, PhD" loading="lazy" />
+            </div>
+            <h3>Shubham Debnath, PhD</h3>
+            <p class="team-role">Senior Research Scientist</p>
+            <p class="team-meta">Autonomic NS AI and neurophysiology</p>
+          </article>
+          <article class="team-card">
+            <div class="team-card__hex">
+              <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=400&q=80" alt="Michael Scheid, PhD" loading="lazy" />
+            </div>
+            <h3>Michael Scheid, PhD</h3>
+            <p class="team-role">Senior Biomedical Engineer</p>
+            <p class="team-meta">Continuous monitoring AI and wearable RNN models</p>
+          </article>
+          <article class="team-card">
+            <div class="team-card__hex">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80" alt="Nabil Ettehadi, PhD" loading="lazy" />
+            </div>
+            <h3>Nabil Ettehadi, PhD</h3>
+            <p class="team-role">Lead Data Engineer</p>
+            <p class="team-meta">Operational forecasting and enterprise analytics</p>
+          </article>
+          <article class="team-card">
+            <div class="team-card__hex">
+              <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=400&q=80" alt="Avantika Vardhan, PhD" loading="lazy" />
+            </div>
+            <h3>Avantika Vardhan, PhD</h3>
+            <p class="team-role">Electrical Engineer</p>
+            <p class="team-meta">Anatomical data AI and imaging systems</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="publications" class="section publications" aria-label="Publications and projects">
+        <div class="section__header">
+          <p class="eyebrow">Publications</p>
+          <h2>Featured studies and program milestones.</h2>
+          <p class="section__lead">
+            Clinical wearables research and translational tools advancing early detection and patient safety.
+          </p>
+        </div>
+        <div class="publications__filter" role="tablist" aria-label="Publication filters">
+          <button class="chip chip--active" role="tab" aria-selected="true">All</button>
+          <button class="chip" role="tab">Wearables</button>
+          <button class="chip" role="tab">Prediction</button>
+          <button class="chip" role="tab">Operations</button>
+          <button class="chip" role="tab">Grants</button>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-content">
+              <p class="timeline-date">Nature Communications</p>
+              <h3>Development and validation of a clinical wearable deep learning-based in-hospital deterioration model</h3>
+              <p>RNN model predicted alerts ~17 hours earlier with &gt;94% sensitivity; algorithm is wearable-agnostic.</p>
+              <button class="text-button">View Abstract</button>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-content">
+              <p class="timeline-date">2023</p>
+              <h3>4-year $3.2M NIH grant for continuous monitoring AI</h3>
+              <p>Federal support accelerating translational AI for inpatient monitoring and safety.</p>
+              <button class="text-button">View Abstract</button>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-content">
+              <p class="timeline-date">2025</p>
+              <h3>Nurse demand and attrition forecasting</h3>
+              <p>DeepAR models combine HR and demographic data to forecast staffing demand and attrition 12 months ahead.</p>
+              <button class="text-button">View Abstract</button>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-content">
+              <p class="timeline-date">2022</p>
+              <h3>Self-monitoring auto-updating clinical models</h3>
+              <p>Frameworks for detecting performance drift and safely updating deployed AI.</p>
+              <button class="text-button">View Abstract</button>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-content">
+              <p class="timeline-date">2020</p>
+              <h3>Let Sleeping Patients Lie</h3>
+              <p>Tool predicting overnight stability; avoided &gt;50% of overnight sleep interruptions.</p>
+              <button class="text-button">View Abstract</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="tech" class="section tech" aria-label="Technology stack">
+        <div class="section__header">
+          <p class="eyebrow">Technology Stack</p>
+          <h2>Division verticals spanning research, care, and operations.</h2>
+        </div>
+        <div class="tech__carousel">
+          <div class="tech__ring">
+            <div class="tech__item">Preclinical AI</div>
+            <div class="tech__item">Autonomic NS AI</div>
+            <div class="tech__item">Anatomical Data AI</div>
+            <div class="tech__item">Point-of-care AI</div>
+            <div class="tech__item">Operational AI</div>
+            <div class="tech__item">Deploy Research AI</div>
+          </div>
+          <div class="tech__glow"></div>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact" aria-label="Contact">
+        <div class="section__header">
+          <p class="eyebrow">Activate Collaboration</p>
+          <h2>Connect with our lab to build the next generation of health AI.</h2>
+        </div>
+        <div class="contact__grid">
+          <form class="contact-form" aria-label="Contact form">
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" placeholder="Dr. Jane Doe" required />
+            </label>
+            <label>
+              <span>Organization</span>
+              <input type="text" name="org" placeholder="Northwell Health" required />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="jane@hospital.org" required />
+            </label>
+            <label>
+              <span>Message</span>
+              <textarea name="message" rows="4" placeholder="Tell us about your clinical challenge" required></textarea>
+            </label>
+            <button class="primary-button" type="submit">Transmit Request</button>
+          </form>
+          <div class="contact__panel">
+            <h3>Command Center</h3>
+            <p>Institute of Health System Science</p>
+            <p>Institute of Bioelectronic Medicine</p>
+            <p>tzanos@northwell.edu</p>
+            <div class="contact__signals">
+              <div>
+                <p class="signal-label">Status</p>
+                <p class="signal-value">Online</p>
+              </div>
+              <div>
+                <p class="signal-label">Response Window</p>
+                <p class="signal-value">24-48 hours</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Division of Health AI. Building safe clinical intelligence.</p>
+      <p>Copyright 2026.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+    <script src="animations.js" defer></script>
+    <script src="3d-scene.js" defer></script>
+  </body>
+</html>

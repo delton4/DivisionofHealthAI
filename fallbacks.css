@@ -1,0 +1,32 @@
+@layer components {
+  .no-webgl #three-container {
+    background: linear-gradient(140deg, rgba(0, 255, 229, 0.15), rgba(10, 11, 15, 0.9));
+  }
+
+  .no-webgl .three-fallback {
+    display: grid;
+  }
+
+  .webgl-ready .three-fallback {
+    display: none;
+  }
+
+  .reduce-effects .hero__scan,
+  .reduce-effects .hero__grid,
+  .reduce-effects .hero__panels,
+  .reduce-effects .sparkline::after {
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero__panels {
+    grid-template-columns: 1fr;
+  }
+
+  .nav {
+    position: static;
+    transform: none;
+    margin: 16px auto 0;
+  }
+}
