@@ -5,6 +5,8 @@ This repo builds a static site from a single Excel source of truth: `DataForSite
 ## For researchers (content updates)
 1. Open `DataForSite.xlsx`.
 2. Update researchers, projects, or publications in their respective sheets.
+   - For images: paste the image directly into the **Image** column cell for that row.
+   - Keep the image anchored to the row (Excel: right‑click image → Size & Properties → **Move and size with cells**).
 3. Save the file and commit it to the repo.
 4. Push to `main`. GitHub Pages will rebuild the site automatically.
 
