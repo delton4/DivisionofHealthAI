@@ -44,6 +44,7 @@ HEADER_MAPS = {
         "projectresearcherids": "researcherIds",
         "projectpublicationid": "publicationIds",
         "projectimage": "image",
+        "projectpillar": "pillar",
     },
     "Publications": {
         "publicatoinid": "id",  # typo in sheet
@@ -155,12 +156,16 @@ def load_sheet(workbook, sheet_name, header_map, errors):
                 item[field] = parse_id_list(value)
             elif field == "image":
                 item[field] = normalize_image_value(value)
+            elif field == "pillar":
+                # Normalize pillar to uppercase
+                pillar_value = cell_to_str(value).strip().upper()
+                item[field] = pillar_value
             else:
                 item[field] = cell_to_str(value)
         # Ensure missing fields are present
         for field in LIST_FIELDS:
             item.setdefault(field, [])
-        for field in ["id", "name", "title", "about", "journal", "abstract", "image", "publicationUrl"]:
+        for field in ["id", "name", "title", "about", "journal", "abstract", "image", "publicationUrl", "pillar"]:
             item.setdefault(field, "")
         item["_row"] = row_number
         items.append(item)
@@ -234,6 +239,20 @@ def validate_images(items, label, errors, generated_paths=None):
                 "id": item.get("id", ""),
                 "image": image,
                 "message": f"Image '{image}' not found on disk for {label} ID {item.get('id','')}",
+            })
+
+def validate_pillars(items, label, errors):
+    """Validate pillar values for projects"""
+    valid_pillars = {"PREDICT", "PREVENT", "PERSONALIZE", ""}
+    for item in items:
+        pillar = item.get("pillar", "")
+        if pillar not in valid_pillars:
+            errors.append({
+                "type": "invalid_pillar",
+                "sheet": label,
+                "id": item.get("id", ""),
+                "pillar": pillar,
+                "message": f"Invalid pillar value '{pillar}' in {label} ID {item.get('id','')}. Must be PREDICT, PREVENT, or PERSONALIZE.",
             })
 
 def strip_internal_fields(items):
@@ -699,6 +718,9 @@ def main():
 
     validate_references(publications, "researcherIds", researcher_map, "Publications", "Researcher", errors)
     validate_references(publications, "projectIds", project_map, "Publications", "Project", errors)
+
+    # Validate pillar values for projects
+    validate_pillars(projects, "Projects", errors)
 
     image_outputs = []
     generated_paths = set()
