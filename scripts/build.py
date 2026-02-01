@@ -495,8 +495,27 @@ def collect_embedded_images(xlsx_path, sheet_name, folder, row_map, image_col_in
                     vm_index = int(vm_raw)
                 except ValueError:
                     continue
-                image_path = rich_lookup.get(vm_index)
+
+                # Convert from 1-indexed (Excel) to 0-indexed (Python dict)
+                lookup_key = vm_index - 1
+                if lookup_key < 0 or lookup_key >= len(rich_lookup):
+                    errors.append({
+                        "type": "richvalue_index_out_of_bounds",
+                        "sheet": sheet_name,
+                        "vm_index": vm_index,
+                        "lookup_key": lookup_key,
+                        "message": f"Rich value lookup key {lookup_key} (from vm={vm_index}) out of bounds for {sheet_name}",
+                    })
+                    continue
+
+                image_path = rich_lookup.get(lookup_key)
                 if not image_path:
+                    errors.append({
+                        "type": "richvalue_lookup_failed",
+                        "sheet": sheet_name,
+                        "vm_index": vm_index,
+                        "message": f"Rich value metadata index {vm_index} not found in lookup table for {sheet_name}",
+                    })
                     continue
 
                 cell_ref = cell.attrib.get("r")
