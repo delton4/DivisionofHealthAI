@@ -25,8 +25,8 @@
     themeToggle.setAttribute('aria-label', isTheo ? 'Switch to Light Mode' : 'Switch to Theo Mode');
     themeToggle.setAttribute('aria-pressed', isTheo ? 'true' : 'false');
 
-    // Update button text (can be replaced with icons)
-    themeToggle.textContent = isTheo ? '☀️' : '🌙';
+    // Update button text - CSS handles the icon via ::before
+    themeToggle.textContent = isTheo ? 'Light Mode' : 'Theo Mode';
   }
 
   // Initialize button state
