@@ -12,11 +12,21 @@
   searchOverlay.innerHTML = `
     <div class="search-container">
       <div class="search-header">
+        <svg class="search-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
         <input type="text" id="search-input" class="search-input" placeholder="Search researchers, projects, publications..." autocomplete="off">
-        <button class="search-close" aria-label="Close search">&times;</button>
+        <kbd class="search-kbd">ESC</kbd>
+        <button class="search-close" aria-label="Close search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6L6 18"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
       </div>
       <div class="search-results" id="search-results">
-        <div class="search-hint">Type at least 2 characters to search...</div>
+        <div class="search-hint">Start typing to search...</div>
       </div>
     </div>
   `;
@@ -127,7 +137,7 @@
     clearTimeout(searchTimeout);
 
     if (query.length < 2) {
-      searchResults.innerHTML = '<div class="search-hint">Type at least 2 characters to search...</div>';
+      searchResults.innerHTML = '<div class="search-hint">Start typing to search...</div>';
       return;
     }
 
@@ -154,7 +164,7 @@
   function closeSearch() {
     searchOverlay.classList.remove('active');
     searchInput.value = '';
-    searchResults.innerHTML = '<div class="search-hint">Type at least 2 characters to search...</div>';
+    searchResults.innerHTML = '<div class="search-hint">Start typing to search...</div>';
     document.body.style.overflow = '';
   }
 
@@ -181,7 +191,7 @@
   if (nav) {
     var searchBtn = document.createElement('button');
     searchBtn.className = 'search-btn';
-    searchBtn.innerHTML = '<span class="search-icon">&#128269;</span> Search';
+    searchBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg><span>Search</span><kbd>Ctrl+K</kbd>';
     searchBtn.setAttribute('aria-label', 'Open search (Ctrl+K)');
     searchBtn.addEventListener('click', openSearch);
     nav.appendChild(searchBtn);
