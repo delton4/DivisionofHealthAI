@@ -4,16 +4,45 @@
   <section class="hero">
     <h1>Division of Health AI</h1>
     <p class="lede">
-      A live, data-driven snapshot of researchers, projects, and publications powered directly by the shared Excel sheet.
+      Deploy Researched AI – Research Deployed AI
     </p>
   </section>
 
-  <section class="card-grid">
-    {% for section in sections %}
-      <a class="card" href="{{ base_url }}{{ section.slug }}/index.html">
-        <h2>{{ section.title }}</h2>
-        <p>{{ section.count }} entries</p>
-      </a>
-    {% endfor %}
+  <!-- Three Pillars Section -->
+  <section class="pillars-section">
+    <h2>Our Research Pillars</h2>
+    <div class="pillars-grid">
+      <div class="pillar-card pillar-card-predict">
+        <div class="pillar-icon">🔮</div>
+        <h3>PREDICT</h3>
+        <p>Forecasting clinical outcomes and operational needs through advanced AI</p>
+        <a href="{{ base_url }}projects/index.html?pillar=PREDICT" class="pillar-link">View Projects →</a>
+      </div>
+      <div class="pillar-card pillar-card-prevent">
+        <div class="pillar-icon">🛡️</div>
+        <h3>PREVENT</h3>
+        <p>Early detection and intervention to improve patient outcomes</p>
+        <a href="{{ base_url }}projects/index.html?pillar=PREVENT" class="pillar-link">View Projects →</a>
+      </div>
+      <div class="pillar-card pillar-card-personalize">
+        <div class="pillar-icon">⚕️</div>
+        <h3>PERSONALIZE</h3>
+        <p>Tailored treatments and precision medicine approaches</p>
+        <a href="{{ base_url }}projects/index.html?pillar=PERSONALIZE" class="pillar-link">View Projects →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Sections -->
+  <section class="sections-overview">
+    <h2>Explore Our Work</h2>
+    <div class="card-grid">
+      {% for section in sections %}
+        <a class="card" href="{{ base_url }}{{ section.slug }}/index.html">
+          <h3>{{ section.title }}</h3>
+          <p class="meta">{{ section.count }} entries</p>
+        </a>
+      {% endfor %}
+    </div>
   </section>
 {% endblock %}

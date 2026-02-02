@@ -9,6 +9,9 @@
   <section class="list">
     {% for item in items %}
       <article class="list-item">
+        {% if item.pillar %}
+          <span class="pillar-badge pillar-{{ item.pillar|lower }}">{{ item.pillar }}</span>
+        {% endif %}
         <h2>
           <a href="{{ base_url }}{{ item.path }}">
             {{ item.name or item.title or item.id }}

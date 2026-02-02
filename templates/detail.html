@@ -3,6 +3,9 @@
 {% block content %}
   <section class="page-header">
     <a class="back-link" href="{{ base_url }}{{ section }}/index.html">Back to {{ section }}</a>
+    {% if entity.pillar %}
+      <span class="pillar-badge pillar-{{ entity.pillar|lower }}">{{ entity.pillar }}</span>
+    {% endif %}
     <h1>{{ entity.name or entity.title or entity.id }}</h1>
     {% if entity.title and entity.name %}
       <p class="lede">{{ entity.title }}</p>
