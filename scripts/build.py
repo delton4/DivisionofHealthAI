@@ -44,7 +44,6 @@ HEADER_MAPS = {
         "projectresearcherids": "researcherIds",
         "projectpublicationid": "publicationIds",
         "projectimage": "image",
-        "projectpillar": "pillar",
     },
     "Publications": {
         "publicatoinid": "id",  # typo in sheet
@@ -156,16 +155,12 @@ def load_sheet(workbook, sheet_name, header_map, errors):
                 item[field] = parse_id_list(value)
             elif field == "image":
                 item[field] = normalize_image_value(value)
-            elif field == "pillar":
-                # Normalize pillar to uppercase
-                pillar_value = cell_to_str(value).strip().upper()
-                item[field] = pillar_value
             else:
                 item[field] = cell_to_str(value)
         # Ensure missing fields are present
         for field in LIST_FIELDS:
             item.setdefault(field, [])
-        for field in ["id", "name", "title", "about", "journal", "abstract", "image", "publicationUrl", "pillar"]:
+        for field in ["id", "name", "title", "about", "journal", "abstract", "image", "publicationUrl"]:
             item.setdefault(field, "")
         item["_row"] = row_number
         items.append(item)
@@ -239,20 +234,6 @@ def validate_images(items, label, errors, generated_paths=None):
                 "id": item.get("id", ""),
                 "image": image,
                 "message": f"Image '{image}' not found on disk for {label} ID {item.get('id','')}",
-            })
-
-def validate_pillars(items, label, errors):
-    """Validate pillar values for projects"""
-    valid_pillars = {"PREDICT", "PREVENT", "PERSONALIZE", ""}
-    for item in items:
-        pillar = item.get("pillar", "")
-        if pillar not in valid_pillars:
-            errors.append({
-                "type": "invalid_pillar",
-                "sheet": label,
-                "id": item.get("id", ""),
-                "pillar": pillar,
-                "message": f"Invalid pillar value '{pillar}' in {label} ID {item.get('id','')}. Must be PREDICT, PREVENT, or PERSONALIZE.",
             })
 
 def strip_internal_fields(items):
@@ -604,19 +585,46 @@ def build_site(data):
 
     DIST_DIR.mkdir(parents=True, exist_ok=True)
 
-    # index
+    # index page with featured publications
     index_template = env.get_template("index.html")
     sections = [
         {"slug": "researchers", "title": "Researchers", "count": len(data["researchers"])},
         {"slug": "projects", "title": "Projects", "count": len(data["projects"])},
         {"slug": "publications", "title": "Publications", "count": len(data["publications"])},
     ]
+    # Get up to 3 featured publications
+    featured_publications = data["publications"][:3] if data["publications"] else []
     index_html = index_template.render(
         base_url=root_prefix,
         page_title="Division of Health AI",
         sections=sections,
+        featured_publications=featured_publications,
     )
     (DIST_DIR / "index.html").write_text(index_html, encoding="utf-8")
+
+    # About page
+    about_template = env.get_template("about.html")
+    # Find Dr. Zanos from researchers (look for "zanos" in name)
+    leader = next(
+        (r for r in data["researchers"] if "zanos" in r.get("name", "").lower()),
+        data["researchers"][0] if data["researchers"] else {}
+    )
+    about_html = about_template.render(
+        base_url=root_prefix,
+        page_title="About",
+        mission_text="The Division of Health AI at Northwell Health is dedicated to advancing healthcare through artificial intelligence research. We develop, deploy, and study AI systems that improve patient outcomes and healthcare delivery.",
+        what_we_do_text="Our team conducts cutting-edge research in machine learning, clinical data science, and biomedical engineering. We translate AI research into practical healthcare applications while studying the real-world impact of deployed AI systems.",
+        leader=leader,
+    )
+    (DIST_DIR / "about.html").write_text(about_html, encoding="utf-8")
+
+    # Join Us page
+    joinus_template = env.get_template("join-us.html")
+    joinus_html = joinus_template.render(
+        base_url=root_prefix,
+        page_title="Join Us",
+    )
+    (DIST_DIR / "join-us.html").write_text(joinus_html, encoding="utf-8")
 
     list_template = env.get_template("list.html")
     detail_template = env.get_template("detail.html")
@@ -718,9 +726,6 @@ def main():
 
     validate_references(publications, "researcherIds", researcher_map, "Publications", "Researcher", errors)
     validate_references(publications, "projectIds", project_map, "Publications", "Project", errors)
-
-    # Validate pillar values for projects
-    validate_pillars(projects, "Projects", errors)
 
     image_outputs = []
     generated_paths = set()

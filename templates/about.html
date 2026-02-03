@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="page-header about-header">
+    <h1>About the Division</h1>
+    <p class="lede">Pioneering the integration of artificial intelligence in healthcare research</p>
+  </section>
+
+  <section class="about-content">
+    <div class="about-grid">
+      <div class="about-main">
+        <h2>Our Mission</h2>
+        <p>{{ mission_text }}</p>
+
+        <h2>What We Do</h2>
+        <p>{{ what_we_do_text }}</p>
+      </div>
+
+      <aside class="about-sidebar">
+        <div class="leader-card">
+          {% if leader.image %}
+            {% set image_src = leader.image %}
+            {% if leader.image and not (leader.image.startswith('http') or leader.image.startswith('//') or leader.image.startswith('data:')) %}
+              {% set image_src = base_url ~ leader.image %}
+            {% endif %}
+            <img src="{{ image_src }}" alt="{{ leader.name }}" class="leader-image" />
+          {% else %}
+            <div class="leader-image-placeholder"></div>
+          {% endif %}
+          <h3>{{ leader.name or 'Dr. Theodoros Zanos' }}</h3>
+          <p class="leader-title">{{ leader.title or 'Head, Division of Health AI' }}</p>
+          {% if leader.about %}
+            <p class="leader-bio">{{ leader.about[:300] }}{% if leader.about|length > 300 %}...{% endif %}</p>
+          {% endif %}
+          <a href="https://www.linkedin.com/in/theozanos/" target="_blank" rel="noopener" class="linkedin-link-small">
+            Connect on LinkedIn
+          </a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="about-values">
+    <h2>Our Approach</h2>
+    <div class="values-grid">
+      <div class="value-item">
+        <h3>Research-Driven</h3>
+        <p>Every solution is grounded in rigorous scientific methodology and peer-reviewed research.</p>
+      </div>
+      <div class="value-item">
+        <h3>Clinically Focused</h3>
+        <p>We develop AI tools that address real healthcare challenges and improve patient outcomes.</p>
+      </div>
+      <div class="value-item">
+        <h3>Collaborative</h3>
+        <p>Working across disciplines and institutions to accelerate medical discovery and innovation.</p>
+      </div>
+    </div>
+  </section>
+{% endblock %}

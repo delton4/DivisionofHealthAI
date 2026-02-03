@@ -8,28 +8,49 @@
     </p>
   </section>
 
-  <!-- Three Pillars Section -->
-  <section class="pillars-section">
-    <h2>Our Research Pillars</h2>
-    <div class="pillars-grid">
-      <div class="pillar-card pillar-card-predict">
-        <div class="pillar-icon">🔮</div>
-        <h3>PREDICT</h3>
-        <p>Forecasting clinical outcomes and operational needs through advanced AI</p>
-        <a href="{{ base_url }}projects/index.html?pillar=PREDICT" class="pillar-link">View Projects →</a>
-      </div>
-      <div class="pillar-card pillar-card-prevent">
-        <div class="pillar-icon">🛡️</div>
-        <h3>PREVENT</h3>
-        <p>Early detection and intervention to improve patient outcomes</p>
-        <a href="{{ base_url }}projects/index.html?pillar=PREVENT" class="pillar-link">View Projects →</a>
-      </div>
-      <div class="pillar-card pillar-card-personalize">
-        <div class="pillar-icon">⚕️</div>
-        <h3>PERSONALIZE</h3>
-        <p>Tailored treatments and precision medicine approaches</p>
-        <a href="{{ base_url }}projects/index.html?pillar=PERSONALIZE" class="pillar-link">View Projects →</a>
-      </div>
+  <!-- Featured Publications Section -->
+  <section class="featured-section">
+    <div class="featured-header">
+      <h2>Latest Research</h2>
+      <a href="{{ base_url }}publications/index.html" class="view-all-link">View All Publications</a>
+    </div>
+    <div class="featured-grid">
+      {% for pub in featured_publications[:3] %}
+        <article class="featured-card">
+          {% if pub.image %}
+            {% set image_src = pub.image %}
+            {% if pub.image and not (pub.image.startswith('http') or pub.image.startswith('//') or pub.image.startswith('data:')) %}
+              {% set image_src = base_url ~ pub.image %}
+            {% endif %}
+            <img class="featured-card-image" src="{{ image_src }}" alt="{{ pub.name }}" />
+          {% else %}
+            <div class="featured-card-placeholder"></div>
+          {% endif %}
+          <div class="featured-card-content">
+            {% if pub.journal %}
+              <span class="featured-card-journal">{{ pub.journal }}</span>
+            {% endif %}
+            <h3><a href="{{ base_url }}{{ pub.path }}">{{ pub.name }}</a></h3>
+            {% if pub.abstract %}
+              <p>{{ pub.abstract[:150] }}{% if pub.abstract|length > 150 %}...{% endif %}</p>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Division Leadership Section -->
+  <section class="division-head-section">
+    <div class="division-head-content">
+      <h2>Division Leadership</h2>
+      <p>Led by <strong>Dr. Theodoros (Theo) Zanos</strong>, the Division of Health AI pioneers the integration of artificial intelligence in healthcare research at the Feinstein Institutes for Medical Research.</p>
+      <a href="https://www.linkedin.com/in/theozanos/" target="_blank" rel="noopener" class="linkedin-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        Follow Dr. Zanos on LinkedIn
+      </a>
     </div>
   </section>
 

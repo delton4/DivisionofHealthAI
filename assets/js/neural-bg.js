@@ -1,16 +1,26 @@
 /**
  * Neural Network Background Animation
  * Creates an animated network of connected nodes for the hero section
+ *
+ * CONFIGURATION:
+ * - nodeCount: Number of floating nodes (70 for good density)
+ * - connectionDistance: Max distance for line connections (180px)
+ * - glowEnabled: Toggle canvas glow effects
+ *
+ * CUSTOMIZATION:
+ * - Colors are theme-aware (light/Theo modes)
+ * - Adjust config values below to change behavior
+ * - Glow colors defined in getColors() function
  */
 
 (function() {
   'use strict';
 
-  // Only run on homepage
+  // Only run on homepage (where .hero exists)
   var hero = document.querySelector('.hero');
   if (!hero) return;
 
-  // Create canvas
+  // Create canvas element
   var canvas = document.createElement('canvas');
   canvas.className = 'neural-canvas';
   hero.insertBefore(canvas, hero.firstChild);
@@ -21,36 +31,56 @@
   var mouseY = 0;
   var animationId;
 
-  // Configuration
+  // ============================================
+  // CONFIGURATION - Adjust these values to customize
+  // ============================================
   var config = {
-    nodeCount: 50,
-    connectionDistance: 150,
-    nodeSpeed: 0.3,
-    nodeRadius: 3,
-    lineWidth: 1,
-    mouseInfluence: 100
+    nodeCount: 70,              // Number of nodes in the network
+    connectionDistance: 180,    // Max distance (px) for drawing connections
+    nodeSpeed: 0.25,            // Movement speed (lower = slower, more elegant)
+    nodeRadius: 3,              // Base radius of nodes
+    lineWidth: 1,               // Width of connection lines
+    mouseInfluence: 150,        // Distance (px) for mouse interaction
+    glowEnabled: true           // Enable glow effects (set false for performance)
   };
 
-  // Get theme colors
+  // ============================================
+  // THEME COLORS - Updates based on light/Theo mode
+  // ============================================
   function getColors() {
-    var computedStyle = getComputedStyle(document.documentElement);
     var isTheo = document.documentElement.getAttribute('data-theme') === 'theo';
 
-    return {
-      node: isTheo ? 'rgba(0, 212, 255, 0.6)' : 'rgba(11, 79, 108, 0.4)',
-      line: isTheo ? 'rgba(0, 212, 255, 0.2)' : 'rgba(11, 79, 108, 0.15)',
-      nodeHover: isTheo ? 'rgba(124, 58, 237, 0.8)' : 'rgba(11, 79, 108, 0.7)'
-    };
+    if (isTheo) {
+      return {
+        node: 'rgba(0, 196, 212, 0.6)',           // Cyan nodes
+        nodeGlow: '#00c4d4',                       // Cyan glow
+        line: 'rgba(0, 196, 212, 0.12)',          // Faint cyan lines
+        nodeHover: 'rgba(139, 92, 246, 0.9)',     // Purple when near mouse
+        nodeHoverGlow: '#8b5cf6'                   // Purple glow
+      };
+    } else {
+      return {
+        node: 'rgba(13, 92, 110, 0.4)',           // Teal nodes
+        nodeGlow: '#1a8fa8',                       // Lighter teal glow
+        line: 'rgba(13, 92, 110, 0.1)',           // Faint teal lines
+        nodeHover: 'rgba(52, 211, 153, 0.8)',     // Green when near mouse
+        nodeHoverGlow: '#34d399'                   // Green glow
+      };
+    }
   }
 
-  // Resize canvas
+  // ============================================
+  // CANVAS SETUP
+  // ============================================
   function resize() {
     var rect = hero.getBoundingClientRect();
     canvas.width = rect.width;
     canvas.height = rect.height;
   }
 
-  // Create nodes
+  // ============================================
+  // NODE CREATION
+  // ============================================
   function createNodes() {
     nodes = [];
     for (var i = 0; i < config.nodeCount; i++) {
@@ -64,9 +94,14 @@
     }
   }
 
-  // Update node positions
+  // ============================================
+  // PHYSICS UPDATE
+  // ============================================
   function updateNodes() {
-    nodes.forEach(function(node) {
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+
+      // Apply velocity
       node.x += node.vx;
       node.y += node.vy;
 
@@ -77,31 +112,47 @@
       // Keep in bounds
       node.x = Math.max(0, Math.min(canvas.width, node.x));
       node.y = Math.max(0, Math.min(canvas.height, node.y));
-    });
+    }
   }
 
-  // Calculate distance between two points
+  // ============================================
+  // UTILITY: Calculate distance between two points
+  // ============================================
   function distance(x1, y1, x2, y2) {
-    return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    return Math.sqrt(dx * dx + dy * dy);
   }
 
-  // Draw the network
+  // ============================================
+  // RENDER LOOP
+  // ============================================
   function draw() {
     var colors = getColors();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw connections
-    ctx.strokeStyle = colors.line;
-    ctx.lineWidth = config.lineWidth;
+    // Reset shadow for connection lines (no glow on lines)
+    ctx.shadowBlur = 0;
+    ctx.shadowColor = 'transparent';
 
+    // Draw connections between nearby nodes
+    ctx.lineWidth = config.lineWidth;
     for (var i = 0; i < nodes.length; i++) {
       for (var j = i + 1; j < nodes.length; j++) {
         var dist = distance(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y);
 
         if (dist < config.connectionDistance) {
-          var opacity = 1 - (dist / config.connectionDistance);
+          // Opacity fades as distance increases
+          var opacity = (1 - (dist / config.connectionDistance)) * 0.15;
           ctx.beginPath();
-          ctx.strokeStyle = colors.line.replace('0.2', (0.2 * opacity).toFixed(2)).replace('0.15', (0.15 * opacity).toFixed(2));
+          ctx.strokeStyle = 'rgba(13, 92, 110, ' + opacity.toFixed(3) + ')';
+
+          // Use theme-appropriate base color
+          var isTheo = document.documentElement.getAttribute('data-theme') === 'theo';
+          if (isTheo) {
+            ctx.strokeStyle = 'rgba(0, 196, 212, ' + opacity.toFixed(3) + ')';
+          }
+
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
           ctx.stroke();
@@ -109,66 +160,96 @@
       }
     }
 
-    // Draw nodes
-    nodes.forEach(function(node) {
+    // Draw nodes with glow effect
+    for (var k = 0; k < nodes.length; k++) {
+      var node = nodes[k];
       var distToMouse = distance(node.x, node.y, mouseX, mouseY);
       var isNearMouse = distToMouse < config.mouseInfluence;
 
+      // Apply glow effect
+      if (config.glowEnabled) {
+        ctx.shadowBlur = isNearMouse ? 20 : 10;
+        ctx.shadowColor = isNearMouse ? colors.nodeHoverGlow : colors.nodeGlow;
+      }
+
+      // Draw the node (slightly larger when near mouse)
+      var nodeSize = node.radius + (isNearMouse ? 2 : 0);
       ctx.beginPath();
-      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+      ctx.arc(node.x, node.y, nodeSize, 0, Math.PI * 2);
       ctx.fillStyle = isNearMouse ? colors.nodeHover : colors.node;
       ctx.fill();
 
-      // Draw connection to mouse if near
+      // Draw connection line to mouse cursor when near
       if (isNearMouse) {
-        var opacity = 1 - (distToMouse / config.mouseInfluence);
+        var lineOpacity = (1 - (distToMouse / config.mouseInfluence)) * 0.4;
+
+        // Reset shadow for this line
+        ctx.shadowBlur = config.glowEnabled ? 8 : 0;
+        ctx.shadowColor = colors.nodeHoverGlow;
+
         ctx.beginPath();
-        ctx.strokeStyle = colors.nodeHover.replace('0.8', (0.4 * opacity).toFixed(2)).replace('0.7', (0.4 * opacity).toFixed(2));
+        ctx.strokeStyle = isNearMouse ? colors.nodeHover : colors.node;
+        ctx.globalAlpha = lineOpacity;
         ctx.lineWidth = 2;
         ctx.moveTo(node.x, node.y);
         ctx.lineTo(mouseX, mouseY);
         ctx.stroke();
+
+        // Reset
+        ctx.globalAlpha = 1;
         ctx.lineWidth = config.lineWidth;
       }
-    });
+    }
+
+    // Reset shadow after drawing
+    ctx.shadowBlur = 0;
+    ctx.shadowColor = 'transparent';
   }
 
-  // Animation loop
+  // ============================================
+  // ANIMATION LOOP
+  // ============================================
   function animate() {
     updateNodes();
     draw();
     animationId = requestAnimationFrame(animate);
   }
 
-  // Handle mouse movement
+  // ============================================
+  // EVENT HANDLERS
+  // ============================================
   function handleMouseMove(e) {
     var rect = canvas.getBoundingClientRect();
     mouseX = e.clientX - rect.left;
     mouseY = e.clientY - rect.top;
   }
 
-  // Handle resize
   function handleResize() {
     resize();
     createNodes();
   }
 
-  // Initialize
+  // ============================================
+  // INITIALIZATION
+  // ============================================
   function init() {
     resize();
     createNodes();
     animate();
 
+    // Track mouse movement over hero section
     hero.addEventListener('mousemove', handleMouseMove);
+
+    // Handle window resize
     window.addEventListener('resize', handleResize);
 
-    // Listen for theme changes
+    // Listen for theme changes (colors update automatically on next frame)
     document.addEventListener('themechange', function() {
-      // Colors will update on next draw
+      // Colors will update on next draw() call
     });
   }
 
-  // Respect reduced motion preference
+  // Respect user's reduced motion preference
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     return;
   }
