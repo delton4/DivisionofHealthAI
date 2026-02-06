@@ -8,73 +8,50 @@
 
   <section class="join-options">
     <div class="join-grid">
-      <div class="join-card">
+      <a href="{{ base_url }}join-us/visiting-scholar.html" class="join-card join-card--clickable">
         <h2>Visiting Scholar Program</h2>
-        <p class="join-subtitle">For College Students</p>
+        <p class="join-subtitle">For Students &amp; Trainees</p>
         <p>Gain hands-on experience in health AI research through our visiting scholar program. Work alongside leading researchers on real-world healthcare projects.</p>
-        <h4>Ideal Candidates:</h4>
-        <ul>
-          <li>Currently enrolled undergraduate or graduate students</li>
-          <li>Interest in AI, machine learning, or healthcare</li>
-          <li>Strong academic background</li>
-          <li>Commitment to a minimum 3-month engagement</li>
-        </ul>
-      </div>
+        <div class="join-card-cta">
+          <span>Learn More &amp; Apply</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
 
-      <div class="join-card">
-        <h2>Research Positions</h2>
-        <p class="join-subtitle">For Professionals</p>
-        <p>Join our team of researchers pushing the boundaries of AI in healthcare. We're looking for talented individuals passionate about making a difference.</p>
-        <h4>Areas of Interest:</h4>
-        <ul>
-          <li>Machine Learning &amp; Deep Learning</li>
-          <li>Clinical Data Science</li>
-          <li>Biomedical Engineering</li>
-          <li>Healthcare Informatics</li>
-        </ul>
-      </div>
+      <a href="{{ base_url }}join-us/research-collaboration.html" class="join-card join-card--clickable">
+        <h2>Research Collaboration</h2>
+        <p class="join-subtitle">For Researchers &amp; Institutions</p>
+        <p>Partner with our team on cutting-edge health AI research. We welcome collaboration opportunities with researchers and institutions worldwide.</p>
+        <div class="join-card-cta">
+          <span>Explore Collaboration</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
     </div>
   </section>
 
-  <section class="contact-form-section">
-    <h2>Express Your Interest</h2>
-    <p>Fill out the form below and we'll be in touch.</p>
+  <!-- Flowing divider -->
+  <div class="section-divider section-divider--blob section-divider--blob-animated"></div>
 
-    <form class="interest-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <div class="form-group">
-        <label for="name">Full Name *</label>
-        <input type="text" id="name" name="name" required />
+  <section class="join-info">
+    <h2>Why Join Us?</h2>
+    <div class="values-grid">
+      <div class="value-item">
+        <h3>Cutting-Edge Research</h3>
+        <p>Work on pioneering AI applications that directly impact patient care and healthcare delivery.</p>
       </div>
-
-      <div class="form-group">
-        <label for="email">Email Address *</label>
-        <input type="email" id="email" name="email" required />
+      <div class="value-item">
+        <h3>Collaborative Environment</h3>
+        <p>Join a multidisciplinary team of clinicians, data scientists, and engineers working together.</p>
       </div>
-
-      <div class="form-group">
-        <label for="affiliation">Current Affiliation *</label>
-        <input type="text" id="affiliation" name="affiliation" placeholder="University or Organization" required />
+      <div class="value-item">
+        <h3>Real-World Impact</h3>
+        <p>See your research translated into practical applications used in one of the nation's largest health systems.</p>
       </div>
-
-      <div class="form-group">
-        <label for="interest-type">I'm interested in: *</label>
-        <select id="interest-type" name="interest-type" required>
-          <option value="">Select an option</option>
-          <option value="visiting-scholar">Visiting Scholar Program</option>
-          <option value="research-position">Research Position</option>
-          <option value="collaboration">Research Collaboration</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="message">Tell us about yourself and your interests *</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-      </div>
-
-      <button type="submit" class="btn btn-primary submit-btn">Submit Interest</button>
-    </form>
-
-    <p class="form-note">* Required fields. We typically respond within 1-2 weeks.</p>
+    </div>
   </section>
 {% endblock %}

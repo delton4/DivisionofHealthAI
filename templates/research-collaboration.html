@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="page-header">
+    <a href="{{ base_url }}join-us.html" class="back-link">Back to Join Us</a>
+    <h1>Research Collaboration</h1>
+    <p class="lede">Partner with us on cutting-edge health AI research</p>
+  </section>
+
+  <section class="program-content">
+    <div class="program-grid">
+      <div class="program-info">
+        <h2>Collaboration Opportunities</h2>
+        <p>
+          [Placeholder: Overview of collaboration philosophy and opportunities. Describe
+          how the Division of Health AI approaches research partnerships and what types
+          of collaborations are welcomed.]
+        </p>
+
+        <h3>Types of Collaboration</h3>
+        <ul>
+          <li>[Placeholder: Joint research projects description]</li>
+          <li>[Placeholder: Data sharing partnerships description]</li>
+          <li>[Placeholder: Technology transfer opportunities]</li>
+          <li>[Placeholder: Cross-institutional studies description]</li>
+        </ul>
+
+        <h3>Current Research Areas</h3>
+        <p>
+          [Placeholder: Brief overview of current research focus areas and projects
+          that are open for collaboration. This helps potential collaborators understand
+          where their expertise might align.]
+        </p>
+
+        <h3>What We Offer</h3>
+        <p>
+          [Placeholder: Description of resources, expertise, and support available
+          to research collaborators. Include information about facilities, data access,
+          and team expertise.]
+        </p>
+      </div>
+
+      <div class="program-form-container">
+        <div class="form-card">
+          <h2>Start a Conversation</h2>
+          <p>Tell us about your research and how you'd like to collaborate.</p>
+
+          <form class="program-form" action="https://formspree.io/f/YOUR_COLLABORATION_FORM_ID" method="POST">
+            <input type="hidden" name="_subject" value="Research Collaboration Inquiry" />
+
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="title">Current Title *</label>
+              <input type="text" id="title" name="title" placeholder="e.g., Assistant Professor, Research Scientist, PhD Candidate" required />
+            </div>
+
+            <div class="form-group">
+              <label for="institution">Lab / Institution *</label>
+              <input type="text" id="institution" name="institution" placeholder="Your research lab or institution" required />
+            </div>
+
+            <div class="form-group">
+              <label for="project">Project of Interest *</label>
+              <select id="project" name="project" required>
+                <option value="">Select a project</option>
+                {% for project in projects %}
+                <option value="{{ project.title }}">{{ project.title }}</option>
+                {% endfor %}
+                <option value="other">Other / General Inquiry</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">How would you like to collaborate? *</label>
+              <textarea id="message" name="message" rows="5" placeholder="Describe your research background, expertise, and how you believe you could contribute to or benefit from a collaboration..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary submit-btn">Submit Inquiry</button>
+          </form>
+
+          <p class="form-note">* Required fields. We typically respond within 1-2 weeks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

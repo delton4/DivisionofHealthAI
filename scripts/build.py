@@ -626,6 +626,27 @@ def build_site(data):
     )
     (DIST_DIR / "join-us.html").write_text(joinus_html, encoding="utf-8")
 
+    # Create join-us subdirectory for sub-pages
+    joinus_dir = DIST_DIR / "join-us"
+    joinus_dir.mkdir(parents=True, exist_ok=True)
+
+    # Visiting Scholar page
+    visiting_scholar_template = env.get_template("visiting-scholar.html")
+    visiting_scholar_html = visiting_scholar_template.render(
+        base_url="../" if not BASE_URL else BASE_URL,
+        page_title="Visiting Scholar Program",
+    )
+    (joinus_dir / "visiting-scholar.html").write_text(visiting_scholar_html, encoding="utf-8")
+
+    # Research Collaboration page (with dynamic project dropdown)
+    research_collab_template = env.get_template("research-collaboration.html")
+    research_collab_html = research_collab_template.render(
+        base_url="../" if not BASE_URL else BASE_URL,
+        page_title="Research Collaboration",
+        projects=data["projects"],
+    )
+    (joinus_dir / "research-collaboration.html").write_text(research_collab_html, encoding="utf-8")
+
     list_template = env.get_template("list.html")
     detail_template = env.get_template("detail.html")
 

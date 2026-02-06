@@ -3,3 +3,6 @@ data/
 __pycache__/
 .venv/
 .DS_Store
+node_modules/
+test-results/
+test-site.js

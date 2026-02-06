@@ -148,7 +148,93 @@
   transition: transform var(--transition-base);
 }
 
-/* Reduced Motion */
+/* ============================================
+   Page-Specific Animation Canvases
+   ============================================ */
+
+/* DNA Helix Canvas (Researchers Page) */
+.dna-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Circuit Board Canvas (Projects Page) */
+.circuit-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Blob Dividers (About/Join Pages) */
+.blob-divider {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Ensure page header content is above canvas animations */
+.page-header {
+  position: relative;
+}
+
+.page-header > h1,
+.page-header > .lede,
+.page-header > .back-link,
+.page-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   Enhanced Hover Glow Effects
+   ============================================ */
+
+/* Card glow on hover */
+.card:hover,
+.featured-card:hover,
+.join-card:hover,
+.list-item:hover {
+  box-shadow: var(--shadow-lg),
+              0 0 30px rgba(var(--color-primary-rgb, 13, 92, 110), 0.15);
+}
+
+[data-theme="theo"] .card:hover,
+[data-theme="theo"] .featured-card:hover,
+[data-theme="theo"] .join-card:hover,
+[data-theme="theo"] .list-item:hover {
+  box-shadow: var(--shadow-lg),
+              0 0 30px rgba(0, 196, 212, 0.2),
+              0 0 60px rgba(0, 196, 212, 0.1);
+}
+
+/* Button glow intensification */
+.btn-primary:hover,
+.cta-button:hover {
+  box-shadow: var(--shadow-md),
+              0 0 20px rgba(var(--color-primary-rgb, 13, 92, 110), 0.3);
+}
+
+[data-theme="theo"] .btn-primary:hover,
+[data-theme="theo"] .cta-button:hover {
+  box-shadow: var(--shadow-md),
+              0 0 25px rgba(0, 196, 212, 0.4),
+              0 0 50px rgba(0, 196, 212, 0.2);
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -156,5 +242,302 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* Hide canvas-based animations */
+  .neural-canvas,
+  .dna-canvas,
+  .circuit-canvas,
+  .blob-divider {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   Section Dividers
+   ============================================ */
+
+/* Base Section Divider */
+.section-divider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.section-divider svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.section-divider--top {
+  margin-bottom: calc(var(--space-xl) * -1);
+}
+
+.section-divider--bottom {
+  margin-top: calc(var(--space-xl) * -1);
+}
+
+/* Wave Divider */
+.section-divider--wave {
+  height: 80px;
+}
+
+.section-divider--wave svg {
+  height: 100%;
+  width: calc(100% + 10px);
+  margin-left: -5px;
+}
+
+.section-divider--wave path {
+  fill: var(--color-bg-elevated);
+  transition: fill var(--transition-base);
+}
+
+.section-divider--wave-accent path {
+  fill: var(--color-primary);
+  opacity: 0.1;
+}
+
+/* Animated Wave */
+.section-divider--wave-animated path {
+  animation: waveFlow 8s ease-in-out infinite;
+}
+
+@keyframes waveFlow {
+  0%, 100% {
+    d: path("M0,64 C320,100 480,20 720,64 C960,108 1120,28 1440,64 L1440,120 L0,120 Z");
+  }
+  50% {
+    d: path("M0,64 C320,20 480,100 720,64 C960,28 1120,108 1440,64 L1440,120 L0,120 Z");
+  }
+}
+
+/* Blob Divider */
+.section-divider--blob {
+  height: 120px;
+}
+
+.section-divider--blob svg {
+  height: 100%;
+}
+
+.section-divider--blob path {
+  fill: url(#divider-gradient);
+  opacity: 0.15;
+}
+
+/* Animated Blob Morphing */
+.section-divider--blob-animated path {
+  animation: blobMorph 12s ease-in-out infinite;
+}
+
+@keyframes blobMorph {
+  0%, 100% {
+    d: path("M0,80 Q180,120 360,80 T720,80 T1080,80 T1440,80 L1440,120 L0,120 Z");
+  }
+  25% {
+    d: path("M0,60 Q180,100 360,60 T720,100 T1080,60 T1440,100 L1440,120 L0,120 Z");
+  }
+  50% {
+    d: path("M0,100 Q180,60 360,100 T720,60 T1080,100 T1440,60 L1440,120 L0,120 Z");
+  }
+  75% {
+    d: path("M0,70 Q180,110 360,70 T720,90 T1080,70 T1440,90 L1440,120 L0,120 Z");
+  }
+}
+
+/* Angular/Tech Divider */
+.section-divider--angular {
+  height: 60px;
+}
+
+.section-divider--angular svg {
+  height: 100%;
+}
+
+.section-divider--angular path {
+  fill: var(--color-bg-elevated);
+}
+
+.section-divider--angular polygon {
+  fill: var(--color-primary);
+  opacity: 0.08;
+}
+
+/* Circuit Divider (for Projects page) */
+.section-divider--circuit {
+  height: 40px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(var(--color-primary-rgb), 0.1) 20%,
+    rgba(var(--color-primary-rgb), 0.1) 80%,
+    transparent 100%
+  );
+  position: relative;
+}
+
+.section-divider--circuit::before,
+.section-divider--circuit::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(var(--color-accent-rgb), 0.5),
+    transparent
+  );
+}
+
+.section-divider--circuit::before {
+  left: 10%;
+  width: 30%;
+}
+
+.section-divider--circuit::after {
+  right: 10%;
+  width: 30%;
+}
+
+/* DNA Divider (for Researchers page) */
+.section-divider--dna {
+  height: 50px;
+  position: relative;
+  overflow: visible;
+}
+
+.section-divider--dna::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(var(--color-primary-rgb), 0.2) 20%,
+    rgba(var(--color-accent-rgb), 0.3) 50%,
+    rgba(var(--color-primary-rgb), 0.2) 80%,
+    transparent
+  );
+  border-radius: var(--radius-full);
+}
+
+/* Gradient Glow Divider */
+.section-divider--glow {
+  height: 4px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(var(--color-primary-rgb), 0.3) 20%,
+    rgba(var(--color-accent-rgb), 0.5) 50%,
+    rgba(var(--color-primary-rgb), 0.3) 80%,
+    transparent
+  );
+  margin: var(--space-xl) 0;
+  border-radius: var(--radius-full);
+  box-shadow: var(--glow-md) rgba(var(--color-accent-rgb), 0.3);
+}
+
+/* Animated Glow */
+.section-divider--glow-animated {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.6;
+    box-shadow: var(--glow-md) rgba(var(--color-accent-rgb), 0.2);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: var(--glow-lg) rgba(var(--color-accent-rgb), 0.5);
+  }
+}
+
+/* Particle Divider (placeholder for JS enhancement) */
+.section-divider--particles {
+  height: 60px;
+  position: relative;
+}
+
+.section-divider--particles canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Theme-specific colors */
+[data-theme="theo"] .section-divider--wave path {
+  fill: var(--color-bg-elevated);
+}
+
+[data-theme="theo"] .section-divider--glow {
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(0, 196, 212, 0.3) 20%,
+    rgba(139, 92, 246, 0.5) 50%,
+    rgba(0, 196, 212, 0.3) 80%,
+    transparent
+  );
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+}
+
+[data-theme="theo"] .section-divider--glow-animated {
+  animation: glowPulseTheo 3s ease-in-out infinite;
+}
+
+@keyframes glowPulseTheo {
+  0%, 100% {
+    opacity: 0.6;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+  }
+}
+
+/* ============================================
+   Mobile Optimizations
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Simplify hover effects on mobile */
+  .card:hover,
+  .featured-card:hover,
+  .join-card:hover,
+  .list-item:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Hide blob dividers on small screens */
+  .blob-divider {
+    opacity: 0.08;
+  }
+
+  /* Reduce section divider heights on mobile */
+  .section-divider--wave {
+    height: 50px;
+  }
+
+  .section-divider--blob {
+    height: 80px;
+  }
+
+  .section-divider--angular {
+    height: 40px;
+  }
+
+  /* Disable complex animations on mobile */
+  .section-divider--wave-animated path,
+  .section-divider--blob-animated path {
+    animation: none;
   }
 }
