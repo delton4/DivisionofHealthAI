@@ -17,6 +17,8 @@
           {% set image_src = base_url ~ entity.image %}
         {% endif %}
         <img class="detail-image" src="{{ image_src }}" alt="{{ entity.name or entity.title }}" />
+      {% else %}
+        <div class="detail-image-placeholder"></div>
       {% endif %}
       {% if entity.journal %}
         <dl class="meta-list">
@@ -33,6 +35,9 @@
       {% endif %}
       {% if entity.abstract %}
         <p>{{ entity.abstract }}</p>
+      {% endif %}
+      {% if not entity.about and not entity.abstract %}
+        <p class="placeholder-text">Description coming soon.</p>
       {% endif %}
       {% if entity.publicationUrl %}
         <p>

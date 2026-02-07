@@ -9,26 +9,25 @@
   <!-- Subtle glow divider -->
   <div class="section-divider section-divider--glow"></div>
 
-  <section class="list">
+  <div class="card-grid">
     {% for item in items %}
-      <article class="list-item">
-        <h2>
-          <a href="{{ base_url }}{{ item.path }}">
-            {{ item.name or item.title or item.id }}
-          </a>
-        </h2>
-        {% if item.title and item.name %}
-          <p class="subtle">{{ item.title }}</p>
-        {% endif %}
-        {% if item.about %}
-          <p>{{ item.about }}</p>
-        {% elif item.abstract %}
-          <p>{{ item.abstract }}</p>
-        {% endif %}
-        {% if item.publicationUrl %}
-          <p><a class="cta-button" href="{{ item.publicationUrl }}" target="_blank" rel="noopener">Read Article</a></p>
-        {% endif %}
+      <article class="card">
+        <a class="card-link" href="{{ base_url }}{{ item.path }}">
+          <h2 class="card-title">{{ item.name or item.title or item.id }}</h2>
+          {% if item.title and item.name %}
+            <p class="card-subtitle">{{ item.title }}</p>
+          {% elif item.journal %}
+            <p class="card-subtitle">{{ item.journal }}</p>
+          {% endif %}
+          {% if item.about %}
+            <p class="card-description">{{ item.about[:150] }}{% if item.about|length > 150 %}…{% endif %}</p>
+          {% elif item.abstract %}
+            <p class="card-description">{{ item.abstract[:150] }}{% if item.abstract|length > 150 %}…{% endif %}</p>
+          {% else %}
+            <p class="card-description placeholder-text">Description coming soon.</p>
+          {% endif %}
+        </a>
       </article>
     {% endfor %}
-  </section>
+  </div>
 {% endblock %}
