@@ -1,8 +1,37 @@
-dist/
-data/
-__pycache__/
-.venv/
-.DS_Store
+# Dependencies
 node_modules/
-test-results/
-test-site.js
+.pnp
+.pnp.js
+
+# Next.js
+site/.next/
+site/out/
+
+# Production
+build/
+dist/
+
+# Misc
+.DS_Store
+*.pem
+.env
+.env*.local
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Archive (old site)
+archive/dist/
+archive/node_modules/
+archive/__pycache__/
+archive/.venv/
+archive/test-results/

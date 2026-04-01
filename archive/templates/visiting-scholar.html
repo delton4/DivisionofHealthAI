@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="page-header">
+    <a href="{{ base_url }}join-us.html" class="back-link">Back to Join Us</a>
+    <h1>Visiting Scholar Program</h1>
+    <p class="lede">Gain hands-on experience in health AI research</p>
+  </section>
+
+  <section class="program-content">
+    <div class="program-grid">
+      <div class="program-info">
+        <h2>About the Program</h2>
+        <p>
+          [Placeholder: Program overview and description will go here. This section should describe
+          the visiting scholar program, what participants can expect, and the types of projects they
+          may work on during their time with the Division of Health AI.]
+        </p>
+
+        <h3>What You'll Experience</h3>
+        <ul>
+          <li>[Placeholder: Hands-on research experience description]</li>
+          <li>[Placeholder: Mentorship opportunities description]</li>
+          <li>[Placeholder: Access to resources and facilities]</li>
+          <li>[Placeholder: Collaboration with team members]</li>
+        </ul>
+
+        <h3>Program Details</h3>
+        <p>
+          [Placeholder: Information about program duration, scheduling flexibility,
+          remote/on-site options, and any other relevant program details.]
+        </p>
+
+        <h3>Eligibility</h3>
+        <p>
+          [Placeholder: Eligibility requirements and ideal candidate profile. Include
+          information about academic standing, technical skills, and any prerequisites.]
+        </p>
+      </div>
+
+      <div class="program-form-container">
+        <div class="form-card">
+          <h2>Express Your Interest</h2>
+          <p>Fill out the form below and we'll be in touch to discuss opportunities.</p>
+
+          <form class="program-form" action="https://formspree.io/f/YOUR_VISITING_SCHOLAR_FORM_ID" method="POST">
+            <input type="hidden" name="_subject" value="Visiting Scholar Program Inquiry" />
+
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="institution">Institution *</label>
+              <input type="text" id="institution" name="institution" placeholder="University or Research Institution" required />
+            </div>
+
+            <div class="form-group">
+              <label for="department">Department *</label>
+              <input type="text" id="department" name="department" placeholder="e.g., Computer Science, Biomedical Engineering" required />
+            </div>
+
+            <div class="form-group">
+              <label for="program">Current Program *</label>
+              <select id="program" name="program" required>
+                <option value="">Select your current program</option>
+                <option value="undergraduate">Undergraduate</option>
+                <option value="masters">Master's Student</option>
+                <option value="phd">PhD Candidate</option>
+                <option value="residency">Residency</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Tell us about yourself and your research interests *</label>
+              <textarea id="message" name="message" rows="5" placeholder="Share your background, research interests, and why you're interested in our visiting scholar program..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary submit-btn">Submit Application</button>
+          </form>
+
+          <p class="form-note">* Required fields. We typically respond within 1-2 weeks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

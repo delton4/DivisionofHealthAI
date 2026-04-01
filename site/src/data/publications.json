@@ -1,0 +1,1072 @@
+[
+  {
+    "id": "1",
+    "name": "Artificial Intelligence-Driven Differentiation Between Uveal Melanoma and Nevus Based on Fundus Photographs: A Systematic Review and Meta-Analysis",
+    "journal": "Translational Vision Science & Technology",
+    "abstract": "Uveal melanoma (UM) is the most common intraocular malignancy in adults, with high metastatic risk and poor prognosis. Current screening and triaging methods for melanocytic choroidal tumors face inherent limitations, particularly in regions with limited access to specialized ocular oncologists. This systematic review and meta-analysis evaluated artificial intelligence-driven approaches for differentiating uveal melanoma from nevus based on fundus photographs. Analysis included machine learning models with pooled sensitivity of 85% (95% CI 82\u201387%), specificity of 86% (82\u201388%), and a C-index of 0.87 (0.84\u20130.90), with convolutional neural networks as the main method used. Deep learning models achieved AUC scores of 94-95%, outperforming ophthalmologists using standard risk assessment criteria.",
+    "researcherIds": [
+      "1",
+      "10",
+      "11"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1167/tvst.15.1.34",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "artificial-intelligence-driven-differentiation-between-uveal-melanoma-and-nevus-based-on-fundus-photographs-a-systematic-review-and-meta-analysis",
+    "path": "publications/1-artificial-intelligence-driven-differentiation-between-uveal-melanoma-and-nevus-based-on-fundus-photographs-a-systematic-review-and-meta-analysis.html"
+  },
+  {
+    "id": "2",
+    "name": "Beyond episodic early warning systems: a continuous clinical alert system for early detection of in-hospital deterioration",
+    "journal": "Nature Communications",
+    "abstract": "Efficient patient monitoring on medical-surgical wards is crucial to prevent adverse events. Standard episodic inpatient assessment of vital signs can miss changes in health status and delay risk recognition. This study developed a wearable-based deep learning model using only 9 inputs to identify the onset of deterioration earlier than traditional early warning systems. The model could generalize to produce clinical alerts ahead of rapid response team (RRT) interventions, unplanned intensive care unit (ICU) transfers, intubations, cardiac arrests, and in-hospital deaths. Using multiple stages of validation on 888 adult non-ICU inpatient visits, the RNN model predicted both periods of elevated MEWS scores (ROC AUC 0.89 +/- 0.3, PR AUC 0.58 +/- 0.14) and adverse clinical outcomes (accuracy: 81.8%) up to an average of 17 hours in advance.",
+    "researcherIds": [
+      "1",
+      "5"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1038/s41467-025-65219-8",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "beyond-episodic-early-warning-systems-a-continuous-clinical-alert-system-for-early-detection-of-in-hospital-deterioration",
+    "path": "publications/2-beyond-episodic-early-warning-systems-a-continuous-clinical-alert-system-for-early-detection-of-in-hospital-deterioration.html"
+  },
+  {
+    "id": "3",
+    "name": "Longitudinal characterization of compound action potentials in chronic vagus nerve recordings in mice",
+    "journal": "International Journal of Neural Systems",
+    "abstract": "Even though extensively documented in acute experiments, ongoing vagal activity has not been characterized longitudinally over days or weeks in mice, a preferred preclinical model. This study presents a chronic recording model to record compound action potentials (CAPs) from the mouse vagus nerve for up to 6 months in both anesthetized and awake animals, with stable signal-to-noise ratios and half-rise times. The approach allows for longitudinal analysis while tracking individual CAPs across multiple days, their firing rates and phase-locking characteristics with other physiological signals, and in the awake case, movement using unsupervised machine learning models. Results reveal diverse CAP populations with varying degrees of physiological coupling, providing a valuable platform to investigate how vagal activity may be modified based on disease severity and develop closed-loop VNS by predicting flare-ups and tracking stimulation efficacy.",
+    "researcherIds": [
+      "1",
+      "3",
+      "4",
+      "22"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1142/S0129065726500085",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "longitudinal-characterization-of-compound-action-potentials-in-chronic-vagus-nerve-recordings-in-mice",
+    "path": "publications/3-longitudinal-characterization-of-compound-action-potentials-in-chronic-vagus-nerve-recordings-in-mice.html"
+  },
+  {
+    "id": "4",
+    "name": "An Artificial Intelligence-Based Probabilistic Forecasting Model for Predicting Nursing Workforce Demand in Hospital Units",
+    "journal": "Annual International Conference of the IEEE Engineering in Medicine and Biology Society",
+    "abstract": "Appropriate nurse staffing is a critical challenge for healthcare delivery institutions, that can affect the delivery of quality patient care. Reliable forecasting of nursing demand can optimize resource utilization and support preemptive hiring strategies; however, the use of advanced machine learning approaches to address this challenge has been limited thus far. We propose a probabilistic forecasting approach for predicting nursing workforce demand across multiple hospital units using DeepAR, an autoregressive recurrent neural network algorithm. We analyzed 5-year historical workforce data from a large US-based health system in New York, encompassing both full-time and temporary nurses across multiple specialties and hospital units. Our implementation leverages DeepAR's ability to create a single global model for heterogeneous time-series, incorporating the impact of the COVID-19 pandemic, through binary feature encoding. The model was trained on 38 business unit-specialty combinations, each containing over 100 employees, with a 12-month context and prediction length. The model successfully captured complex temporal patterns, with most ground truth values falling within the 90% prediction intervals and accurately predicting both gradual trends as well as sudden magnitude changes. The model achieved consistent performance across multiple test sets through rolling window analysis, with only 9 out of 38 combinations showing significant temporal sensitivity. Furthermore, validation on 91 smaller business unit-specialty combinations (with 15-100 employees) showed no statistically significant performance degradation, indicating strong generalizability. This approach provides healthcare administrators with a reliable tool for probabilistic workforce demand forecasting, enabling more informed staffing decisions across diverse hospital settings.",
+    "researcherIds": [
+      "1",
+      "3",
+      "7"
+    ],
+    "projectIds": [
+      "2"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1109/EMBC58623.2025.11254533",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "an-artificial-intelligence-based-probabilistic-forecasting-model-for-predicting-nursing-workforce-demand-in-hospital-units",
+    "path": "publications/4-an-artificial-intelligence-based-probabilistic-forecasting-model-for-predicting-nursing-workforce-demand-in-hospital-units.html"
+  },
+  {
+    "id": "5",
+    "name": "Leveraging Implantable Cardiac Defibrillator Remote Transmissions to Predict the Occurrence of Atrial Fibrillation",
+    "journal": "Journal of Cardiovascular Electrophysiology",
+    "abstract": "Atrial fibrillation (AF) and heart failure (HF) frequently coexist in patients, with development of AF often preceding HF decompensation. This study evaluated whether daily remote monitoring of implantable cardioverter-defibrillator (ICD) parameters could predict AF occurrence using machine learning techniques in a real-world cohort. Data from patients with primary prevention ICDs transmitted daily to the Northwell centralized remote monitoring center between 2012 and 2021 were analyzed. An XGBoost model was trained to predict AF occurrence with a 3-day time horizon using a 14-day data collection sequence in 207 patients (69.0% male, median age 65.0 years, median ejection fraction 30%). The model predicted AF occurrence within the following 3 days in 49 (23.7%) patients after a median of 36 months post-implant with an AUROC of 0.79 and AUPRC of 0.10. Key variables included RV and RA sensing amplitudes and pulse width, suggesting machine learning approaches have potential to predict AF from daily remote ICD monitoring.",
+    "researcherIds": [
+      "1",
+      "5"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1111/jce.70072",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "leveraging-implantable-cardiac-defibrillator-remote-transmissions-to-predict-the-occurrence-of-atrial-fibrillation",
+    "path": "publications/5-leveraging-implantable-cardiac-defibrillator-remote-transmissions-to-predict-the-occurrence-of-atrial-fibrillation.html"
+  },
+  {
+    "id": "6",
+    "name": "Predicting response to neuromodulation therapies in drug-resistant epilepsy using machine learning models: a meta-analysis and systematic review",
+    "journal": "Bioelectronic Medicine",
+    "abstract": "This meta-analysis and systematic review aimed to identify and analyze all relevant literature regarding the use of machine learning to predict response to neuromodulation therapies in patients with drug-resistant epilepsy. A total of 4,451 studies were identified after the initial search, from which only 12 papers were included in the final analysis. The study suggests that multimodal ML approaches show promising performance in predicting response to neuromodulation strategies in patients with drug-resistant epilepsy. However, the limited number of studies, scarcity of external validation, and small cohorts highlight the need for larger, high-quality prospective investigations to confirm findings and improve generalizability of ML-based prediction models.",
+    "researcherIds": [
+      "1",
+      "8",
+      "22"
+    ],
+    "projectIds": [
+      "4"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1186/s42234-025-00191-8",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "predicting-response-to-neuromodulation-therapies-in-drug-resistant-epilepsy-using-machine-learning-models-a-meta-analysis-and-systematic-review",
+    "path": "publications/6-predicting-response-to-neuromodulation-therapies-in-drug-resistant-epilepsy-using-machine-learning-models-a-meta-analysis-and-systematic-review.html"
+  },
+  {
+    "id": "7",
+    "name": "A Systematic Review of the Applications of Deep Learning for the Interpretation of Positron Emission Tomography Images of Patients with Lymphoma",
+    "journal": "Cancers",
+    "abstract": "This systematic review examined the applications of deep learning for the interpretation of lymphoma positron emission tomography (PET) images. From 71 papers initially retrieved, 21 studies with a total of 9402 participants were ultimately included. The proposed deep learning models achieved promising performance in various medical tasks, including detection, histological subtyping, differential diagnosis, and prognostication. AI-based analysis of lymphoma whole-body FDG-PET/CT can inform all phases of clinical management including staging, prognostication, treatment planning, and treatment response evaluation. AI methods demonstrated promising predictive performance (AUC range = 0.68\u20130.85) on PET-based images, with higher values for deep learning methods. AI techniques for lymphoma PET evaluation are designed to assist physicians in handling large volumes of scans through rapid and accurate calculations.",
+    "researcherIds": [
+      "1",
+      "10",
+      "11"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.3390/cancers17010069",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "a-systematic-review-of-the-applications-of-deep-learning-for-the-interpretation-of-positron-emission-tomography-images-of-patients-with-lymphoma",
+    "path": "publications/7-a-systematic-review-of-the-applications-of-deep-learning-for-the-interpretation-of-positron-emission-tomography-images-of-patients-with-lymphoma.html"
+  },
+  {
+    "id": "8",
+    "name": "Understanding primary antiphospholipid syndrome: Analyzing antiphospholipid antibody profile and titers correlation to hematological activity and development of predictive models",
+    "journal": "Thrombosis Research",
+    "abstract": "Abstract not available (Letter to the Editor)",
+    "researcherIds": [
+      "1",
+      "8"
+    ],
+    "projectIds": [],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1016/j.thromres.2025.109308",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "understanding-primary-antiphospholipid-syndrome-analyzing-antiphospholipid-antibody-profile-and-titers-correlation-to-hematological-activity-and-development-of-predictive-models",
+    "path": "publications/8-understanding-primary-antiphospholipid-syndrome-analyzing-antiphospholipid-antibody-profile-and-titers-correlation-to-hematological-activity-and-development-of-predictive-models.html"
+  },
+  {
+    "id": "9",
+    "name": "TraNscutaneOus Electrical VAgus Nerve Stimulation to Suppress Premature Ventricular Contractions: A Crossover, Randomized Clinical Trial (NoVa-PVC)",
+    "journal": "JACC: Clinical Electrophysiology",
+    "abstract": "The NoVa-PVC trial was a 2-center, prospective, sham-controlled, single-blinded, crossover randomized clinical trial conducted in patients with symptomatic premature ventricular contractions (PVCs) with at least 5% daily PVC burden and who were refractory to medical therapy. Participants received two sequential, 10-day sessions of active low-level tragus stimulation (LLTS; 20 Hz, 1 mA below the discomfort threshold) and sham stimulation (earlobe stimulation). Each treatment was interrupted by an 8-day washout period. Of 36 randomized patients, 35 [19 (59.4%) male, mean age 58.0 (\u00b117.1) years] were included in the analysis with median baseline PVC burden of 14.83\u00b110.08. LLTS significantly reduced PVC burden compared to sham stimulation [12.8 \u00b1 10.9% vs 9.9 \u00b1 8.3%, p=0.021]. In patients with symptomatic PVCs refractory to medical therapy, non-invasive low-level tragus stimulation significantly reduced median PVC burden (median reduction ~13.4% vs ~8.6%; P = 0.021).",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "4"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1016/j.jacep.2025.04.011",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "transcutaneous-electrical-vagus-nerve-stimulation-to-suppress-premature-ventricular-contractions-a-crossover-randomized-clinical-trial-nova-pvc",
+    "path": "publications/9-transcutaneous-electrical-vagus-nerve-stimulation-to-suppress-premature-ventricular-contractions-a-crossover-randomized-clinical-trial-nova-pvc.html"
+  },
+  {
+    "id": "10",
+    "name": "Neural representation of cytokines by vagal sensory neurons",
+    "journal": "Nature Communications",
+    "abstract": "Vagal sensory neurons in the nodose ganglia selectively encode specific cytokines, enabling real-time body-brain communication of immune signals. Using in vivo calcium imaging, vagal sensory neurons within the nodose ganglia exhibit distinct real-time neuronal responses to inflammatory cytokines. Groups of individual nodose ganglia neurons are cytokine-selective, while other neurons respond to multiple cytokines while maintaining distinct cytokine-specific patterns for each, indicating that immune signals have distinct neural representations. Vagal sensory neurons express receptors for cytokines and other immune mediators and transmit cytokine-specific neural action potentials to the brain. In mice with dextran sulfate sodium (DSS)-induced colitis, nodose ganglia neuronal activity and cytokine-specific neuronal responses were both altered, indicating that inflammation changes neural excitability.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1038/s41467-025-59248-6",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "neural-representation-of-cytokines-by-vagal-sensory-neurons",
+    "path": "publications/10-neural-representation-of-cytokines-by-vagal-sensory-neurons.html"
+  },
+  {
+    "id": "11",
+    "name": "Longitudinal dynamic clinical phenotypes of in-hospital COVID-19 patients across three dominant virus variants in New York",
+    "journal": "International Journal of Medical Informatics",
+    "abstract": "This study analyzed the dynamic clinical phenotypes of more than 35,000 COVID-19 patients admitted to New York hospitals over a two-year period (March 2020 to May 2022), encapsulating the identity of all major COVID-19 waves and three dominant virus variants (alpha, delta, omicron) into four distinct patient clusters demonstrating unique demographics, treatment profiles, and mortality outcomes. The temporal progression of these phenotypes throughout the COVID-19 pandemic demonstrated increased variability across the waves of three dominant viral variants. Four distinct clinical phenotypes remained robust in multi-site validation and were associated with different mortality rates. Although the lung phenotype with high inflammation was most prevalent at admission, the lung phenotype with low inflammation consistently prevailed thereafter. Most patients transitioned to other phenotypes as time progressed, highlighting the dynamic nature of disease progression during hospitalization.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1016/j.ijmedinf.2023.105286",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "longitudinal-dynamic-clinical-phenotypes-of-in-hospital-covid-19-patients-across-three-dominant-virus-variants-in-new-york",
+    "path": "publications/11-longitudinal-dynamic-clinical-phenotypes-of-in-hospital-covid-19-patients-across-three-dominant-virus-variants-in-new-york.html"
+  },
+  {
+    "id": "12",
+    "name": "Towards enhanced functionality of vagus neuroprostheses through in silico optimized stimulation",
+    "journal": "Nature Communications",
+    "abstract": "Bioelectronic therapies modulating the vagus nerve are promising for cardiovascular, inflammatory, and mental disorders, but clinical applications are limited by side-effects such as breathing obstruction and headache caused by non-specific stimulation. To design selective and functional stimulation, researchers engineered VaStim, a realistic and efficient in-silico model. They developed a protocol to personalize VaStim in-vivo using simple muscle responses, successfully reproducing experimental observations by combining models with trials on five pigs. Through optimized algorithms, VaStim simulated the complete fiber population in minutes, including often omitted unmyelinated fibers which constitute 80% of the nerve. The model suggested that all A\u03b1-fibers across the nerve affect laryngeal muscle, while heart rate changes were caused by B-efferents in specific fascicles. The complete realistic model is available as a free, publicly accessible tool with a web-based platform for optimizing VNS paradigms and electrode designs.",
+    "researcherIds": [
+      "1",
+      "18"
+    ],
+    "projectIds": [
+      "5"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1038/s41467-024-50523-6",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "towards-enhanced-functionality-of-vagus-neuroprostheses-through-in-silico-optimized-stimulation",
+    "path": "publications/12-towards-enhanced-functionality-of-vagus-neuroprostheses-through-in-silico-optimized-stimulation.html"
+  },
+  {
+    "id": "13",
+    "name": "Factors associated with immune responses to SARS-CoV-2 vaccination in autoimmune disease individuals",
+    "journal": "JCI Insight",
+    "abstract": "This study examined factors associated with immune responses to SARS-CoV-2 vaccination in 463 patients with autoimmune diseases, who are at higher risk for severe infection due to their underlying disease and immunosuppressive treatments. Medication use is a major determinant of low antibody response in patients with autoimmune diseases, with most patients having inadequate humoral response to both initial and booster vaccinations when taking B cell-depleting drugs. Treatments with highest risk for low anti-spike IgG response included B cell depletion within the last year, fingolimod, and combination treatment with mycophenolate mofetil and belimumab. Low IgG responses in B cell-depleted patients with multiple sclerosis were associated with higher CD8 T cell responses. The mRNA-1273 (Moderna) vaccine was the most effective vaccine in the autoimmune population. There was minimal induction of disease flares or autoantibodies by vaccination and no significant effect of preexisting anti-type I IFN antibodies on vaccine response or breakthrough infections.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1172/jci.insight.180750",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "factors-associated-with-immune-responses-to-sars-cov-2-vaccination-in-autoimmune-disease-individuals",
+    "path": "publications/13-factors-associated-with-immune-responses-to-sars-cov-2-vaccination-in-autoimmune-disease-individuals.html"
+  },
+  {
+    "id": "14",
+    "name": "Machine learning to predict completion of treatment for pancreatic cancer",
+    "journal": "Journal of Surgical Oncology",
+    "abstract": "While chemotherapy enhances survival rates for pancreatic cancer patients after surgery, less than 60% complete adjuvant therapy, with a smaller fraction undergoing neoadjuvant treatment. This study aimed to predict which patients would complete pre- or postoperative chemotherapy through machine learning, grouping patients with resectable pancreatic cancer into those who completed all intended treatments and those who did not. Researchers applied logistic regression with lasso penalization and an extreme gradient boosting model for prediction. Among 208 patients with median age of 69 (49.5% female, 62% white), neoadjuvant and adjuvant chemotherapies were received by 26% and 47.1%, respectively, but only 49% completed all treatments. Negative prognostic factors included worsening diabetes, age, congestive heart failure, high body mass index, family history of pancreatic cancer, initial bilirubin levels, and tumor location in the pancreatic head. Predictive accuracy (AUROC) was 0.67 for both models, with performance expected to improve with larger datasets.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1002/jso.27812",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "machine-learning-to-predict-completion-of-treatment-for-pancreatic-cancer",
+    "path": "publications/14-machine-learning-to-predict-completion-of-treatment-for-pancreatic-cancer.html"
+  },
+  {
+    "id": "15",
+    "name": "Deep Learning Applications in Pancreatic Cancer",
+    "journal": "Cancers",
+    "abstract": "Pancreatic cancer is one of the most lethal gastrointestinal malignancies. Despite advances in cross-sectional imaging, chemotherapy, radiation therapy, and surgical techniques, the 5-year overall survival is only 12%. With the advent and rapid adoption of artificial intelligence (AI), specifically deep learning (DL), into healthcare systems, there is potential for utilizing AI applications across the entire pancreatic cancer patient journey. This review examines the current applications of DL and other AI modalities in the diagnosis, management, monitoring, and prognostic assessment of patients with pancreatic cancer. The scope covers diagnostic imaging, surgical planning, therapeutic monitoring, and development of novel biomarkers. We conducted a comprehensive review of English language publications from January 2019 to November 2023 in the PubMed database using keywords including pancreatic cancer, deep learning, radiomics, large language models, and generative adversarial networks.",
+    "researcherIds": [
+      "1",
+      "17"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.3390/cancers16020436",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "deep-learning-applications-in-pancreatic-cancer",
+    "path": "publications/15-deep-learning-applications-in-pancreatic-cancer.html"
+  },
+  {
+    "id": "16",
+    "name": "Detection of Common Respiratory Infections, Including COVID-19, Using Consumer Wearable Devices in Health Care Workers: Prospective Model Validation Study",
+    "journal": "JMIR Formative Research",
+    "abstract": "Background: Respiratory viral infections, including COVID-19, are difficult to detect based on symptoms alone. Consumer wearable devices that monitor physiological signals offer a new avenue for respiratory infection detection. Objective: To evaluate the performance of a consumer wearable physiology-based respiratory infection detection algorithm in health care workers. Methods: This prospective study included 577 participants from Northwell Health in New York between January 6, 2022, and July 20, 2022. Participants wore a smartwatch that generated real-time alerts using resting heart rate, respiratory rate, and heart rate variability measured during sleep. Alerts were cross-referenced with results from respiratory viral panel testing. Results: Across 512 alert instances involving a respiratory viral panel test result, 63 had confirmed positive test results (COVID-19 or other respiratory infections detected via polymerase chain reaction or rapid home test). The system provided advance warning of respiratory viral infections as well as other physical or emotional stress events.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.2196/53716",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "detection-of-common-respiratory-infections-including-covid-19-using-consumer-wearable-devices-in-health-care-workers-prospective-model-validation-study",
+    "path": "publications/16-detection-of-common-respiratory-infections-including-covid-19-using-consumer-wearable-devices-in-health-care-workers-prospective-model-validation-study.html"
+  },
+  {
+    "id": "17",
+    "name": "Prediction of intrapartum fever using continuously monitored vital signs and heart rate variability",
+    "journal": "Digital Health",
+    "abstract": "Background: Fever during labor is associated with maternal and neonatal morbidity. Early identification of at-risk patients would enable timely clinical intervention. Objective: To develop and validate a predictive model of intrapartum fever using continuously monitored vital signs and heart rate variability (HRV). Methods: This was a prospective cohort study of 1,155 women in active labor. Raw vital signs and calculated HRV metrics were evaluated for their ability to predict fever (temperature >38.0\u00b0C) using logistic regression. Results: Fever was detected in 48 women (4.2%). Compared to afebrile mothers, febrile mothers had significantly decreased heart rate variability measures (SDNN and RMSSD) at 2-3 hours before fever onset (P<0.001). A predictive model built using continuous vital signs data outperformed a model built from episodic vital signs, with area under the curve of 0.81.",
+    "researcherIds": [
+      "1",
+      "4"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1177/20552076231187594",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "prediction-of-intrapartum-fever-using-continuously-monitored-vital-signs-and-heart-rate-variability",
+    "path": "publications/17-prediction-of-intrapartum-fever-using-continuously-monitored-vital-signs-and-heart-rate-variability.html"
+  },
+  {
+    "id": "18",
+    "name": "A radiographic, deep transfer learning framework, adapted to estimate lung opacities from chest x-rays",
+    "journal": "Bioelectronic Medicine",
+    "abstract": "Objective: To develop and validate a deep learning framework for estimating chest X-ray (CXR) lung opacity severity, which could assist radiologists in standardizing opacity assessment. Methods: We developed a transfer learning framework using 38,079 training CXR images and validated against expert radiologist annotations using 286 out-of-sample images. Three neural network architectures (ResNet-50, VGG-16, and ChexNet) were tested with different segmentation and data balancing strategies. Results: ResNet-50 with undersampling and no region-of-interest segmentation provided optimal performance. The model's opacity score predictions showed superior agreement with radiologist scores compared to inter-radiologist agreement. The framework provides automated opacity quantification while maintaining high concordance with expert radiologist assessments.",
+    "researcherIds": [
+      "1",
+      "21"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1186/s42234-022-00103-0",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "a-radiographic-deep-transfer-learning-framework-adapted-to-estimate-lung-opacities-from-chest-x-rays",
+    "path": "publications/18-a-radiographic-deep-transfer-learning-framework-adapted-to-estimate-lung-opacities-from-chest-x-rays.html"
+  },
+  {
+    "id": "19",
+    "name": "The Fifth Bioelectronic Medicine Summit: today's tools, tomorrow's therapies",
+    "journal": "Bioelectronic Medicine",
+    "abstract": "The emerging field of bioelectronic medicine (BEM) is poised to make a significant impact on the treatment of several neurological and inflammatory disorders. With several BEM therapies being recently approved for clinical use and others in late-phase clinical trials, the 2022 BEM summit was a timely scientific meeting convening a wide range of experts to discuss the latest developments in the field. The BEM Summit was held over two days in New York with more than thirty-five invited speakers and panelists comprised of researchers and experts from both academia and industry. The goal of the meeting was to bring international leaders together to discuss advances and cultivate collaborations in this emerging field that incorporates aspects of neuroscience, physiology, molecular medicine, engineering, and technology. This Meeting Report recaps the latest findings discussed at the Meeting and summarizes the main developments in this rapidly advancing interdisciplinary field.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1186/s42234-023-00123-4",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "the-fifth-bioelectronic-medicine-summit-today-s-tools-tomorrow-s-therapies",
+    "path": "publications/19-the-fifth-bioelectronic-medicine-summit-today-s-tools-tomorrow-s-therapies.html"
+  },
+  {
+    "id": "20",
+    "name": "The association of clinically relevant variables with chest radiograph lung disease burden quantified in real-time by radiologists upon initial presentation in individuals hospitalized with COVID-19",
+    "journal": "Clinical Imaging",
+    "abstract": "Objectives: We aimed to correlate lung disease burden on presentation chest radiographs (CXR), quantified at the time of study interpretation, with clinical presentation in patients hospitalized with coronavirus disease 2019 (COVID-19). Material and methods: This retrospective cross-sectional study included 5833 consecutive adult patients, aged 18 and older, hospitalized with a diagnosis of COVID-19. Lung disease burden was quantified in real-time by 118 radiologists on 5833 CXRs at the time of exam interpretation with each lung annotated by the degree of lung opacity as clear (0%), mild (1-33%), moderate (34-66%), or severe (67-100%). Results: COVID-19 lung disease burden quantified in real-time on presentation CXR was characterized by demographics, comorbidities, emergency severity index, Charlson Comorbidity Index, vital signs, and lab results. An absence of opacities in COVID-19 may be associated with poor oral intake and a prerenal state as evidenced by the association of clear CXRs with a low eGFR, hypernatremia, and hypoglycemia.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://www.sciencedirect.com/science/article/pii/S0899707123000566",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "the-association-of-clinically-relevant-variables-with-chest-radiograph-lung-disease-burden-quantified-in-real-time-by-radiologists-upon-initial-presentation-in-individuals-hospitalized-with-covid-19",
+    "path": "publications/20-the-association-of-clinically-relevant-variables-with-chest-radiograph-lung-disease-burden-quantified-in-real-time-by-radiologists-upon-initial-presentation-in-individuals-hospitalized-with-covid-19.html"
+  },
+  {
+    "id": "21",
+    "name": "Application of a Machine Learning Algorithm to Develop and Validate a Prediction Model for Ambulatory Non-Arrivals",
+    "journal": "Journal of General Internal Medicine",
+    "abstract": "Objective: To develop a machine learning prediction model for ambulatory appointment non-arrivals that can be deployed across multiple medical specialties. Methods: We analyzed 4.3 million ambulatory appointments from 1.2 million adult patients using the XGBoost machine learning algorithm. The model incorporated patient demographics, appointment history, provider information, weather data, and lead time. Results: The XGBoost model achieved the highest predictive performance (AUC 0.768). The most important features included rescheduled appointments, lead time, appointment provider, days since last appointment, and prior appointment status. The model calibrated well across all departments, especially for the operationally relevant 0-40% non-arrival probability range. Clinical Application: The model can be integrated into electronic health systems or dashboards to identify high-risk patients and reduce no-shows.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "2"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1007/s11606-023-08065-y",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "application-of-a-machine-learning-algorithm-to-develop-and-validate-a-prediction-model-for-ambulatory-non-arrivals",
+    "path": "publications/21-application-of-a-machine-learning-algorithm-to-develop-and-validate-a-prediction-model-for-ambulatory-non-arrivals.html"
+  },
+  {
+    "id": "22",
+    "name": "Calcium imaging and analysis of the jugular-nodose ganglia enables identification of distinct vagal sensory neuron subsets",
+    "journal": "Journal of Neural Engineering",
+    "abstract": "Objective: Sensory nerves of the peripheral nervous system (PNS) transmit afferent signals from the body to the brain. These peripheral nerves are composed of distinct subsets of fibers and associated cell bodies, which reside in peripheral ganglia distributed throughout the viscera and along the spinal cord. The vagus nerve (cranial nerve X) is a complex polymodal nerve that transmits a wide array of sensory information, including signals related to mechanical, chemical, and noxious stimuli. To understand how stimuli applied to the vagus nerve are encoded by vagal sensory neurons in the jugular-nodose ganglia, we developed a framework for micro-endoscopic calcium imaging and analysis. Approach: We developed novel methods for in vivo imaging of the intact jugular-nodose ganglion using a miniature microscope (Miniscope) in transgenic mice with the genetically-encoded calcium indicator GCaMP6f.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://iopscience.iop.org/article/10.1088/1741-2552/acbe1e",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "calcium-imaging-and-analysis-of-the-jugular-nodose-ganglia-enables-identification-of-distinct-vagal-sensory-neuron-subsets",
+    "path": "publications/22-calcium-imaging-and-analysis-of-the-jugular-nodose-ganglia-enables-identification-of-distinct-vagal-sensory-neuron-subsets.html"
+  },
+  {
+    "id": "23",
+    "name": "Developing and Testing Models for COVID-19 Health Outcomes",
+    "journal": "Patient-Centered Outcomes Research Institute (PCORI)",
+    "abstract": "Background: Supporting decisions that patients who present at the emergency department with COVID-19 make requires accurate prognostication, but a highly dynamic pandemic poses special challenges for predicting patient outcomes. Objectives: We aimed to develop clinical prediction models (CPMs) to support shared decision-making for COVID-19 care. We also aimed to evaluate geographic transportability by assessing model performance across different data sets (from different countries) as well as temporal transportability by assessing model performance within the same data set across time periods. We convened focus groups with COVID-19 care providers, survivors, and surrogates to elicit feedback about care-related decision-making during the COVID-19 pandemic. Methods: Clinical prediction models to predict the probability of mortality, whether a patient will require mechanical ventilation (MV) or intensive care unit (ICU) admission, mortality if a patient is placed on MV, and length of stay (LOS) in the ICU were developed.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://www.ncbi.nlm.nih.gov/books/NBK592973/",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "developing-and-testing-models-for-covid-19-health-outcomes",
+    "path": "publications/23-developing-and-testing-models-for-covid-19-health-outcomes.html"
+  },
+  {
+    "id": "24",
+    "name": "Organ- and function-specific anatomical organization of vagal fibers supports fascicular vagus nerve stimulation",
+    "journal": "Brain Stimulation",
+    "abstract": "Background: Vagal nerve fibers traveling in distinct fascicles innervate different organs and regulate specific functions. Current vagus nerve stimulation (VNS) therapies activate vagal fibers non-selectively, often resulting in reduced efficacy and side effects. Objective: To characterize the anatomical organization of vagal fibers and demonstrate fascicle-selective VNS. Methods: We used quantified immunohistochemistry, micro-computed tomography imaging, and multi-contact cuff electrodes to map fascicular organization and perform selective stimulation in swine. Results: Myelinated afferents and efferents occupy separate fascicles. Larynx-, heart-, and lung-specific fascicles are spatially separated and progressively merge. Fascicle-selective VNS elicited organ-specific physiological responses with radially asymmetric compound action potentials. Conclusions: Fascicular VNS enables selective modulation of specific organs and functions, offering improved efficacy and reduced off-target effects compared to conventional non-selective VNS.",
+    "researcherIds": [
+      "1",
+      "3",
+      "18",
+      "21"
+    ],
+    "projectIds": [
+      "5"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1016/j.brs.2023.02.003",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "organ-and-function-specific-anatomical-organization-of-vagal-fibers-supports-fascicular-vagus-nerve-stimulation",
+    "path": "publications/24-organ-and-function-specific-anatomical-organization-of-vagal-fibers-supports-fascicular-vagus-nerve-stimulation.html"
+  },
+  {
+    "id": "25",
+    "name": "US and Dutch Perspectives on the Use of COVID-19 Clinical Prediction Models: Findings from a Qualitative Analysis",
+    "journal": "Medical Decision Making",
+    "abstract": "Background: Clinical prediction models (CPMs) for COVID-19 may support clinical decision making. Objective: To understand attitudes toward using COVID-19 CPMs among health care providers, survivors, and surrogates in the United States and Netherlands. Methods: Qualitative study using online focus groups and interviews conducted between January 2021 and July 2021 in the United States (4 focus groups) and May to July 2021 in the Netherlands (3 focus groups and 4 interviews). Results: Many providers had reservations about CPM validity and patient-level outcome interpretation. However, survivors and surrogates indicated they would have found this information useful for decision making. Providers perceived CPMs as most useful for resource allocation, triage, research, and educational purposes. Conclusions: There is a disconnect between CPM development and clinical implementation, highlighting the need for better communication and integration of provider and patient perspectives.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1177/0272989X231152852",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "us-and-dutch-perspectives-on-the-use-of-covid-19-clinical-prediction-models-findings-from-a-qualitative-analysis",
+    "path": "publications/25-us-and-dutch-perspectives-on-the-use-of-covid-19-clinical-prediction-models-findings-from-a-qualitative-analysis.html"
+  },
+  {
+    "id": "26",
+    "name": "Gene targeting in amyotrophic lateral sclerosis using causality-based feature selection and machine learning",
+    "journal": "Molecular Medicine",
+    "abstract": "Background: Amyotrophic lateral sclerosis (ALS) is a rare progressive neurodegenerative disease that affects upper and lower motor neurons. As the molecular basis of the disease is still elusive, the development of high-throughput sequencing technologies, combined with data mining techniques and machine learning methods, could provide remarkable results in identifying pathogenetic mechanisms. High dimensionality is a major problem when applying machine learning techniques in biomedical data analysis, since a huge number of features is available for a limited number of samples. The aim of this study was to develop a methodology for training interpretable machine learning models in the classification of ALS and ALS-subtypes samples, using gene expression datasets.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [],
+    "image": "",
+    "publicationUrl": "https://link.springer.com/article/10.1186/s10020-023-00603-y",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "gene-targeting-in-amyotrophic-lateral-sclerosis-using-causality-based-feature-selection-and-machine-learning",
+    "path": "publications/26-gene-targeting-in-amyotrophic-lateral-sclerosis-using-causality-based-feature-selection-and-machine-learning.html"
+  },
+  {
+    "id": "27",
+    "name": "Development and Validation of Self-Monitoring Auto-Updating Prognostic Models of Survival for Hospitalized COVID-19 Patients",
+    "journal": "Nature Communications",
+    "abstract": "Objective: To develop and validate self-monitoring, auto-updating prognostic models of survival for hospitalized COVID-19 patients. Methods: We analyzed demographic, laboratory, and clinical data from 34,912 hospitalized COVID-19 patients (March 2020 to May 2022) using a 2,000-patient sliding window incremented at 500-patient intervals to detect calibration drift. Results: Calibration performance drift was immediately detected with only minor fluctuations in discrimination. Dynamically updated models significantly improved overall calibration compared to static models across different waves, variants, race, and sex. Net-benefit analyses showed positive benefits. Conclusions: This is the first study to perform dynamic updating of COVID-19 prognostic survival models to correct for calibration drift. The methodology can be extended to other clinical prognostic models, improving accuracy and clinical utility.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1038/s41467-022-34646-2",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "development-and-validation-of-self-monitoring-auto-updating-prognostic-models-of-survival-for-hospitalized-covid-19-patients",
+    "path": "publications/27-development-and-validation-of-self-monitoring-auto-updating-prognostic-models-of-survival-for-hospitalized-covid-19-patients.html"
+  },
+  {
+    "id": "28",
+    "name": "Understanding Mental Health Needs and Gathering Feedback on Transcutaneous Auricular Vagus Nerve Stimulation as a Potential PTSD Treatment among 9/11 Responders Living with PTSD Symptoms 20 Years Later: A Qualitative Approach",
+    "journal": "International Journal of Environmental Research and Public Health",
+    "abstract": "Background: Post-traumatic stress disorder (PTSD) remains prevalent among World Trade Center (WTC) 9/11 responders. Objective: To understand mental health needs and gather feedback on transcutaneous auricular vagus nerve stimulation (taVNS) as a potential PTSD treatment. Methods: Focus group with 6 WTC responders with elevated PTSD symptoms (ages 51-77 years). Semi-structured discussions explored mental health care barriers, facilitators, and feasibility/acceptability of taVNS. Results: Three themes emerged: (1) continued prevalence of mental health difficulties and systematic challenges to accessing care; (2) positive reception toward taVNS as a potential treatment option with suggestions for improved usability; (3) feedback on increasing intervention feasibility. Conclusions: Daily taVNS was perceived as feasible and acceptable for WTC responders with PTSD. The findings support further investigation of taVNS as a noninvasive neurostimulation approach for treating PTSD in this population.",
+    "researcherIds": [
+      "1",
+      "4"
+    ],
+    "projectIds": [
+      "4"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.3390/ijerph19084847",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "understanding-mental-health-needs-and-gathering-feedback-on-transcutaneous-auricular-vagus-nerve-stimulation-as-a-potential-ptsd-treatment-among-9-11-responders-living-with-ptsd-symptoms-20-years-later-a-qualitative-approach",
+    "path": "publications/28-understanding-mental-health-needs-and-gathering-feedback-on-transcutaneous-auricular-vagus-nerve-stimulation-as-a-potential-ptsd-treatment-among-9-11-responders-living-with-ptsd-symptoms-20-years-later-a-qualitative-approach.html"
+  },
+  {
+    "id": "29",
+    "name": "Prognostic models for COVID-19 needed updating to warrant transportability over time and space",
+    "journal": "BMC Medicine",
+    "abstract": "Prognostic models for COVID-19 developed during the first pandemic wave were evaluated for transportability to subsequent waves and geographic settings. The study included patients presenting to the emergency department with suspected COVID-19 admitted to 12 hospitals in the New York City area and 4 large Dutch hospitals. Second-wave patients (September-December 2020) were used to evaluate models developed on first-wave patients (March-August 2020). Two prognostic models were evaluated: The Northwell COVID-19 Survival (NOCOS) model developed on NYC data and the COVID Outcome Prediction in the Emergency Department (COPE) model developed on Dutch data. Frequent updating of prognostic models is likely to be required for transportability over time and space during a dynamic pandemic.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://bmcmedicine.biomedcentral.com/articles/10.1186/s12916-022-02651-3",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "prognostic-models-for-covid-19-needed-updating-to-warrant-transportability-over-time-and-space",
+    "path": "publications/29-prognostic-models-for-covid-19-needed-updating-to-warrant-transportability-over-time-and-space.html"
+  },
+  {
+    "id": "30",
+    "name": "High Frequency of COVID-19 Vaccine Hesitancy among Canadians Immunized for Influenza: A Cross-Sectional Survey",
+    "journal": "Vaccines",
+    "abstract": "A cross-sectional vaccine hesitancy survey was completed by consecutive patients, family members, and staff who received the influenza vaccine at McGill University affiliated hospitals. Participants were recruited between November 2 and December 11, 2020, prior to Canada's COVID-19 vaccine rollout. Thirty-seven percent of participants (n = 669) were hesitant about COVID-19 vaccines, with 17.6% mildly hesitant and 19.7% significantly hesitant. Vaccine safety concerns and opposition to mandatory vaccinations were the strongest correlates of vaccine hesitancy. Additional factors associated with significant hesitancy included opposition or uncertainty regarding mandatory vaccination, concerns about vaccine safety, uncertainty about the vaccine risk-benefit ratio, lack of trust in pharmaceutical companies, low level of education, and low risk-taking behavior.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [],
+    "image": "",
+    "publicationUrl": "https://www.mdpi.com/2076-393X/10/9/1514",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "high-frequency-of-covid-19-vaccine-hesitancy-among-canadians-immunized-for-influenza-a-cross-sectional-survey",
+    "path": "publications/30-high-frequency-of-covid-19-vaccine-hesitancy-among-canadians-immunized-for-influenza-a-cross-sectional-survey.html"
+  },
+  {
+    "id": "31",
+    "name": "Long-range cortical synchronization supports abrupt visual learning",
+    "journal": "Current Biology",
+    "abstract": "Visual plasticity declines sharply after the critical period, yet adults easily learn to recognize new faces and places. Such learning is often characterized by a 'moment of insight,' an abrupt and dramatic improvement in recognition. Animals were trained to perform a naturalistic 'foraging' task, in which they learned to recognize a visual image and to associate it with a rewarded location, with learning being abrupt and characterized by large performance improvements over a few trials. Simultaneous recordings from inferotemporal and prefrontal cortices revealed a transient synchronization of neural activity between these areas that peaked around the moment of insight. Synchronization was strongest between inferotemporal sites that encoded images and reward-sensitive prefrontal sites. These results suggest that rapid learning relies on temporal synchronization between cortical sites that connect relevant stimuli with task outcomes.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [],
+    "image": "",
+    "publicationUrl": "https://www.cell.com/current-biology/fulltext/S0960-9822(22)00598-X",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "long-range-cortical-synchronization-supports-abrupt-visual-learning",
+    "path": "publications/31-long-range-cortical-synchronization-supports-abrupt-visual-learning.html"
+  },
+  {
+    "id": "32",
+    "name": "A fully implantable wireless bidirectional neuromodulation system for mice",
+    "journal": "Biosensors and Bioelectronics",
+    "abstract": "A fully-implantable recording and stimulation neuromodulation device measuring 2.2 cm\u00b3 and weighing 2.8 g is described, with a bidirectional wireless interface allowing simultaneous readout of multiple physiological signals and complete control over stimulation parameters, along with a wirelessly rechargeable battery providing up to 5 days of lifetime on a single charge. The device was designed using only commercially available electrical components and 3D-printed packaging to facilitate widespread adoption and accelerate discovery and translation of future bioelectronic therapeutics. The device was implanted to deliver vagus nerve stimulation in 12 animals and demonstrated a functional neural interface capable of inducing acute bradycardia with functional lifetimes exceeding three weeks.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1016/j.bios.2021.113886",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "a-fully-implantable-wireless-bidirectional-neuromodulation-system-for-mice",
+    "path": "publications/32-a-fully-implantable-wireless-bidirectional-neuromodulation-system-for-mice.html"
+  },
+  {
+    "id": "33",
+    "name": "A method to quantify autonomic nervous system function in healthy, able-bodied individuals",
+    "journal": "Bioelectronic Medicine",
+    "abstract": "The autonomic nervous system (ANS) maintains physiological homeostasis in various organ systems via parasympathetic and sympathetic branches. Reliable, sensitive, and quantitative biomarkers of ANS function, first defined in healthy participants, could discriminate among clinically useful changes. This framework combines controlled autonomic testing with feature extraction during physiological responses. Twenty-one individuals were assessed in two morning and two afternoon sessions over two weeks. Each session included five standard clinical tests probing autonomic function: squat test, cold pressor test, diving reflex test, deep breathing, and Valsalva maneuver. Noninvasive sensors captured continuous electrocardiography, blood pressure, breathing, electrodermal activity, and pupil diameter. The battery of autonomic tests can be completed within 30 minutes and all sensors are non-invasively placed.",
+    "researcherIds": [
+      "1",
+      "3",
+      "4"
+    ],
+    "projectIds": [
+      "4"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1186/s42234-021-00075-7",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "a-method-to-quantify-autonomic-nervous-system-function-in-healthy-able-bodied-individuals",
+    "path": "publications/33-a-method-to-quantify-autonomic-nervous-system-function-in-healthy-able-bodied-individuals.html"
+  },
+  {
+    "id": "34",
+    "name": "A Machine Learning Prediction Model of Respiratory Failure Within 48 Hours of Patient Admission for COVID-19: Model Development and Validation",
+    "journal": "Journal of Medical Internet Research",
+    "abstract": "Predicting early respiratory failure due to COVID-19 can help triage patients to higher levels of care, allocate scarce resources, and reduce morbidity and mortality. This study derived a machine learning model that predicts respiratory failure within 48 hours of admission based on data from the emergency department. Data were collected from patients with COVID-19 admitted to Northwell Health acute care hospitals between March 1 and May 11, 2020. Of 11,525 patients, 933 (8.1%) were placed on invasive mechanical ventilation within 48 hours of admission. Three predictive models were trained and validated using cross-hospital validation. The XGBoost model had the highest mean accuracy (0.919; area under the curve=0.77), outperforming the other two models as well as the Modified Early Warning Score. Important predictor variables included the type of oxygen delivery used in the emergency department, patient age, Emergency Severity Index level, respiratory rate, serum lactate, and demographic characteristics.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.2196/24246",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "a-machine-learning-prediction-model-of-respiratory-failure-within-48-hours-of-patient-admission-for-covid-19-model-development-and-validation",
+    "path": "publications/34-a-machine-learning-prediction-model-of-respiratory-failure-within-48-hours-of-patient-admission-for-covid-19-model-development-and-validation.html"
+  },
+  {
+    "id": "35",
+    "name": "Noninvasive, multimodal assessment of physiological responses to transcutaneous auricular vagus nerve stimulation",
+    "journal": "10th International IEEE/EMBS Conference on Neural Engineering (NER)",
+    "abstract": "Transcutaneous auricular vagus nerve stimulation (taVNS) is a noninvasive method of applying current at the cymba conchae of the outer ear to target the auricular branch of the vagus nerve. Recent efforts have shown therapeutic effects of taVNS on clinical populations, but the mechanism and autonomic nervous system (ANS) responses are not well understood. Twenty-one individuals were tested in four sessions over two weeks; taVNS was applied at the left ear while noninvasive sensors captured electrocardiography, blood pressure, breathing, electrodermal activity (EDA), and pupil diameter (PD). Physiological markers derived from these biosignals allowed for assessment of how taVNS affects the autonomic nervous system.",
+    "researcherIds": [
+      "1",
+      "3",
+      "4"
+    ],
+    "projectIds": [
+      "4"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1109/NER49283.2021.9441419",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "noninvasive-multimodal-assessment-of-physiological-responses-to-transcutaneous-auricular-vagus-nerve-stimulation",
+    "path": "publications/35-noninvasive-multimodal-assessment-of-physiological-responses-to-transcutaneous-auricular-vagus-nerve-stimulation.html"
+  },
+  {
+    "id": "36",
+    "name": "Spatiotemporally specific roles of TLR4, TNF, and IL-17A in murine endotoxin-induced inflammation inferred from analysis of dynamic networks",
+    "journal": "Molecular Medicine",
+    "abstract": "Bacterial lipopolysaccharide (LPS) induces a multi-organ, Toll-like receptor 4 (TLR4)-dependent acute inflammatory response. Using network analysis, the spatiotemporal dynamics of 20 LPS-induced protein-level inflammatory mediators over 0-48 hours were defined in the heart, gut, lung, liver, spleen, kidney, and systemic circulation in both wild-type and TLR4-null mice. Dynamic Network Analysis suggested that inflammation in the heart is most dependent on TLR4, followed by the liver, kidney, plasma, gut, lung, and spleen. Insights from computational analyses suggest an early role for TLR4-dependent tumor necrosis factor in coordinating multiple signaling pathways in the heart, giving way to later interleukin-17A\u2014possibly derived from pathogenic Th17 cells and effector/memory T cells\u2014in the spleen and blood.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1186/s10020-021-00333-z",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "spatiotemporally-specific-roles-of-tlr4-tnf-and-il-17a-in-murine-endotoxin-induced-inflammation-inferred-from-analysis-of-dynamic-networks",
+    "path": "publications/36-spatiotemporally-specific-roles-of-tlr4-tnf-and-il-17a-in-murine-endotoxin-induced-inflammation-inferred-from-analysis-of-dynamic-networks.html"
+  },
+  {
+    "id": "37",
+    "name": "Efficacy of continuous monitoring of maternal temperature during labor using wireless axillary sensors",
+    "journal": "Journal of Clinical Monitoring and Computing",
+    "abstract": "This study aimed to determine whether continuous measurement of temperature during labor is feasible, accurate, and more effective than manual measurements for detecting fever. Women were recruited on admission in labor at greater than 35 weeks gestational age with less than 6 cm cervical dilation. Sensors were affixed in the axilla, which transmitted every 4 minutes by Bluetooth to a dedicated tablet. Conventional temperature measurements were taken every 3-6 hours per routine. Of 336 subjects recruited, 155 had both greater than 4 hours of continuous data and greater than 2 manual temperature measurements. Of 15 episodes of fever greater than 38 degrees C detected by both methods, 13 were detected earlier by continuous monitoring (9 of those more than 1 hour earlier). Manual measurements missed 32 fevers greater than 38 degrees C and 13 fevers greater than 38.5 degrees C that were identified by continuous monitoring. Continuous measurement of maternal temperature for the duration of labor is practical and accurate.",
+    "researcherIds": [
+      "1",
+      "4"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1007/s10877-020-00625-5",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "efficacy-of-continuous-monitoring-of-maternal-temperature-during-labor-using-wireless-axillary-sensors",
+    "path": "publications/37-efficacy-of-continuous-monitoring-of-maternal-temperature-during-labor-using-wireless-axillary-sensors.html"
+  },
+  {
+    "id": "38",
+    "name": "Development and characterization of a chronic implant mouse model for vagus nerve stimulation",
+    "journal": "eLife",
+    "abstract": "A scalable model for long-term vagus nerve stimulation (VNS) in mice was developed and validated in four research laboratories. Significant heart rate responses were observed for at least 4 weeks in 60-90% of animals. Device implantation did not impair vagus-mediated reflexes, including baroreflex, lung stretch reflex, and feeding reflexes. Histological examination of implanted nerves revealed fibrotic encapsulation without axonal pathology. VNS using this implant significantly suppressed TNF levels in endotoxemia. Because the implant does not interfere with physiological vagus nerve-mediated reflexes and successfully inhibits serum TNF levels in acute endotoxemia, this method may be useful in facilitating mechanistic studies of long-term VNS as therapy for chronic diseases modeled in mice.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.7554/eLife.61270",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "development-and-characterization-of-a-chronic-implant-mouse-model-for-vagus-nerve-stimulation",
+    "path": "publications/38-development-and-characterization-of-a-chronic-implant-mouse-model-for-vagus-nerve-stimulation.html"
+  },
+  {
+    "id": "39",
+    "name": "The Fourth Bioelectronic Medicine Summit \"Technology Targeting Molecular Mechanisms\": current progress, challenges, and charting the future",
+    "journal": "Bioelectronic Medicine",
+    "abstract": "The fourth bioelectronic medicine summit 'Technology Targeting Molecular Mechanisms' took place on September 23 and 24, 2020, as a virtual meeting hosted by the Feinstein Institutes for Medical Research, Northwell Health. The summit called international attention to Bioelectronic Medicine as a platform for new developments in science, technology, and healthcare, and served as an arena for exchanging new ideas and seeding potential collaborations involving teams in academia and industry. Key advances discussed included innovations in bioelectronic limbs and prostheses, wearable and injectable sensors in paralysis and spinal cord injury, and brain stimulation for the blind including visual cortical prosthetics. Artificial intelligence is becoming a vital component of bioelectronic medicine with implications in neuroscience, cardiology, and many other clinical fields.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1186/s42234-021-00068-6",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "the-fourth-bioelectronic-medicine-summit-technology-targeting-molecular-mechanisms-current-progress-challenges-and-charting-the-future",
+    "path": "publications/39-the-fourth-bioelectronic-medicine-summit-technology-targeting-molecular-mechanisms-current-progress-challenges-and-charting-the-future.html"
+  },
+  {
+    "id": "40",
+    "name": "Let Sleeping Patients Lie, avoiding unnecessary overnight vitals monitoring using a clinically based deep-learning model",
+    "journal": "npj Digital Medicine",
+    "abstract": "Sleep disruptions due to unnecessary overnight vital sign monitoring are associated with delirium, cognitive impairment, weakened immunity, hypertension, increased stress, and mortality. A recurrent deep neural network was developed that incorporates past values of a small set of vital signs and predicts overnight stability for any given patient-night. The model was trained and evaluated using data from a multi-hospital health system between 2012 and 2019, with approximately 2.3 million admissions and 26 million vital sign assessments. The algorithm is agnostic to patient location, condition, and demographics, and relies only on sequences of five vital sign measurements, a calculated Modified Early Warning Score, and patient age. The model enables safe avoidance of overnight monitoring for approximately 50% of patient-nights, while only misclassifying 2 out of 10,000 patient-nights as stable.",
+    "researcherIds": [
+      "1",
+      "18"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://www.nature.com/articles/s41746-020-00355-7",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "let-sleeping-patients-lie-avoiding-unnecessary-overnight-vitals-monitoring-using-a-clinically-based-deep-learning-model",
+    "path": "publications/40-let-sleeping-patients-lie-avoiding-unnecessary-overnight-vitals-monitoring-using-a-clinically-based-deep-learning-model.html"
+  },
+  {
+    "id": "41",
+    "name": "External validation demonstrates limited clinical utility of the interpretable mortality prediction model for patients with COVID-19",
+    "journal": "Nature Machine Intelligence",
+    "abstract": "External validation of a previously published interpretable mortality prediction model for COVID-19 patients was conducted. The study demonstrated that the model does not perform as a triage tool based on the internal validation dataset provided by the original authors. The decision algorithm was not portable to the external validation dataset, both with unmodified and optimized parameters. Specifically, the precision was 0.48 for predicting mortality, meaning that over half of the patients that the model predicted would die actually survived. The accuracy was 0.88 and the F1 score was 0.41. These results emphasized the importance of externally validating models before their widespread adoption in actual clinical practice.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://www.nature.com/articles/s42256-020-00254-2",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "external-validation-demonstrates-limited-clinical-utility-of-the-interpretable-mortality-prediction-model-for-patients-with-covid-19",
+    "path": "publications/41-external-validation-demonstrates-limited-clinical-utility-of-the-interpretable-mortality-prediction-model-for-patients-with-covid-19.html"
+  },
+  {
+    "id": "42",
+    "name": "Single-axon level automatic segmentation and feature extraction from immunohistochemical images of peripheral nerves",
+    "journal": "Proceedings of the IEEE Engineering in Medicine and Biology Society",
+    "abstract": "Quantitative descriptions of the morphology and structure of peripheral nerves is central in the development of bioelectronic devices interfacing nerves. While histological procedures and microscopy techniques yield high-resolution detailed images of individual axons, automated methods to extract relevant information at the single-axon level are not widely available. A segmentation algorithm was implemented that allows for feature extraction in immunohistochemistry (IHC) images of peripheral nerves at the single fiber scale. Features extracted include short and long cross-sectional diameters, area, perimeter, thickness of surrounding myelin and polar coordinates of single axons within a nerve or nerve fascicle. The algorithm was evaluated using manually annotated IHC images of 27 fascicles of the swine cervical vagus; the accuracy of single-axon detection was 82%, and the classification accuracy of fiber myelination was 89%.",
+    "researcherIds": [
+      "1",
+      "18"
+    ],
+    "projectIds": [
+      "5"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1109/EMBC44109.2020.9175974",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "single-axon-level-automatic-segmentation-and-feature-extraction-from-immunohistochemical-images-of-peripheral-nerves",
+    "path": "publications/42-single-axon-level-automatic-segmentation-and-feature-extraction-from-immunohistochemical-images-of-peripheral-nerves.html"
+  },
+  {
+    "id": "43",
+    "name": "Machine learning to assist clinical decision-making during the COVID-19 pandemic",
+    "journal": "Bioelectronic Medicine",
+    "abstract": "The number of cases from the coronavirus disease 2019 (COVID-19) global pandemic has overwhelmed existing medical facilities and forced clinicians, patients, and families to make pivotal decisions with limited time and information. While machine learning (ML) methods have been previously used to augment clinical decisions, there is now a demand for \"Emergency ML.\" Throughout the patient care pathway, there are opportunities for ML-supported decisions based on collected vitals, laboratory results, medication orders, and comorbidities. This perspective highlights the utility of evidence-based prediction tools in a number of clinical settings, and how similar models can be deployed during the COVID-19 pandemic to guide hospital frontlines and healthcare administrators to make informed decisions about patient care and managing hospital volume.",
+    "researcherIds": [
+      "1",
+      "3",
+      "4",
+      "18"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://bioelecmed.biomedcentral.com/articles/10.1186/s42234-020-00050-8",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "machine-learning-to-assist-clinical-decision-making-during-the-covid-19-pandemic",
+    "path": "publications/43-machine-learning-to-assist-clinical-decision-making-during-the-covid-19-pandemic.html"
+  },
+  {
+    "id": "44",
+    "name": "Presenting characteristics, comorbidities, and outcomes among 5700 patients hospitalized with COVID-19 in the New York City area",
+    "journal": "JAMA",
+    "abstract": "A total of 5700 patients with a median age of 63 years were included in this case series, with 39.7% female. The most common comorbidities were hypertension (3026; 56.6%), obesity (1737; 41.7%), and diabetes (1808; 33.8%). At triage, 30.7% of patients were febrile, 17.3% had a respiratory rate greater than 24 breaths/min, and 27.8% received supplemental oxygen. During hospitalization, 373 patients (14.2%) were treated in intensive care unit, and 320 (12.2%) received invasive mechanical ventilation.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://pubmed.ncbi.nlm.nih.gov/32320003/",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "presenting-characteristics-comorbidities-and-outcomes-among-5700-patients-hospitalized-with-covid-19-in-the-new-york-city-area",
+    "path": "publications/44-presenting-characteristics-comorbidities-and-outcomes-among-5700-patients-hospitalized-with-covid-19-in-the-new-york-city-area.html"
+  },
+  {
+    "id": "45",
+    "name": "An impedance matching algorithm for common-mode interference removal in vagus nerve recordings",
+    "journal": "Journal of Neuroscience Methods",
+    "abstract": "A common-mode interference rejection algorithm based on an impedance matching approach was developed for bipolar cuff electrodes. Two unipolar channels were recorded from the two electrode contacts of a bipolar cuff, and the impedance mismatch was estimated and used to correct one of the two channels. Using the impedance adjustment algorithm, ECG artifacts were significantly suppressed relative to the simple subtraction method by an additional 9.2 dB on average. The algorithm successfully reduced the common-mode interference from ECG artifacts, stimulation artifacts, and evoked EMG interference while retaining neural signals.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://www.sciencedirect.com/science/article/abs/pii/S0165027019303243",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "an-impedance-matching-algorithm-for-common-mode-interference-removal-in-vagus-nerve-recordings",
+    "path": "publications/45-an-impedance-matching-algorithm-for-common-mode-interference-removal-in-vagus-nerve-recordings.html"
+  },
+  {
+    "id": "46",
+    "name": "Transcutaneous auricular vagus nerve stimulation reduces pain and fatigue in patients with systemic lupus erythematosus: a randomised, double-blind, sham-controlled pilot trial",
+    "journal": "Annals of the Rheumatic Diseases",
+    "abstract": "Musculoskeletal pain and fatigue are common features in systemic lupus erythematosus (SLE). The cholinergic anti-inflammatory pathway is a physiological mechanism diminishing inflammation, engaged by stimulating the vagus nerve. We evaluated the effects of non-invasive vagus nerve stimulation in patients with SLE and with musculoskeletal pain. 18 patients with SLE and with musculoskeletal pain were randomised (2:1) in this double-blind study to receive transcutaneous auricular vagus nerve stimulation (taVNS) or sham stimulation (SS) for 4 consecutive days. Evaluations at baseline, day 5 and day 12 included patient assessments of pain, disease activity (PtGA) and fatigue. Tender and swollen joint counts and the Physician Global Assessment (PGA) were completed by a physician blinded to the patient's therapy. Potential biomarkers were evaluated. taVNS and SS were well tolerated. Subjects receiving taVNS had a significant decrease in pain and fatigue compared with SS and were more likely (OR=25, p=0.02) to experience a clinically significant reduction in pain. PtGA, joint counts and PGA also improved. Pain reduction and improvement of fatigue correlated with the cumulative current received. In general, responses were maintained through day 12. Plasma levels of substance P were significantly reduced at day 5 compared with baseline following taVNS but other neuropeptides, serum and whole blood-stimulated inflammatory mediators, and kynurenine metabolites showed no significant change at days 5 or 12 compared with baseline. taVNS resulted in significantly reduced pain, fatigue and joint scores in SLE. Additional studies evaluating this intervention and its mechanisms are warranted.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "4"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1136/annrheumdis-2020-217872",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "transcutaneous-auricular-vagus-nerve-stimulation-reduces-pain-and-fatigue-in-patients-with-systemic-lupus-erythematosus-a-randomised-double-blind-sham-controlled-pilot-trial",
+    "path": "publications/46-transcutaneous-auricular-vagus-nerve-stimulation-reduces-pain-and-fatigue-in-patients-with-systemic-lupus-erythematosus-a-randomised-double-blind-sham-controlled-pilot-trial.html"
+  },
+  {
+    "id": "47",
+    "name": "Quantitative estimation of nerve fiber engagement by vagus nerve stimulation using physiological markers",
+    "journal": "Brain Stimulation",
+    "abstract": "Stimulus-evoked compound action potentials (eCAPs) directly provide fiber engagement information but are currently not feasible in humans. A method to estimate fiber engagement through common, noninvasive physiological readouts could be used in place of eCAP measurements. In anesthetized rats, eCAPs were recorded while registering acute physiological response markers to VNS: cervical electromyography (EMG), changes in heart rate (\u0394HR) and breathing interval (\u0394BI). Results showed that EMG correlates with A-fiber, \u0394HR with B-fiber and \u0394BI with C-fiber activation, in agreement with known physiological functions of the vagus. Multivariate models were compiled for quantitative estimation of fiber engagement from physiological markers and stimulation parameters, and frequency gain models allow estimation of fiber engagement at a wide range of VNS frequencies.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "5"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1016/j.brs.2020.09.002",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "quantitative-estimation-of-nerve-fiber-engagement-by-vagus-nerve-stimulation-using-physiological-markers",
+    "path": "publications/47-quantitative-estimation-of-nerve-fiber-engagement-by-vagus-nerve-stimulation-using-physiological-markers.html"
+  },
+  {
+    "id": "48",
+    "name": "Reply: In machine learning, the devil is in the details",
+    "journal": "The Journal of Thoracic and Cardiovascular Surgery",
+    "abstract": "Abstract not available (Reply/Correspondence)",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1016/j.jtcvs.2020.10.052",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "reply-in-machine-learning-the-devil-is-in-the-details",
+    "path": "publications/48-reply-in-machine-learning-the-devil-is-in-the-details.html"
+  },
+  {
+    "id": "49",
+    "name": "Anodal block permits directional vagus nerve stimulation",
+    "journal": "Scientific Reports",
+    "abstract": "Vagus nerve stimulation (VNS) is a bioelectronic therapy where selective activation of afferent or efferent vagal fibers can maximize efficacy and minimize off-target effects. Evidence for directional VNS with anodal block (ABL) has been scarce and inconsistent. Through a series of vagotomies, physiological markers for afferent and efferent fiber activation by VNS were established: stimulus-elicited change in breathing rate (\u0394BR) and heart rate (\u0394HR), respectively. Cathode cephalad polarity caused an afferent pattern of responses (relatively stronger \u0394BR) whereas cathode caudad caused an efferent pattern of responses. The study provides concrete physiological and neurophysiological evidence that anodal block is a viable mechanism for functionally demonstrable directional biasing in VNS, for a range of clinically relevant stimulation parameters.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://www.nature.com/articles/s41598-020-66332-y",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "anodal-block-permits-directional-vagus-nerve-stimulation",
+    "path": "publications/49-anodal-block-permits-directional-vagus-nerve-stimulation.html"
+  },
+  {
+    "id": "50",
+    "name": "Towards personalized closed-loop mechanical CPR: a model relating carotid blood flow to chest compression rate and duration",
+    "journal": "IEEE Transactions on Biomedical Engineering",
+    "abstract": "The objective was to determine if it is possible to model the response of the carotid blood flow to different chest compression waveforms as a function of time during resuscitation from cardiac arrest. Several approaches were tested to predict the carotid blood flow generated by the next chest compression based on knowledge of the duration of resuscitation, the chest compression rate, and the last compression's carotid blood flow. A single physiological metric, carotid blood flow, combined with information about the duration of resuscitation and the compression rate was sufficient to model and predict carotid blood flow in the next compression. This suggests that closed loop mechanical CPR is a viable medical device target.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "1"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1109/TBME.2019.2934682",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "towards-personalized-closed-loop-mechanical-cpr-a-model-relating-carotid-blood-flow-to-chest-compression-rate-and-duration",
+    "path": "publications/50-towards-personalized-closed-loop-mechanical-cpr-a-model-relating-carotid-blood-flow-to-chest-compression-rate-and-duration.html"
+  },
+  {
+    "id": "51",
+    "name": "Identification of hypoglycemia-specific neural signals by decoding murine vagus nerve activity",
+    "journal": "Bioelectronic Medicine",
+    "abstract": "Recently developed methods were used to isolate and decode specific neural signals acquired from the surface of the vagus nerve in BALB/c wild type mice to identify those that respond robustly to hypoglycemia. Neural signals in the vagus nerve respond significantly to insulin-induced hypoglycemia and correlate with dropping blood glucose levels. A decoding algorithm was able to reconstruct blood glucose levels with high accuracy (median error 18.6 mg/dl). Hyperglycemia did not induce robust vagus nerve responses, and deletion of TRPV1 nociceptors attenuated the hypoglycemia-dependent vagus nerve signals. These results provide insight to the sensory vagal signaling that encodes hypoglycemic states and suggest a method to measure blood glucose levels by decoding nerve signals.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://bioelecmed.biomedcentral.com/articles/10.1186/s42234-019-0025-z",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "identification-of-hypoglycemia-specific-neural-signals-by-decoding-murine-vagus-nerve-activity",
+    "path": "publications/51-identification-of-hypoglycemia-specific-neural-signals-by-decoding-murine-vagus-nerve-activity.html"
+  },
+  {
+    "id": "52",
+    "name": "Recording and Decoding of Vagal Neural Signals Related to Changes in Physiological Parameters and Biomarkers of Disease",
+    "journal": "Cold Spring Harbor Perspectives in Medicine",
+    "abstract": "The bodies have built-in neural reflexes that continuously monitor organ function and maintain physiological homeostasis. While the field of bioelectronic medicine has mainly focused on the stimulation of neural circuits to treat various conditions, recent studies have started to investigate the possibility of leveraging the sensory arm of these reflexes to diagnose disease states. Neural signals emanating from the body's built-in biosensors and propagating through peripheral nerves must be recorded and decoded to identify the presence or levels of relevant biomarkers of disease. This review outlines studies decoding vagus nerve activity as it related to inflammatory, metabolic, and cardiopulmonary biomarkers to enable the development of real-time diagnostic devices and help advance truly closed-loop neuromodulation technologies.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://doi.org/10.1101/cshperspect.a034157",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "recording-and-decoding-of-vagal-neural-signals-related-to-changes-in-physiological-parameters-and-biomarkers-of-disease",
+    "path": "publications/52-recording-and-decoding-of-vagal-neural-signals-related-to-changes-in-physiological-parameters-and-biomarkers-of-disease.html"
+  },
+  {
+    "id": "53",
+    "name": "Decoding cytokine specific neural activity from the cervical vagus nerve",
+    "journal": "Proceedings of the National Academy of Sciences",
+    "abstract": "Recent advances reveal that neural reflexes modulate the immune system, but it was previously unknown whether cytokine mediators of immunity mediate specific neural signals. Methods were developed to isolate and decode specific neural signals recorded from the vagus nerve to discriminate between the cytokines IL-1\u03b2 and TNF. A bipolar cuff electrode recording activity from the surface of the cervical vagus nerve of mice was used. The methodological waveform successfully detects and discriminates between specific cytokine exposures using neural signals, demonstrating that the nervous system maintains physiological homeostasis through reflex pathways that modulate organ function.",
+    "researcherIds": [
+      "1",
+      "3"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://www.pnas.org/content/115/21/E4843.short",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "decoding-cytokine-specific-neural-activity-from-the-cervical-vagus-nerve",
+    "path": "publications/53-decoding-cytokine-specific-neural-activity-from-the-cervical-vagus-nerve.html"
+  },
+  {
+    "id": "54",
+    "name": "Transcranial direct current stimulation facilitates associative learning and alters functional connectivity in the primate brain",
+    "journal": "Current Biology",
+    "abstract": "Applying transcranial direct current stimulation (tDCS) to the right prefrontal cortex improves monkeys' performance on an associative learning task. While firing rates do not change within the targeted area, tDCS induces large low-frequency oscillations in the underlying tissue. These oscillations alter functional connectivity, both locally and between distant brain areas, and these long-range changes correlate with tDCS's effects on behavior. The data suggest that tDCS may act by altering long-range connectivity between PFC and other brain areas. The research employed a macaque model of tDCS that allows simultaneous examination of the effects of tDCS on brain activity and behavior.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [],
+    "image": "",
+    "publicationUrl": "https://www.cell.com/current-biology/fulltext/s0960-9822(17)31185-5",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "transcranial-direct-current-stimulation-facilitates-associative-learning-and-alters-functional-connectivity-in-the-primate-brain",
+    "path": "publications/54-transcranial-direct-current-stimulation-facilitates-associative-learning-and-alters-functional-connectivity-in-the-primate-brain.html"
+  },
+  {
+    "id": "55",
+    "name": "A new 3D self-adaptive nerve electrode for high density peripheral nerve stimulation and recording",
+    "journal": "19th International Conference on Solid-State Sensors, Actuators and Microsystems (TRANSDUCERS)",
+    "abstract": "We present a novel 3D self-adaptive nerve electrode for high density nerve signal recording and site-specific stimulation. A new pre-shaped flexible spiral structure has been developed in order to achieve tight contact with small nerves without any additional mechanical locking structure or force. This unique structure enables the nerve electrode to adapt and maintain close contact with the nerve without compressing it or restricting its movement. The spiral nerve electrodes (inner diameter = 310 um) with 8 recording channels (electrode diameter = 50 um) were fabricated and successfully applied to the rat vagus nerve (approximate diameter of 350 um) in order to record compound action potentials.",
+    "researcherIds": [
+      "1"
+    ],
+    "projectIds": [
+      "3"
+    ],
+    "image": "",
+    "publicationUrl": "https://ieeexplore.ieee.org/document/7993985",
+    "publicationIds": [],
+    "title": "",
+    "about": "",
+    "slug": "a-new-3d-self-adaptive-nerve-electrode-for-high-density-peripheral-nerve-stimulation-and-recording",
+    "path": "publications/55-a-new-3d-self-adaptive-nerve-electrode-for-high-density-peripheral-nerve-stimulation-and-recording.html"
+  }
+]
