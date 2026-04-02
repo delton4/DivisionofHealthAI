@@ -5,6 +5,7 @@ import "./globals.css";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { AdminProvider } from "@/components/AdminProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
@@ -46,6 +47,7 @@ export default async function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </AdminProvider>
+        <Analytics />
       </body>
     </html>
   );
