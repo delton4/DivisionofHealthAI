@@ -73,16 +73,14 @@ export default async function ResearcherDetailPage({
             className="font-display text-3xl md:text-4xl tracking-tight"
           />
         </h1>
-        {researcher.title && (
-          <p className="text-text-muted mt-1">
-            <EditableText
-              entity="researcher"
-              entityId={researcher.id}
-              field="title"
-              value={researcher.title}
-            />
-          </p>
-        )}
+        <p className="text-text-muted mt-1">
+          <EditableText
+            entity="researcher"
+            entityId={researcher.id}
+            field="title"
+            value={researcher.title || "No title yet. Click to add one."}
+          />
+        </p>
 
         <div className="flex flex-wrap gap-4 mt-2 text-sm text-text-muted">
           {researcher.email && (
