@@ -100,8 +100,39 @@ export async function getAllProjectsWithOverrides(): Promise<Project[]> {
 }
 
 export async function getAllPublicationsWithOverrides(): Promise<Publication[]> {
+  // Merge custom pubs from database + filter hidden ones
+  let allPubs = [...publications];
+
+  try {
+    const { getCustomPublications, getHiddenEntityIds } = await import("@/lib/db");
+    const [customRows, hiddenIds] = await Promise.all([
+      getCustomPublications(),
+      getHiddenEntityIds("publication"),
+    ]);
+
+    // Filter out hidden static pubs
+    allPubs = allPubs.filter((p) => !hiddenIds.has(p.id));
+
+    // Add custom pubs from database
+    for (const row of customRows) {
+      allPubs.unshift({
+        id: row.id,
+        name: row.name,
+        journal: row.journal,
+        abstract: row.abstract,
+        slug: row.id,
+        publicationUrl: row.publication_url,
+        researcherIds: [],
+        projectIds: [],
+        image: "",
+      });
+    }
+  } catch {
+    // DB unavailable, use static only
+  }
+
   return Promise.all(
-    publications.map((p) => mergeOverrides("publication", p.id, p))
+    allPubs.map((p) => mergeOverrides("publication", p.id, p))
   );
 }
 

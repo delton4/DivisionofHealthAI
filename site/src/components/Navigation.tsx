@@ -59,14 +59,22 @@ export function Navigation() {
               </Link>
             ))}
             {isAdmin && (
-              <form action={logout}>
-                <button
-                  type="submit"
-                  className="text-xs text-text-muted hover:text-accent-warm transition-colors duration-200"
+              <>
+                <Link
+                  href="/admin/publications"
+                  className="text-xs text-text-muted hover:text-accent transition-colors duration-200"
                 >
-                  Logout
-                </button>
-              </form>
+                  Manage Pubs
+                </Link>
+                <form action={logout}>
+                  <button
+                    type="submit"
+                    className="text-xs text-text-muted hover:text-accent-warm transition-colors duration-200"
+                  >
+                    Logout
+                  </button>
+                </form>
+              </>
             )}
           </div>
 

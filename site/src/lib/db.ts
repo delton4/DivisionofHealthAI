@@ -82,3 +82,80 @@ export async function createAdmin(email: string, passwordHash: string) {
     ON CONFLICT (email) DO NOTHING
   `;
 }
+
+// ---- Publication management ----
+
+export async function initPublicationTables() {
+  const sql = getDb();
+  await sql`
+    CREATE TABLE IF NOT EXISTS custom_publications (
+      id              TEXT PRIMARY KEY,
+      name            TEXT NOT NULL,
+      journal         TEXT NOT NULL DEFAULT '',
+      abstract        TEXT NOT NULL DEFAULT '',
+      publication_url TEXT NOT NULL DEFAULT '',
+      created_at      TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS hidden_entities (
+      entity    TEXT NOT NULL,
+      entity_id TEXT NOT NULL,
+      PRIMARY KEY (entity, entity_id)
+    )
+  `;
+}
+
+export async function getCustomPublications() {
+  if (process.env.GITHUB_ACTIONS === "true") return [];
+  try {
+    const sql = getDb();
+    return await sql`SELECT * FROM custom_publications ORDER BY created_at DESC`;
+  } catch {
+    return [];
+  }
+}
+
+export async function addCustomPublication(pub: {
+  id: string;
+  name: string;
+  journal: string;
+  abstract: string;
+  publicationUrl: string;
+}) {
+  const sql = getDb();
+  await sql`
+    INSERT INTO custom_publications (id, name, journal, abstract, publication_url)
+    VALUES (${pub.id}, ${pub.name}, ${pub.journal}, ${pub.abstract}, ${pub.publicationUrl})
+  `;
+}
+
+export async function removeCustomPublication(id: string) {
+  const sql = getDb();
+  await sql`DELETE FROM custom_publications WHERE id = ${id}`;
+}
+
+export async function getHiddenEntityIds(entity: string): Promise<Set<string>> {
+  if (process.env.GITHUB_ACTIONS === "true") return new Set();
+  try {
+    const sql = getDb();
+    const rows = await sql`SELECT entity_id FROM hidden_entities WHERE entity = ${entity}`;
+    return new Set(rows.map((r) => r.entity_id));
+  } catch {
+    return new Set();
+  }
+}
+
+export async function hideEntity(entity: string, entityId: string) {
+  const sql = getDb();
+  await sql`
+    INSERT INTO hidden_entities (entity, entity_id)
+    VALUES (${entity}, ${entityId})
+    ON CONFLICT DO NOTHING
+  `;
+}
+
+export async function unhideEntity(entity: string, entityId: string) {
+  const sql = getDb();
+  await sql`DELETE FROM hidden_entities WHERE entity = ${entity} AND entity_id = ${entityId}`;
+}
