@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 
 const AdminContext = createContext(false);
 
@@ -8,14 +8,13 @@ export function useAdmin() {
   return useContext(AdminContext);
 }
 
-export function AdminProvider({ children }: { children: React.ReactNode }) {
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  useEffect(() => {
-    // Check for the non-HttpOnly hint cookie
-    setIsAdmin(document.cookie.includes("admin_logged_in=1"));
-  }, []);
-
+export function AdminProvider({
+  children,
+  isAdmin,
+}: {
+  children: React.ReactNode;
+  isAdmin: boolean;
+}) {
   return (
     <AdminContext.Provider value={isAdmin}>{children}</AdminContext.Provider>
   );

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
@@ -26,18 +27,21 @@ export const metadata: Metadata = {
     "Advancing healthcare through artificial intelligence at the Feinstein Institutes for Medical Research, Northwell Health.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const isAdmin = cookieStore.get("admin_logged_in")?.value === "1";
+
   return (
     <html
       lang="en"
       className={`${instrumentSerif.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <AdminProvider>
+        <AdminProvider isAdmin={isAdmin}>
           <Navigation />
           <main className="flex-1">{children}</main>
           <Footer />
