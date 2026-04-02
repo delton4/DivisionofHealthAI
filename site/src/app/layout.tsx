@@ -6,6 +6,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { AdminProvider } from "@/components/AdminProvider";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
@@ -48,6 +49,7 @@ export default async function RootLayout({
           <Footer />
         </AdminProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
