@@ -74,7 +74,8 @@
     "abstract": "",
     "publicationUrl": "",
     "slug": "theodoros-zanos",
-    "path": "researchers/1-theodoros-zanos.html"
+    "path": "researchers/1-theodoros-zanos.html",
+    "linkedin": "https://www.linkedin.com/in/theozanos/"
   },
   {
     "id": "2",
@@ -129,7 +130,8 @@
     "abstract": "",
     "publicationUrl": "",
     "slug": "todd-levy",
-    "path": "researchers/3-todd-levy.html"
+    "path": "researchers/3-todd-levy.html",
+    "linkedin": "https://www.linkedin.com/in/todd-levy-85bb824/"
   },
   {
     "id": "4",
@@ -156,7 +158,8 @@
     "abstract": "",
     "publicationUrl": "",
     "slug": "shubham-debnath",
-    "path": "researchers/4-shubham-debnath.html"
+    "path": "researchers/4-shubham-debnath.html",
+    "linkedin": "https://www.linkedin.com/in/shubhamdebnath/"
   },
   {
     "id": "5",
@@ -176,7 +179,8 @@
     "abstract": "",
     "publicationUrl": "",
     "slug": "michael-scheid",
-    "path": "researchers/5-michael-scheid.html"
+    "path": "researchers/5-michael-scheid.html",
+    "linkedin": "https://www.linkedin.com/in/michaelrscheid/"
   },
   {
     "id": "6",
@@ -214,7 +218,8 @@
     "abstract": "",
     "publicationUrl": "",
     "slug": "nabil-ettehadi",
-    "path": "researchers/7-nabil-ettehadi.html"
+    "path": "researchers/7-nabil-ettehadi.html",
+    "linkedin": "https://www.linkedin.com/in/nabil-ettehadi/"
   },
   {
     "id": "8",
@@ -234,7 +239,8 @@
     "abstract": "",
     "publicationUrl": "",
     "slug": "alejandro-quintero-villegas",
-    "path": "researchers/8-alejandro-quintero-villegas.html"
+    "path": "researchers/8-alejandro-quintero-villegas.html",
+    "linkedin": "https://www.linkedin.com/in/alejandro-qv/"
   },
   {
     "id": "9",
@@ -306,7 +312,8 @@
     "abstract": "",
     "publicationUrl": "",
     "slug": "derek-hansen",
-    "path": "researchers/12-derek-hansen.html"
+    "path": "researchers/12-derek-hansen.html",
+    "linkedin": "https://www.linkedin.com/in/dereklhansen/"
   },
   {
     "id": "13",
@@ -336,7 +343,8 @@
     "abstract": "",
     "publicationUrl": "",
     "slug": "soroush-arabshahi",
-    "path": "researchers/14-soroush-arabshahi.html"
+    "path": "researchers/14-soroush-arabshahi.html",
+    "linkedin": "https://www.linkedin.com/in/soroush-arabshahi"
   },
   {
     "id": "15",
@@ -366,7 +374,8 @@
     "abstract": "",
     "publicationUrl": "",
     "slug": "panayiotis-christou",
-    "path": "researchers/16-panayiotis-christou.html"
+    "path": "researchers/16-panayiotis-christou.html",
+    "linkedin": "https://www.linkedin.com/in/panayiotis-christou/"
   },
   {
     "id": "17",
@@ -391,7 +400,7 @@
     "id": "18",
     "name": "Viktor Toth",
     "title": "MS",
-    "about": "Viktor T\u00f3th, MSc, is a Research Associate at the Institute of Bioelectronic Medicine at the Feinstein Institutes for Medical Research with expertise in neuroscience and deep learning. He is the lead author of 'Let Sleeping Patients Lie,' published in npj Digital Medicine in 2020, which developed a clinical deep learning model to safely avoid unnecessary overnight vital sign monitoring in approximately 50% of hospitalized patient-nights. His research encompasses clinical decision support systems and neural data analysis.",
+    "about": "Viktor Tóth, MSc, is a Research Associate at the Institute of Bioelectronic Medicine at the Feinstein Institutes for Medical Research with expertise in neuroscience and deep learning. He is the lead author of 'Let Sleeping Patients Lie,' published in npj Digital Medicine in 2020, which developed a clinical deep learning model to safely avoid unnecessary overnight vital sign monitoring in approximately 50% of hospitalized patient-nights. His research encompasses clinical decision support systems and neural data analysis.",
     "projectIds": [
       "1"
     ],

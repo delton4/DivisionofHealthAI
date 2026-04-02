@@ -84,23 +84,29 @@ export default async function ResearcherDetailPage({
           </p>
         )}
 
-        <div className="flex gap-4 mt-2 text-sm">
-          <EditableText
-            entity="researcher"
-            entityId={researcher.id}
-            field="email"
-            value={researcher.email || ""}
-            as="span"
-            className="text-text-muted"
-          />
-          <EditableText
-            entity="researcher"
-            entityId={researcher.id}
-            field="linkedin"
-            value={researcher.linkedin || ""}
-            as="span"
-            className="text-text-muted"
-          />
+        <div className="flex flex-wrap gap-4 mt-2 text-sm text-text-muted">
+          {researcher.email && (
+            <a href={`mailto:${researcher.email}`} className="hover:text-text-secondary transition-colors duration-200">
+              {researcher.email}
+            </a>
+          )}
+          {researcher.linkedin && (
+            <a href={researcher.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-text-secondary transition-colors duration-200">
+              LinkedIn
+            </a>
+          )}
+          {!researcher.email && !researcher.linkedin && (
+            <span className="text-text-muted/50">
+              <EditableText
+                entity="researcher"
+                entityId={researcher.id}
+                field="email"
+                value=""
+                as="span"
+                className="text-text-muted"
+              />
+            </span>
+          )}
         </div>
 
         {researcher.about && (
