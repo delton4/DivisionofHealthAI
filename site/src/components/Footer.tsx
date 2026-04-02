@@ -74,11 +74,17 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-border">
+        <div className="mt-12 pt-6 border-t border-border flex justify-between items-center">
           <p className="text-xs text-text-muted">
             &copy; {new Date().getFullYear()} Division of Health AI, Feinstein
             Institutes for Medical Research
           </p>
+          <Link
+            href="/admin/login"
+            className="text-[10px] text-text-muted/30 hover:text-text-muted transition-colors duration-200"
+          >
+            Admin
+          </Link>
         </div>
       </div>
     </footer>
