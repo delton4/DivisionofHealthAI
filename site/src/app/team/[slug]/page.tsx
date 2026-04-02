@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EditableText } from "@/components/EditableText";
+import { PhotoUpload } from "@/components/PhotoUpload";
 import {
   researchers,
   getResearcherWithOverrides,
@@ -12,7 +13,7 @@ import {
 
 export const revalidate = 60;
 
-const photos: Record<string, string> = {
+const staticPhotos: Record<string, string> = {
   "theodoros-zanos": "/zanos.jpg",
 };
 
@@ -53,15 +54,12 @@ export default async function ResearcherDetailPage({
           Back to Team
         </Link>
 
-        {photos[researcher.slug] && (
-          <Image
-            src={photos[researcher.slug]}
-            alt={researcher.name}
-            width={200}
-            height={200}
-            className="rounded-md object-cover w-36 h-36 md:w-48 md:h-48 mt-8"
-          />
-        )}
+        <PhotoUpload
+          researcherId={researcher.id}
+          researcherSlug={researcher.slug}
+          researcherName={researcher.name}
+          photoUrl={(researcher as unknown as Record<string, string>).photo || staticPhotos[researcher.slug]}
+        />
 
         <h1 className="font-display text-3xl md:text-4xl tracking-tight mt-6">
           <EditableText

@@ -3,6 +3,7 @@
 import { compare } from "bcryptjs";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { put } from "@vercel/blob";
 import {
   getAdminByEmail,
   upsertOverride,
@@ -216,4 +217,28 @@ export async function restoreResearcher(id: string) {
   revalidatePath("/team");
   revalidatePath("/admin/team");
   return { success: true };
+}
+
+// ---- Photo upload ----
+
+export async function uploadResearcherPhoto(formData: FormData) {
+  const session = await verifySession();
+  if (!session) return { error: "Not authenticated." };
+
+  const file = formData.get("file") as File;
+  const researcherId = formData.get("researcherId") as string;
+  const researcherSlug = formData.get("researcherSlug") as string;
+
+  if (!file || !researcherId) return { error: "Missing file or researcher ID." };
+
+  const blob = await put(`photos/${researcherId}-${Date.now()}.${file.name.split(".").pop()}`, file, {
+    access: "public",
+  });
+
+  await upsertOverride("researcher", researcherId, "photo", blob.url);
+
+  revalidatePath(`/team/${researcherSlug}`);
+  revalidatePath("/team");
+  revalidatePath("/");
+  return { success: true, url: blob.url };
 }
