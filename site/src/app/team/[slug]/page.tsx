@@ -109,19 +109,17 @@ export default async function ResearcherDetailPage({
           )}
         </div>
 
-        {researcher.about && (
-          <div className="mt-6">
-            <EditableText
-              entity="researcher"
-              entityId={researcher.id}
-              field="about"
-              value={researcher.about}
-              multiline
-              as="p"
-              className="text-text-secondary leading-relaxed"
-            />
-          </div>
-        )}
+        <div className="mt-6">
+          <EditableText
+            entity="researcher"
+            entityId={researcher.id}
+            field="about"
+            value={researcher.about || "No bio yet. Click to add one."}
+            multiline
+            as="p"
+            className="text-text-secondary leading-relaxed"
+          />
+        </div>
 
         {relatedProjects.length > 0 && (
           <section className="mt-12 pt-8 border-t border-border">
