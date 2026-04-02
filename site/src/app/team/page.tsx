@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TeamCard } from "@/components/TeamCard";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { AccentLine } from "@/components/AccentLine";
 import { researchers } from "@/data";
 
 export const metadata: Metadata = {
@@ -17,14 +19,16 @@ export default function TeamPage() {
     <>
       <section className="pt-36 pb-16">
         <div className="mx-auto max-w-6xl px-6">
-          <h1 className="font-display text-4xl md:text-5xl tracking-tight">Team</h1>
-          <div className="mt-3 w-12 h-0.5 bg-accent-warm" />
+          <h1 className="font-display text-4xl md:text-5xl tracking-tight">
+            <span className="line-reveal"><span>Team</span></span>
+          </h1>
+          <AccentLine />
         </div>
       </section>
 
       {/* Division Head */}
       {leader && (
-        <section className="pb-16">
+        <AnimatedSection className="pb-16">
           <div className="mx-auto max-w-6xl px-6">
             <Link
               href={`/team/${leader.slug}`}
@@ -41,11 +45,11 @@ export default function TeamPage() {
               )}
             </Link>
           </div>
-        </section>
+        </AnimatedSection>
       )}
 
       {/* Rest of team */}
-      <section className="pb-20">
+      <AnimatedSection className="pb-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {rest.map((researcher) => (
@@ -53,7 +57,7 @@ export default function TeamPage() {
             ))}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   );
 }

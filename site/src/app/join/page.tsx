@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { AccentLine } from "@/components/AccentLine";
 
 export const metadata: Metadata = {
   title: "Join Us",
@@ -10,9 +12,11 @@ export default function JoinPage() {
     <>
       <section className="pt-36 pb-16">
         <div className="mx-auto max-w-6xl px-6">
-          <h1 className="font-display text-4xl md:text-5xl tracking-tight">Join Us</h1>
-          <div className="mt-3 w-12 h-0.5 bg-accent-warm" />
-          <p className="mt-6 text-lg text-text-secondary max-w-2xl leading-relaxed">
+          <h1 className="font-display text-4xl md:text-5xl tracking-tight">
+            <span className="line-reveal"><span>Join Us</span></span>
+          </h1>
+          <AccentLine />
+          <p className="hero-subtitle mt-6 text-lg text-text-secondary max-w-2xl leading-relaxed">
             We&apos;re looking for talented researchers, engineers, and clinicians
             who want to make a real impact on patient care through artificial
             intelligence.
@@ -21,7 +25,7 @@ export default function JoinPage() {
       </section>
 
       {/* Visiting Scholar */}
-      <section className="pb-20">
+      <AnimatedSection className="pb-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
             <h2 className="font-display text-2xl tracking-tight">Visiting Scholar Program</h2>
@@ -38,10 +42,10 @@ export default function JoinPage() {
             </ul>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Collaboration */}
-      <section className="py-20 border-t border-border">
+      <AnimatedSection className="py-20 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
             <h2 className="font-display text-2xl tracking-tight">Research Collaboration</h2>
@@ -58,10 +62,10 @@ export default function JoinPage() {
             </ul>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Location & Contact */}
-      <section className="py-20 border-t border-border">
+      <AnimatedSection className="py-20 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
             <h2 className="font-display text-2xl tracking-tight">Where We Work</h2>
@@ -95,7 +99,7 @@ export default function JoinPage() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   );
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
 import { PublicationCard } from "@/components/PublicationCard";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { AccentLine } from "@/components/AccentLine";
 import { projects, publications, researchers } from "@/data";
 
 export default function HomePage() {
@@ -13,17 +15,16 @@ export default function HomePage() {
       <section className="pt-36 pb-20">
         <div className="mx-auto max-w-6xl px-6">
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1] text-foreground">
-            Division of
-            <br />
-            Health AI
+            <span className="line-reveal"><span>Division of</span></span>
+            <span className="line-reveal"><span>Health AI</span></span>
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-text-secondary max-w-2xl leading-relaxed">
+          <p className="hero-subtitle mt-6 text-lg md:text-xl text-text-secondary max-w-2xl leading-relaxed">
             We develop machine learning systems for early disease diagnosis,
             patient deterioration prediction, and personalized therapeutics at
             the Feinstein Institutes for Medical Research.
           </p>
-          <div className="mt-3 w-12 h-0.5 bg-accent-warm" />
-          <div className="mt-8 flex flex-wrap gap-6 text-sm">
+          <AccentLine delay={600} />
+          <div className="hero-links mt-8 flex flex-wrap gap-6 text-sm">
             <Link href="/research" className="text-accent hover:text-foreground transition-colors duration-200">
               Research →
             </Link>
@@ -41,7 +42,7 @@ export default function HomePage() {
       </section>
 
       {/* Research Verticals */}
-      <section className="py-16 border-t border-border">
+      <AnimatedSection className="py-16 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-baseline justify-between mb-12">
             <h2 className="font-display text-3xl tracking-tight">Research</h2>
@@ -63,10 +64,10 @@ export default function HomePage() {
             Communications, PNAS, JAMA, and Nature Machine Intelligence.
           </p>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Selected Publications */}
-      <section className="py-20 border-t border-border">
+      <AnimatedSection className="py-20 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-baseline justify-between mb-8">
             <h2 className="font-display text-3xl tracking-tight">
@@ -93,11 +94,11 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Leadership */}
       {leader && (
-        <section className="py-20 border-t border-border">
+        <AnimatedSection className="py-20 border-t border-border">
           <div className="mx-auto max-w-6xl px-6">
             <div className="flex items-baseline justify-between mb-8">
               <h2 className="font-display text-3xl tracking-tight">Leadership</h2>
@@ -132,11 +133,11 @@ export default function HomePage() {
               </p>
             </Link>
           </div>
-        </section>
+        </AnimatedSection>
       )}
 
       {/* Join */}
-      <section className="py-16 border-t border-border">
+      <AnimatedSection className="py-16 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-text-secondary">
             Interested in joining or collaborating?{" "}
@@ -148,7 +149,7 @@ export default function HomePage() {
             </Link>
           </p>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   );
 }

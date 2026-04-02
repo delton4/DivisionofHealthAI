@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { AccentLine } from "@/components/AccentLine";
 
 export const metadata: Metadata = {
   title: "About",
@@ -11,13 +13,15 @@ export default function AboutPage() {
       {/* Header */}
       <section className="pt-36 pb-16">
         <div className="mx-auto max-w-6xl px-6">
-          <h1 className="font-display text-4xl md:text-5xl tracking-tight">About</h1>
-          <div className="mt-3 w-12 h-0.5 bg-accent-warm" />
+          <h1 className="font-display text-4xl md:text-5xl tracking-tight">
+            <span className="line-reveal"><span>About</span></span>
+          </h1>
+          <AccentLine />
         </div>
       </section>
 
       {/* Mission */}
-      <section className="pb-20">
+      <AnimatedSection className="pb-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
             <p className="text-lg text-text-secondary leading-relaxed">
@@ -35,10 +39,10 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Approach */}
-      <section className="py-20 border-t border-border">
+      <AnimatedSection className="py-20 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="font-display text-3xl tracking-tight mb-8">Our Approach</h2>
           <div className="max-w-3xl">
@@ -55,10 +59,10 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Key achievements */}
-      <section className="py-20 border-t border-border">
+      <AnimatedSection className="py-20 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="font-display text-3xl tracking-tight mb-8">Key Achievements</h2>
           <div className="max-w-3xl space-y-6">
@@ -96,10 +100,10 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* CTA */}
-      <section className="py-16 border-t border-border">
+      <AnimatedSection className="py-16 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-text-secondary">
             <Link
@@ -117,7 +121,7 @@ export default function AboutPage() {
             </Link>
           </p>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   );
 }
