@@ -159,3 +159,87 @@ export async function unhideEntity(entity: string, entityId: string) {
   const sql = getDb();
   await sql`DELETE FROM hidden_entities WHERE entity = ${entity} AND entity_id = ${entityId}`;
 }
+
+// ---- Custom projects ----
+
+export async function getCustomProjects() {
+  if (process.env.GITHUB_ACTIONS === "true") return [];
+  try {
+    const sql = getDb();
+    return await sql`SELECT * FROM custom_projects ORDER BY created_at DESC`;
+  } catch {
+    return [];
+  }
+}
+
+export async function addCustomProject(proj: {
+  id: string;
+  name: string;
+  about: string;
+}) {
+  const sql = getDb();
+  await sql`
+    INSERT INTO custom_projects (id, name, about)
+    VALUES (${proj.id}, ${proj.name}, ${proj.about})
+  `;
+}
+
+export async function removeCustomProject(id: string) {
+  const sql = getDb();
+  await sql`DELETE FROM custom_projects WHERE id = ${id}`;
+}
+
+// ---- Custom researchers ----
+
+export async function getCustomResearchers() {
+  if (process.env.GITHUB_ACTIONS === "true") return [];
+  try {
+    const sql = getDb();
+    return await sql`SELECT * FROM custom_researchers ORDER BY created_at DESC`;
+  } catch {
+    return [];
+  }
+}
+
+export async function addCustomResearcher(r: {
+  id: string;
+  name: string;
+  title: string;
+}) {
+  const sql = getDb();
+  await sql`
+    INSERT INTO custom_researchers (id, name, title)
+    VALUES (${r.id}, ${r.name}, ${r.title})
+  `;
+}
+
+export async function removeCustomResearcher(id: string) {
+  const sql = getDb();
+  await sql`DELETE FROM custom_researchers WHERE id = ${id}`;
+}
+
+// ---- Dynamic alumni (database-stored) ----
+
+export async function getDbAlumni() {
+  if (process.env.GITHUB_ACTIONS === "true") return [];
+  try {
+    const sql = getDb();
+    return await sql`SELECT * FROM db_alumni ORDER BY created_at DESC`;
+  } catch {
+    return [];
+  }
+}
+
+export async function addDbAlumni(name: string, credentials: string) {
+  const sql = getDb();
+  await sql`
+    INSERT INTO db_alumni (name, credentials)
+    VALUES (${name}, ${credentials})
+    ON CONFLICT DO NOTHING
+  `;
+}
+
+export async function removeDbAlumni(id: number) {
+  const sql = getDb();
+  await sql`DELETE FROM db_alumni WHERE id = ${id}`;
+}

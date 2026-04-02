@@ -88,15 +88,85 @@ export async function getProjectWithOverrides(
 }
 
 export async function getAllResearchersWithOverrides(): Promise<Researcher[]> {
+  let allResearchers = [...researchers];
+
+  try {
+    const { getCustomResearchers, getHiddenEntityIds } = await import("@/lib/db");
+    const [customRows, hiddenIds] = await Promise.all([
+      getCustomResearchers(),
+      getHiddenEntityIds("researcher"),
+    ]);
+
+    allResearchers = allResearchers.filter((r) => !hiddenIds.has(r.id));
+
+    for (const row of customRows) {
+      allResearchers.push({
+        id: row.id,
+        name: row.name,
+        title: row.title,
+        about: "",
+        slug: row.id,
+        projectIds: [],
+        publicationIds: [],
+        image: "",
+      });
+    }
+  } catch {
+    // DB unavailable
+  }
+
   return Promise.all(
-    researchers.map((r) => mergeOverrides("researcher", r.id, r))
+    allResearchers.map((r) => mergeOverrides("researcher", r.id, r))
   );
 }
 
 export async function getAllProjectsWithOverrides(): Promise<Project[]> {
+  let allProjects = [...projects];
+
+  try {
+    const { getCustomProjects, getHiddenEntityIds } = await import("@/lib/db");
+    const [customRows, hiddenIds] = await Promise.all([
+      getCustomProjects(),
+      getHiddenEntityIds("project"),
+    ]);
+
+    allProjects = allProjects.filter((p) => !hiddenIds.has(p.id));
+
+    for (const row of customRows) {
+      allProjects.push({
+        id: row.id,
+        name: row.name,
+        title: "",
+        about: row.about,
+        slug: row.id,
+        researcherIds: [],
+        publicationIds: [],
+        image: "",
+      });
+    }
+  } catch {
+    // DB unavailable
+  }
+
   return Promise.all(
-    projects.map((p) => mergeOverrides("project", p.id, p))
+    allProjects.map((p) => mergeOverrides("project", p.id, p))
   );
+}
+
+export async function getAllAlumni(): Promise<Alumni[]> {
+  const staticAlumni = [...alumni];
+
+  try {
+    const { getDbAlumni } = await import("@/lib/db");
+    const dbRows = await getDbAlumni();
+    for (const row of dbRows) {
+      staticAlumni.push({ name: row.name, credentials: row.credentials });
+    }
+  } catch {
+    // DB unavailable
+  }
+
+  return staticAlumni;
 }
 
 export async function getAllPublicationsWithOverrides(): Promise<Publication[]> {

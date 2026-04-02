@@ -8,6 +8,12 @@ import {
   upsertOverride,
   addCustomPublication,
   removeCustomPublication,
+  addCustomProject,
+  removeCustomProject,
+  addCustomResearcher,
+  removeCustomResearcher,
+  addDbAlumni,
+  removeDbAlumni,
   hideEntity,
   unhideEntity,
 } from "./db";
@@ -105,5 +111,109 @@ export async function restorePublication(id: string) {
   revalidatePath("/publications");
   revalidatePath("/admin/publications");
   revalidatePath("/");
+  return { success: true };
+}
+
+// ---- Project management ----
+
+export async function addProject(formData: FormData): Promise<void> {
+  const session = await verifySession();
+  if (!session) throw new Error("Not authenticated.");
+
+  const name = formData.get("name") as string;
+  const about = formData.get("about") as string;
+  if (!name) throw new Error("Name is required.");
+
+  const id = `custom-${Date.now()}`;
+  await addCustomProject({ id, name, about: about || "" });
+
+  revalidatePath("/research");
+  revalidatePath("/admin/research");
+  revalidatePath("/");
+  redirect("/admin/research");
+}
+
+export async function deleteProject(id: string) {
+  const session = await verifySession();
+  if (!session) return { error: "Not authenticated." };
+
+  if (id.startsWith("custom-")) {
+    await removeCustomProject(id);
+  } else {
+    await hideEntity("project", id);
+  }
+
+  revalidatePath("/research");
+  revalidatePath("/admin/research");
+  revalidatePath("/");
+  return { success: true };
+}
+
+export async function restoreProject(id: string) {
+  const session = await verifySession();
+  if (!session) return { error: "Not authenticated." };
+
+  await unhideEntity("project", id);
+
+  revalidatePath("/research");
+  revalidatePath("/admin/research");
+  revalidatePath("/");
+  return { success: true };
+}
+
+// ---- Researcher management ----
+
+export async function addResearcher(formData: FormData): Promise<void> {
+  const session = await verifySession();
+  if (!session) throw new Error("Not authenticated.");
+
+  const name = formData.get("name") as string;
+  const title = formData.get("title") as string;
+  if (!name) throw new Error("Name is required.");
+
+  const id = `custom-${Date.now()}`;
+  await addCustomResearcher({ id, name, title: title || "" });
+
+  revalidatePath("/team");
+  revalidatePath("/admin/team");
+  redirect("/admin/team");
+}
+
+export async function moveResearcherToAlumni(id: string, name: string, credentials: string) {
+  const session = await verifySession();
+  if (!session) return { error: "Not authenticated." };
+
+  // Add to alumni list
+  await addDbAlumni(name, credentials);
+
+  // Hide from active team
+  if (id.startsWith("custom-")) {
+    await removeCustomResearcher(id);
+  } else {
+    await hideEntity("researcher", id);
+  }
+
+  revalidatePath("/team");
+  revalidatePath("/admin/team");
+  return { success: true };
+}
+
+export async function deleteAlumni(alumniId: number) {
+  const session = await verifySession();
+  if (!session) return { error: "Not authenticated." };
+
+  await removeDbAlumni(alumniId);
+  revalidatePath("/team");
+  revalidatePath("/admin/team");
+  return { success: true };
+}
+
+export async function restoreResearcher(id: string) {
+  const session = await verifySession();
+  if (!session) return { error: "Not authenticated." };
+
+  await unhideEntity("researcher", id);
+  revalidatePath("/team");
+  revalidatePath("/admin/team");
   return { success: true };
 }

@@ -61,10 +61,22 @@ export function Navigation() {
             {isAdmin && (
               <>
                 <Link
+                  href="/admin/team"
+                  className="text-xs text-text-muted hover:text-accent transition-colors duration-200"
+                >
+                  Team
+                </Link>
+                <Link
+                  href="/admin/research"
+                  className="text-xs text-text-muted hover:text-accent transition-colors duration-200"
+                >
+                  Research
+                </Link>
+                <Link
                   href="/admin/publications"
                   className="text-xs text-text-muted hover:text-accent transition-colors duration-200"
                 >
-                  Manage Pubs
+                  Pubs
                 </Link>
                 <form action={logout}>
                   <button

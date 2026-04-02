@@ -3,13 +3,16 @@ import Link from "next/link";
 import { TeamCard } from "@/components/TeamCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { EditableText } from "@/components/EditableText";
-import { getAllResearchersWithOverrides, alumni } from "@/data";
+import { getAllResearchersWithOverrides, getAllAlumni } from "@/data";
 
 export const metadata: Metadata = { title: "Team" };
 export const revalidate = 60;
 
 export default async function TeamPage() {
-  const allResearchers = await getAllResearchersWithOverrides();
+  const [allResearchers, allAlumni] = await Promise.all([
+    getAllResearchersWithOverrides(),
+    getAllAlumni(),
+  ]);
   const leader = allResearchers.find((r) => r.id === "1");
   const rest = allResearchers
     .filter((r) => r.id !== "1")
@@ -73,7 +76,7 @@ export default async function TeamPage() {
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="font-display text-2xl tracking-tight mb-6">Alumni</h2>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-text-muted">
-            {alumni.map((a) => (
+            {allAlumni.map((a) => (
               <span key={a.name}>
                 {a.name} {a.credentials}
               </span>
