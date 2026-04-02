@@ -9,13 +9,13 @@ export function LoginForm() {
   return (
     <form action={formAction} className="space-y-4">
       <div>
-        <label htmlFor="email" className="block text-sm text-text-secondary mb-1">
-          Email
+        <label htmlFor="username" className="block text-sm text-text-secondary mb-1">
+          Username
         </label>
         <input
-          id="email"
-          name="email"
-          type="email"
+          id="username"
+          name="username"
+          type="text"
           required
           className="w-full px-3 py-2 bg-surface border border-border rounded-md text-foreground text-sm focus:outline-none focus:border-accent transition-colors"
         />

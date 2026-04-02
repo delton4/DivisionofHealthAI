@@ -23,14 +23,14 @@ export async function login(
   _prevState: { error: string } | null,
   formData: FormData
 ): Promise<{ error: string } | null> {
-  const email = formData.get("email") as string;
+  const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
-  if (!email || !password) {
-    return { error: "Email and password are required." };
+  if (!username || !password) {
+    return { error: "Username and password are required." };
   }
 
-  const admin = await getAdminByEmail(email);
+  const admin = await getAdminByEmail(username);
   if (!admin) {
     return { error: "Invalid credentials." };
   }
