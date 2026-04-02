@@ -1,22 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { EditableText } from "@/components/EditableText";
+import { getPageOverrides } from "@/data";
 
-export const metadata: Metadata = {
-  title: "Join Us",
+export const metadata: Metadata = { title: "Join Us" };
+export const revalidate = 60;
+
+const defaults: Record<string, string> = {
+  intro: "We're looking for talented researchers, engineers, and clinicians who want to make a real impact on patient care through artificial intelligence.",
+  scholar_desc: "Join our lab for a research rotation. Work alongside our team on active projects, gain hands-on experience with clinical AI development, and contribute to publications.",
+  collab_desc: "Partner with us on joint research projects. We collaborate with academic institutions, healthcare systems, and industry partners to advance health AI.",
+  location_desc: "Feinstein Institutes for Medical Research, Northwell Health's research arm and one of the largest biomedical research organizations in the US.",
 };
 
-export default function JoinPage() {
+export default async function JoinPage() {
+  const overrides = await getPageOverrides("join");
+  const get = (key: string) => overrides[key] || defaults[key];
+
   return (
     <>
       <section className="pt-36 pb-12">
         <div className="mx-auto max-w-6xl px-6">
           <h1 className="font-display text-4xl md:text-5xl tracking-tight">Join Us</h1>
-          <p className="mt-6 text-lg text-text-secondary max-w-2xl leading-relaxed">
-            We&apos;re looking for talented researchers, engineers, and clinicians
-            who want to make a real impact on patient care through artificial
-            intelligence.
-          </p>
+          <div className="mt-6 max-w-2xl">
+            <EditableText entity="page" entityId="join" field="intro" value={get("intro")} multiline as="p" className="text-lg text-text-secondary leading-relaxed" />
+          </div>
         </div>
       </section>
 
@@ -24,11 +33,9 @@ export default function JoinPage() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
             <h2 className="font-display text-2xl tracking-tight">Visiting Scholar Program</h2>
-            <p className="mt-4 text-text-secondary leading-relaxed">
-              Join our lab for a research rotation. Work alongside our team on
-              active projects, gain hands-on experience with clinical AI
-              development, and contribute to publications.
-            </p>
+            <div className="mt-4">
+              <EditableText entity="page" entityId="join" field="scholar_desc" value={get("scholar_desc")} multiline as="p" className="text-text-secondary leading-relaxed" />
+            </div>
             <ul className="mt-4 space-y-1.5 text-sm text-text-secondary">
               <li>· 3 to 12 month research rotations</li>
               <li>· Access to clinical datasets and computing resources</li>
@@ -43,11 +50,9 @@ export default function JoinPage() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
             <h2 className="font-display text-2xl tracking-tight">Research Collaboration</h2>
-            <p className="mt-4 text-text-secondary leading-relaxed">
-              Partner with us on joint research projects. We collaborate with
-              academic institutions, healthcare systems, and industry partners
-              to advance health AI.
-            </p>
+            <div className="mt-4">
+              <EditableText entity="page" entityId="join" field="collab_desc" value={get("collab_desc")} multiline as="p" className="text-text-secondary leading-relaxed" />
+            </div>
             <ul className="mt-4 space-y-1.5 text-sm text-text-secondary">
               <li>· Joint grant applications</li>
               <li>· Shared datasets and infrastructure</li>
@@ -62,11 +67,9 @@ export default function JoinPage() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
             <h2 className="font-display text-2xl tracking-tight">Where We Work</h2>
-            <p className="mt-4 text-text-secondary leading-relaxed">
-              Feinstein Institutes for Medical Research, Northwell Health&apos;s
-              research arm and one of the largest biomedical research organizations
-              in the US.
-            </p>
+            <div className="mt-4">
+              <EditableText entity="page" entityId="join" field="location_desc" value={get("location_desc")} multiline as="p" className="text-text-secondary leading-relaxed" />
+            </div>
             <p className="mt-2 text-sm text-text-muted">
               350 Community Drive, Manhasset, NY 11030
             </p>

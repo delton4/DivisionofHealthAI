@@ -1,21 +1,34 @@
+"use client";
+
 import Link from "next/link";
 import type { Project } from "@/lib/types";
+import { EditableText } from "@/components/EditableText";
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <Link
-      href={`/research/${project.slug}`}
-      className="block py-5 group"
-    >
-      <h3 className="font-display text-xl md:text-2xl text-foreground group-hover:underline underline-offset-4 decoration-text-muted/40">
-        {project.name}
-      </h3>
-      <p className="text-sm text-text-secondary mt-2 line-clamp-2 leading-relaxed">
-        {project.about}
-      </p>
+    <div className="py-5">
+      <Link
+        href={`/research/${project.slug}`}
+        className="group"
+      >
+        <h3 className="font-display text-xl md:text-2xl text-foreground group-hover:underline underline-offset-4 decoration-text-muted/40 inline">
+          {project.name}
+        </h3>
+      </Link>
+      <div className="mt-2">
+        <EditableText
+          entity="project"
+          entityId={project.id}
+          field="about"
+          value={project.about}
+          multiline
+          as="p"
+          className="text-sm text-text-secondary leading-relaxed line-clamp-2"
+        />
+      </div>
       <span className="text-xs text-text-muted mt-2 inline-block">
         {project.researcherIds.length} researchers · {project.publicationIds.length} publications
       </span>
-    </Link>
+    </div>
   );
 }

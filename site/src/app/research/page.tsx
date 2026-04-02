@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { ProjectCard } from "@/components/ProjectCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { projects } from "@/data";
+import { getAllProjectsWithOverrides } from "@/data";
 
-export const metadata: Metadata = {
-  title: "Research",
-};
+export const metadata: Metadata = { title: "Research" };
+export const revalidate = 60;
 
-export default function ResearchPage() {
+export default async function ResearchPage() {
+  const allProjects = await getAllProjectsWithOverrides();
+
   return (
     <>
       <section className="pt-36 pb-12">
@@ -24,7 +25,7 @@ export default function ResearchPage() {
       <AnimatedSection className="pb-24">
         <div className="mx-auto max-w-6xl px-6">
           <div className="divide-y divide-border">
-            {projects.map((project) => (
+            {allProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>

@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { TeamCard } from "@/components/TeamCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { researchers } from "@/data";
+import { EditableText } from "@/components/EditableText";
+import { getAllResearchersWithOverrides } from "@/data";
 
-export const metadata: Metadata = {
-  title: "Team",
-};
+export const metadata: Metadata = { title: "Team" };
+export const revalidate = 60;
 
-export default function TeamPage() {
-  const leader = researchers.find((r) => r.id === "1");
-  const rest = researchers
+export default async function TeamPage() {
+  const allResearchers = await getAllResearchersWithOverrides();
+  const leader = allResearchers.find((r) => r.id === "1");
+  const rest = allResearchers
     .filter((r) => r.id !== "1")
     .sort((a, b) => a.name.localeCompare(b.name));
 
@@ -25,20 +26,34 @@ export default function TeamPage() {
       {leader && (
         <AnimatedSection className="pb-16">
           <div className="mx-auto max-w-6xl px-6">
-            <Link
-              href={`/team/${leader.slug}`}
-              className="block p-6 md:p-8 group"
-            >
-              <h2 className="font-display text-2xl md:text-3xl text-foreground group-hover:underline underline-offset-4 decoration-text-muted/40">
-                {leader.name}
-              </h2>
-              <p className="text-sm text-text-muted mt-1">{leader.title}</p>
+            <div className="p-6 md:p-8">
+              <Link href={`/team/${leader.slug}`} className="group">
+                <h2 className="font-display text-2xl md:text-3xl text-foreground group-hover:underline underline-offset-4 decoration-text-muted/40">
+                  {leader.name}
+                </h2>
+              </Link>
+              <EditableText
+                entity="researcher"
+                entityId={leader.id}
+                field="title"
+                value={leader.title}
+                as="p"
+                className="text-sm text-text-muted mt-1"
+              />
               {leader.about && (
-                <p className="text-sm text-text-secondary mt-4 max-w-2xl leading-relaxed line-clamp-3">
-                  {leader.about}
-                </p>
+                <div className="mt-4 max-w-2xl">
+                  <EditableText
+                    entity="researcher"
+                    entityId={leader.id}
+                    field="about"
+                    value={leader.about}
+                    multiline
+                    as="p"
+                    className="text-sm text-text-secondary leading-relaxed line-clamp-3"
+                  />
+                </div>
               )}
-            </Link>
+            </div>
           </div>
         </AnimatedSection>
       )}

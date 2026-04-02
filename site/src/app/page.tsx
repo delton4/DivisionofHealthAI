@@ -5,11 +5,29 @@ import { PublicationCard } from "@/components/PublicationCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { AccentLine } from "@/components/AccentLine";
 import { HeroLogo } from "@/components/HeroLogo";
-import { projects, publications, researchers } from "@/data";
+import { EditableText } from "@/components/EditableText";
+import {
+  getAllProjectsWithOverrides,
+  getAllPublicationsWithOverrides,
+  getAllResearchersWithOverrides,
+  getPageOverrides,
+} from "@/data";
 
-export default function HomePage() {
-  const featuredPubs = publications.slice(0, 4);
-  const leader = researchers.find((r) => r.id === "1");
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const [allProjects, allPubs, allResearchers, pageOverrides] = await Promise.all([
+    getAllProjectsWithOverrides(),
+    getAllPublicationsWithOverrides(),
+    getAllResearchersWithOverrides(),
+    getPageOverrides("home"),
+  ]);
+
+  const featuredPubs = allPubs.slice(0, 4);
+  const leader = allResearchers.find((r) => r.id === "1");
+
+  const heroSubtitle = pageOverrides.subtitle ||
+    "Machine learning for early diagnosis, deterioration prediction, and personalized therapeutics.";
 
   return (
     <>
@@ -22,10 +40,17 @@ export default function HomePage() {
                 <span className="line-reveal"><span>Division of</span></span>
                 <span className="line-reveal"><span>Health AI</span></span>
               </h1>
-              <p className="hero-subtitle mt-6 text-lg text-text-secondary max-w-lg leading-relaxed">
-                Machine learning for early diagnosis, deterioration prediction,
-                and personalized therapeutics.
-              </p>
+              <div className="hero-subtitle mt-6 max-w-lg">
+                <EditableText
+                  entity="page"
+                  entityId="home"
+                  field="subtitle"
+                  value={heroSubtitle}
+                  multiline
+                  as="p"
+                  className="text-lg text-text-secondary leading-relaxed"
+                />
+              </div>
               <AccentLine delay={600} />
             </div>
             <HeroLogo size={280} className="hidden lg:block shrink-0 -mt-4" />
@@ -57,13 +82,10 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="divide-y divide-border">
-            {projects.slice(0, 5).map((project) => (
+            {allProjects.slice(0, 5).map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
-          <p className="mt-10 text-sm text-text-muted">
-            55 publications · 22 researchers · $9.8M NIH funding · 10,000+ citations
-          </p>
         </div>
       </AnimatedSection>
 
@@ -77,32 +99,41 @@ export default function HomePage() {
                 Full team
               </Link>
             </div>
-            <Link
-              href={`/team/${leader.slug}`}
-              className="flex flex-col md:flex-row gap-6 md:gap-8 group"
-            >
-              <Image
-                src="/zanos.jpg"
-                alt="Dr. Theodoros P. Zanos"
-                width={160}
-                height={160}
-                className="rounded-md object-cover w-32 h-32 md:w-40 md:h-40 shrink-0"
-              />
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+              <Link href={`/team/${leader.slug}`}>
+                <Image
+                  src="/zanos.jpg"
+                  alt="Dr. Theodoros P. Zanos"
+                  width={160}
+                  height={160}
+                  className="rounded-md object-cover w-32 h-32 md:w-40 md:h-40 shrink-0"
+                />
+              </Link>
               <div>
-                <h3 className="font-display text-2xl group-hover:underline underline-offset-4 decoration-text-muted/40">
-                  Dr. Theodoros P. Zanos
-                </h3>
-                <p className="text-sm text-text-muted mt-1">
-                  Head, Division of Health Artificial Intelligence
-                </p>
-                <p className="text-sm text-text-secondary mt-3 leading-relaxed max-w-xl">
-                  Associate Professor at the Feinstein Institutes and the Zucker School
-                  of Medicine at Hofstra/Northwell. Over 50 peer-reviewed publications,
-                  10,000+ citations. His lab predicts patient deterioration up to 17 hours
-                  in advance.
-                </p>
+                <Link href={`/team/${leader.slug}`} className="group">
+                  <h3 className="font-display text-2xl group-hover:underline underline-offset-4 decoration-text-muted/40">
+                    Dr. Theodoros P. Zanos
+                  </h3>
+                </Link>
+                <EditableText
+                  entity="researcher"
+                  entityId={leader.id}
+                  field="title"
+                  value={leader.title}
+                  as="p"
+                  className="text-sm text-text-muted mt-1"
+                />
+                <EditableText
+                  entity="researcher"
+                  entityId={leader.id}
+                  field="about"
+                  value={leader.about.length > 300 ? leader.about.slice(0, 300) + "..." : leader.about}
+                  multiline
+                  as="p"
+                  className="text-sm text-text-secondary mt-3 leading-relaxed max-w-xl"
+                />
               </div>
-            </Link>
+            </div>
           </div>
         </AnimatedSection>
       )}
