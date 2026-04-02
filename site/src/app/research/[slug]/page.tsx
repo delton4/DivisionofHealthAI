@@ -40,16 +40,13 @@ export default async function ProjectDetailPage({
       <div className="mx-auto max-w-3xl px-6">
         <Link
           href="/research"
-          className="text-sm text-text-muted hover:text-foreground transition-colors duration-200"
+          className="text-sm text-text-muted hover:text-text-secondary transition-colors duration-200"
         >
-          ← Research
+          Back to Research
         </Link>
 
         <div className="mt-8">
-          <span className="text-xs uppercase tracking-[0.15em] text-text-muted">
-            {project.title}
-          </span>
-          <h1 className="font-display text-3xl md:text-4xl tracking-tight mt-1">
+          <h1 className="font-display text-3xl md:text-4xl tracking-tight">
             {project.name}
           </h1>
           <p className="text-sm text-text-muted mt-2">
@@ -67,9 +64,9 @@ export default async function ProjectDetailPage({
                 <li key={r.id}>
                   <Link
                     href={`/team/${r.slug}`}
-                    className="block py-2 text-sm group"
+                    className="block py-2 text-sm"
                   >
-                    <span className="text-foreground group-hover:text-accent transition-colors duration-200">
+                    <span className="text-foreground hover:underline underline-offset-4 decoration-text-muted/40">
                       {r.name}
                     </span>
                     {r.title && (
@@ -92,7 +89,7 @@ export default async function ProjectDetailPage({
             <div className="space-y-4">
               {pubs.map((pub) => (
                 <div key={pub.id} className="border-b border-border pb-4">
-                  <span className="text-xs uppercase tracking-[0.12em] text-text-muted">
+                  <span className="text-xs italic text-text-muted">
                     {pub.journal}
                   </span>
                   {pub.publicationUrl ? (
@@ -100,7 +97,7 @@ export default async function ProjectDetailPage({
                       href={pub.publicationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block text-sm font-medium mt-0.5 text-foreground hover:text-accent transition-colors duration-200"
+                      className="block text-sm font-medium mt-0.5 text-foreground hover:underline underline-offset-4 decoration-text-muted/40"
                     >
                       {pub.name}
                     </a>

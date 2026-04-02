@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { AccentLine } from "@/components/AccentLine";
 
 export const metadata: Metadata = {
   title: "Join Us",
@@ -10,13 +9,10 @@ export const metadata: Metadata = {
 export default function JoinPage() {
   return (
     <>
-      <section className="pt-36 pb-16">
+      <section className="pt-36 pb-12">
         <div className="mx-auto max-w-6xl px-6">
-          <h1 className="font-display text-4xl md:text-5xl tracking-tight">
-            <span className="line-reveal"><span>Join Us</span></span>
-          </h1>
-          <AccentLine />
-          <p className="hero-subtitle mt-6 text-lg text-text-secondary max-w-2xl leading-relaxed">
+          <h1 className="font-display text-4xl md:text-5xl tracking-tight">Join Us</h1>
+          <p className="mt-6 text-lg text-text-secondary max-w-2xl leading-relaxed">
             We&apos;re looking for talented researchers, engineers, and clinicians
             who want to make a real impact on patient care through artificial
             intelligence.
@@ -24,7 +20,6 @@ export default function JoinPage() {
         </div>
       </section>
 
-      {/* Visiting Scholar */}
       <AnimatedSection className="pb-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
@@ -44,8 +39,7 @@ export default function JoinPage() {
         </div>
       </AnimatedSection>
 
-      {/* Collaboration */}
-      <AnimatedSection className="py-20 border-t border-border">
+      <AnimatedSection className="py-16 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
             <h2 className="font-display text-2xl tracking-tight">Research Collaboration</h2>
@@ -64,8 +58,7 @@ export default function JoinPage() {
         </div>
       </AnimatedSection>
 
-      {/* Location & Contact */}
-      <AnimatedSection className="py-20 border-t border-border">
+      <AnimatedSection className="pt-20 pb-24">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
             <h2 className="font-display text-2xl tracking-tight">Where We Work</h2>
@@ -83,17 +76,17 @@ export default function JoinPage() {
                 Interested?{" "}
                 <a
                   href="mailto:tzanos@northwell.edu"
-                  className="text-accent hover:text-foreground transition-colors duration-200"
+                  className="underline underline-offset-4 decoration-text-muted/40 hover:decoration-text-secondary transition-colors duration-200"
                 >
-                  Reach out to us →
+                  Reach out to us
                 </a>
               </p>
               <p className="mt-2 text-sm text-text-muted">
                 <Link
                   href="/team"
-                  className="hover:text-foreground transition-colors duration-200"
+                  className="hover:text-text-secondary transition-colors duration-200"
                 >
-                  Meet the current team →
+                  Meet the current team
                 </Link>
               </p>
             </div>

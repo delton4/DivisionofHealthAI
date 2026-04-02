@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { AccentLine } from "@/components/AccentLine";
 
 export const metadata: Metadata = {
   title: "About",
@@ -10,17 +9,12 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      {/* Header */}
-      <section className="pt-36 pb-16">
+      <section className="pt-36 pb-12">
         <div className="mx-auto max-w-6xl px-6">
-          <h1 className="font-display text-4xl md:text-5xl tracking-tight">
-            <span className="line-reveal"><span>About</span></span>
-          </h1>
-          <AccentLine />
+          <h1 className="font-display text-4xl md:text-5xl tracking-tight">About</h1>
         </div>
       </section>
 
-      {/* Mission */}
       <AnimatedSection className="pb-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-3xl">
@@ -41,8 +35,7 @@ export default function AboutPage() {
         </div>
       </AnimatedSection>
 
-      {/* Approach */}
-      <AnimatedSection className="py-20 border-t border-border">
+      <AnimatedSection className="py-16 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="font-display text-3xl tracking-tight mb-8">Our Approach</h2>
           <div className="max-w-3xl">
@@ -54,15 +47,13 @@ export default function AboutPage() {
               to decoding neural signals that unlock new therapies.
             </p>
             <p className="mt-4 text-text-secondary leading-relaxed">
-              What sets us apart is our commitment to the full translational pipeline.
               We don&apos;t stop at publishing. We build, validate, and deploy.
             </p>
           </div>
         </div>
       </AnimatedSection>
 
-      {/* Key achievements */}
-      <AnimatedSection className="py-20 border-t border-border">
+      <AnimatedSection className="pt-20 pb-24">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="font-display text-3xl tracking-tight mb-8">Key Achievements</h2>
           <div className="max-w-3xl space-y-6">
@@ -102,26 +93,19 @@ export default function AboutPage() {
         </div>
       </AnimatedSection>
 
-      {/* CTA */}
-      <AnimatedSection className="py-16 border-t border-border">
+      <section className="py-12 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-text-secondary">
-            <Link
-              href="/research"
-              className="text-accent hover:text-foreground transition-colors duration-200"
-            >
-              Explore our research →
+            <Link href="/research" className="underline underline-offset-4 decoration-text-muted/40 hover:decoration-text-secondary transition-colors duration-200">
+              Explore our research
             </Link>
             {" · "}
-            <Link
-              href="/join"
-              className="text-accent hover:text-foreground transition-colors duration-200"
-            >
-              Get in touch →
+            <Link href="/join" className="underline underline-offset-4 decoration-text-muted/40 hover:decoration-text-secondary transition-colors duration-200">
+              Get in touch
             </Link>
           </p>
         </div>
-      </AnimatedSection>
+      </section>
     </>
   );
 }

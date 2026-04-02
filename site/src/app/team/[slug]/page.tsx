@@ -45,9 +45,9 @@ export default async function ResearcherDetailPage({
       <div className="mx-auto max-w-3xl px-6">
         <Link
           href="/team"
-          className="text-sm text-text-muted hover:text-foreground transition-colors duration-200"
+          className="text-sm text-text-muted hover:text-text-secondary transition-colors duration-200"
         >
-          ← Team
+          Back to Team
         </Link>
 
         {photos[researcher.slug] && (
@@ -81,13 +81,10 @@ export default async function ResearcherDetailPage({
                 <li key={project.id}>
                   <Link
                     href={`/research/${project.slug}`}
-                    className="text-sm text-accent hover:text-foreground transition-colors duration-200"
+                    className="text-sm text-foreground underline underline-offset-4 decoration-text-muted/40 hover:decoration-text-secondary transition-colors duration-200"
                   >
                     {project.name}
                   </Link>
-                  <span className="text-xs text-text-muted ml-2">
-                    {project.title}
-                  </span>
                 </li>
               ))}
             </ul>
@@ -102,7 +99,7 @@ export default async function ResearcherDetailPage({
             <div className="space-y-4">
               {relatedPubs.map((pub) => (
                 <div key={pub.id} className="border-b border-border pb-4">
-                  <span className="text-xs uppercase tracking-[0.12em] text-text-muted">
+                  <span className="text-xs italic text-text-muted">
                     {pub.journal}
                   </span>
                   {pub.publicationUrl ? (
@@ -110,7 +107,7 @@ export default async function ResearcherDetailPage({
                       href={pub.publicationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block text-sm font-medium mt-0.5 text-foreground hover:text-accent transition-colors duration-200"
+                      className="block text-sm font-medium mt-0.5 text-foreground hover:underline underline-offset-4 decoration-text-muted/40"
                     >
                       {pub.name}
                     </a>

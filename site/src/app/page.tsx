@@ -4,7 +4,7 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { PublicationCard } from "@/components/PublicationCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { AccentLine } from "@/components/AccentLine";
-import { LogoMark } from "@/components/LogoMark";
+import { HeroLogo } from "@/components/HeroLogo";
 import { projects, publications, researchers } from "@/data";
 
 export default function HomePage() {
@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-36 pb-16">
+      <section className="pt-36 pb-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-start justify-between gap-12">
             <div>
@@ -28,46 +28,40 @@ export default function HomePage() {
               </p>
               <AccentLine delay={600} />
             </div>
-            <LogoMark size={120} className="hidden lg:block hero-subtitle shrink-0 mt-4" />
+            <HeroLogo size={280} className="hidden lg:block shrink-0 -mt-4" />
           </div>
-          <div className="hero-links mt-8 flex flex-wrap gap-6 text-sm">
-            <Link href="/research" className="text-accent hover:text-foreground transition-colors duration-200">
-              Research →
+          <nav className="hero-links mt-8 flex flex-wrap gap-6 text-sm">
+            <Link href="/research" className="text-text-secondary hover:text-foreground transition-colors duration-200">
+              Research
             </Link>
-            <Link href="/team" className="text-accent hover:text-foreground transition-colors duration-200">
-              Team →
+            <Link href="/team" className="text-text-secondary hover:text-foreground transition-colors duration-200">
+              Team
             </Link>
-            <Link href="/publications" className="text-accent hover:text-foreground transition-colors duration-200">
-              Publications →
+            <Link href="/publications" className="text-text-secondary hover:text-foreground transition-colors duration-200">
+              Publications
             </Link>
-            <Link href="/join" className="text-accent hover:text-foreground transition-colors duration-200">
-              Join us →
+            <Link href="/join" className="text-text-secondary hover:text-foreground transition-colors duration-200">
+              Join us
             </Link>
-          </div>
+          </nav>
         </div>
       </section>
 
       {/* Research */}
-      <AnimatedSection className="py-16 border-t border-border">
+      <AnimatedSection className="py-14 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="flex items-baseline justify-between mb-10">
+          <div className="flex items-baseline justify-between mb-8">
             <h2 className="font-display text-3xl tracking-tight">Research</h2>
-            <Link href="/research" className="text-sm text-text-muted hover:text-foreground transition-colors duration-200">
-              View all →
+            <Link href="/research" className="text-xs text-text-muted hover:text-text-secondary transition-colors duration-200">
+              View all
             </Link>
           </div>
-          <div className="space-y-2">
-            {projects.slice(0, 5).map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} />
+          <div className="divide-y divide-border">
+            {projects.slice(0, 5).map((project) => (
+              <ProjectCard key={project.id} project={project} />
             ))}
           </div>
-        </div>
-      </AnimatedSection>
-
-      {/* Stats line */}
-      <AnimatedSection className="pb-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <p className="text-sm text-text-muted">
+          <p className="mt-10 text-sm text-text-muted">
             55 publications · 22 researchers · $9.8M NIH funding · 10,000+ citations
           </p>
         </div>
@@ -75,17 +69,17 @@ export default function HomePage() {
 
       {/* Leadership */}
       {leader && (
-        <AnimatedSection className="py-16 border-t border-border">
+        <AnimatedSection className="pt-20 pb-16">
           <div className="mx-auto max-w-6xl px-6">
             <div className="flex items-baseline justify-between mb-8">
               <h2 className="font-display text-3xl tracking-tight">Leadership</h2>
-              <Link href="/team" className="text-sm text-text-muted hover:text-foreground transition-colors duration-200">
-                Full team →
+              <Link href="/team" className="text-xs text-text-muted hover:text-text-secondary transition-colors duration-200">
+                Full team
               </Link>
             </div>
             <Link
               href={`/team/${leader.slug}`}
-              className="flex flex-col md:flex-row gap-6 md:gap-8 border border-border rounded-md p-6 md:p-8 hover:border-text-muted hover:bg-surface/50 transition-all duration-200 group"
+              className="flex flex-col md:flex-row gap-6 md:gap-8 group"
             >
               <Image
                 src="/zanos.jpg"
@@ -95,17 +89,12 @@ export default function HomePage() {
                 className="rounded-md object-cover w-32 h-32 md:w-40 md:h-40 shrink-0"
               />
               <div>
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="font-display text-2xl group-hover:text-accent transition-colors duration-200">
-                      Dr. Theodoros P. Zanos
-                    </h3>
-                    <p className="text-sm text-text-muted mt-1">
-                      Head, Division of Health Artificial Intelligence
-                    </p>
-                  </div>
-                  <span className="text-text-muted opacity-0 group-hover:opacity-100 transition-opacity duration-200 shrink-0 mt-1">→</span>
-                </div>
+                <h3 className="font-display text-2xl group-hover:underline underline-offset-4 decoration-text-muted/40">
+                  Dr. Theodoros P. Zanos
+                </h3>
+                <p className="text-sm text-text-muted mt-1">
+                  Head, Division of Health Artificial Intelligence
+                </p>
                 <p className="text-sm text-text-secondary mt-3 leading-relaxed max-w-xl">
                   Associate Professor at the Feinstein Institutes and the Zucker School
                   of Medicine at Hofstra/Northwell. Over 50 peer-reviewed publications,
@@ -119,12 +108,12 @@ export default function HomePage() {
       )}
 
       {/* Publications */}
-      <AnimatedSection className="py-16 border-t border-border">
+      <AnimatedSection className="py-20 border-t border-border">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-baseline justify-between mb-8">
             <h2 className="font-display text-3xl tracking-tight">Selected Publications</h2>
-            <Link href="/publications" className="text-sm text-text-muted hover:text-foreground transition-colors duration-200">
-              View all →
+            <Link href="/publications" className="text-xs text-text-muted hover:text-text-secondary transition-colors duration-200">
+              View all
             </Link>
           </div>
           <div>
@@ -136,12 +125,12 @@ export default function HomePage() {
       </AnimatedSection>
 
       {/* Join */}
-      <AnimatedSection className="py-12 border-t border-border">
+      <AnimatedSection className="py-12">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-text-secondary">
             Interested in joining or collaborating?{" "}
-            <Link href="/join" className="text-accent hover:text-foreground transition-colors duration-200">
-              Get in touch →
+            <Link href="/join" className="underline underline-offset-4 decoration-text-muted/40 hover:decoration-text-secondary transition-colors duration-200">
+              Get in touch
             </Link>
           </p>
         </div>

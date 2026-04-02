@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { TeamCard } from "@/components/TeamCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { AccentLine } from "@/components/AccentLine";
 import { researchers } from "@/data";
 
 export const metadata: Metadata = {
@@ -17,24 +16,20 @@ export default function TeamPage() {
 
   return (
     <>
-      <section className="pt-36 pb-16">
+      <section className="pt-36 pb-12">
         <div className="mx-auto max-w-6xl px-6">
-          <h1 className="font-display text-4xl md:text-5xl tracking-tight">
-            <span className="line-reveal"><span>Team</span></span>
-          </h1>
-          <AccentLine />
+          <h1 className="font-display text-4xl md:text-5xl tracking-tight">Team</h1>
         </div>
       </section>
 
-      {/* Division Head */}
       {leader && (
         <AnimatedSection className="pb-16">
           <div className="mx-auto max-w-6xl px-6">
             <Link
               href={`/team/${leader.slug}`}
-              className="block border border-border bg-surface rounded-md p-6 md:p-8 hover:border-text-muted transition-colors duration-200 group"
+              className="block p-6 md:p-8 group"
             >
-              <h2 className="font-display text-2xl md:text-3xl text-foreground group-hover:text-accent transition-colors duration-200">
+              <h2 className="font-display text-2xl md:text-3xl text-foreground group-hover:underline underline-offset-4 decoration-text-muted/40">
                 {leader.name}
               </h2>
               <p className="text-sm text-text-muted mt-1">{leader.title}</p>
@@ -48,8 +43,7 @@ export default function TeamPage() {
         </AnimatedSection>
       )}
 
-      {/* Rest of team */}
-      <AnimatedSection className="pb-20">
+      <AnimatedSection className="pb-24">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {rest.map((researcher) => (
