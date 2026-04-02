@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { EditableText } from "@/components/EditableText";
 import {
   researchers,
-  getResearcher,
+  getResearcherWithOverrides,
   getProjectsByIds,
   getPublicationsByIds,
 } from "@/data";
+
+export const revalidate = 60;
 
 const photos: Record<string, string> = {
   "theodoros-zanos": "/zanos.jpg",
@@ -23,7 +26,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const researcher = getResearcher(slug);
+  const researcher = await getResearcherWithOverrides(slug);
   if (!researcher) return { title: "Not Found" };
   return { title: researcher.name };
 }
@@ -34,7 +37,7 @@ export default async function ResearcherDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const researcher = getResearcher(slug);
+  const researcher = await getResearcherWithOverrides(slug);
   if (!researcher) notFound();
 
   const relatedProjects = getProjectsByIds(researcher.projectIds);
@@ -61,16 +64,38 @@ export default async function ResearcherDetailPage({
         )}
 
         <h1 className="font-display text-3xl md:text-4xl tracking-tight mt-6">
-          {researcher.name}
+          <EditableText
+            entity="researcher"
+            entityId={researcher.id}
+            field="name"
+            value={researcher.name}
+            as="span"
+            className="font-display text-3xl md:text-4xl tracking-tight"
+          />
         </h1>
         {researcher.title && (
-          <p className="text-text-muted mt-1">{researcher.title}</p>
+          <p className="text-text-muted mt-1">
+            <EditableText
+              entity="researcher"
+              entityId={researcher.id}
+              field="title"
+              value={researcher.title}
+            />
+          </p>
         )}
 
         {researcher.about && (
-          <p className="text-text-secondary mt-6 leading-relaxed">
-            {researcher.about}
-          </p>
+          <div className="mt-6">
+            <EditableText
+              entity="researcher"
+              entityId={researcher.id}
+              field="about"
+              value={researcher.about}
+              multiline
+              as="p"
+              className="text-text-secondary leading-relaxed"
+            />
+          </div>
         )}
 
         {relatedProjects.length > 0 && (

@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { EditableText } from "@/components/EditableText";
 import {
   projects,
-  getProject,
+  getProjectWithOverrides,
   getResearchersByIds,
   getPublicationsByIds,
 } from "@/data";
+
+export const revalidate = 60;
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -18,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProject(slug);
+  const project = await getProjectWithOverrides(slug);
   if (!project) return { title: "Not Found" };
   return { title: project.name };
 }
@@ -29,7 +32,7 @@ export default async function ProjectDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getProject(slug);
+  const project = await getProjectWithOverrides(slug);
   if (!project) notFound();
 
   const teamMembers = getResearchersByIds(project.researcherIds);
@@ -47,14 +50,31 @@ export default async function ProjectDetailPage({
 
         <div className="mt-8">
           <h1 className="font-display text-3xl md:text-4xl tracking-tight">
-            {project.name}
+            <EditableText
+              entity="project"
+              entityId={project.id}
+              field="name"
+              value={project.name}
+              as="span"
+              className="font-display text-3xl md:text-4xl tracking-tight"
+            />
           </h1>
           <p className="text-sm text-text-muted mt-2">
             {teamMembers.length} researchers · {pubs.length} publications
           </p>
         </div>
 
-        <p className="text-text-secondary mt-8 leading-relaxed">{project.about}</p>
+        <div className="mt-8">
+          <EditableText
+            entity="project"
+            entityId={project.id}
+            field="about"
+            value={project.about}
+            multiline
+            as="p"
+            className="text-text-secondary leading-relaxed"
+          />
+        </div>
 
         {teamMembers.length > 0 && (
           <section className="mt-12 pt-8 border-t border-border">

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { LogoMark } from "@/components/LogoMark";
+import { useAdmin } from "@/components/AdminProvider";
+import { logout } from "@/lib/actions";
 
 const links = [
   { href: "/about", label: "About" },
@@ -15,6 +17,7 @@ const links = [
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const isAdmin = useAdmin();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -55,6 +58,16 @@ export function Navigation() {
                 {link.label}
               </Link>
             ))}
+            {isAdmin && (
+              <form action={logout}>
+                <button
+                  type="submit"
+                  className="text-xs text-text-muted hover:text-accent-warm transition-colors duration-200"
+                >
+                  Logout
+                </button>
+              </form>
+            )}
           </div>
 
           {/* Mobile toggle */}

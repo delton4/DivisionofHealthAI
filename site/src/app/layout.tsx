@@ -3,6 +3,7 @@ import { Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { AdminProvider } from "@/components/AdminProvider";
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
@@ -36,9 +37,11 @@ export default function RootLayout({
       className={`${instrumentSerif.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navigation />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AdminProvider>
+          <Navigation />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AdminProvider>
       </body>
     </html>
   );
