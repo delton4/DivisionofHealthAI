@@ -31,7 +31,7 @@ export default function AboutPage() {
               computational neuroscience, and clinical medicine.
             </p>
             <p className="mt-4 text-text-secondary leading-relaxed">
-              Our work spans multiple healthcare data modalities — electronic
+              Our work spans multiple healthcare data modalities: electronic
               health records, continuous physiological monitoring, medical imaging,
               and neural signal processing. Every algorithm we develop is designed
               not just to advance the science, but to be deployed in clinical
@@ -50,12 +50,12 @@ export default function AboutPage() {
               We combine the rigor of academic research with the urgency of
               clinical need. Our lab develops AI across five research verticals,
               each addressing a critical gap in how healthcare leverages data to
-              improve outcomes — from predicting patient deterioration on the ward
+              improve outcomes, from predicting patient deterioration on the ward
               to decoding neural signals that unlock new therapies.
             </p>
             <p className="mt-4 text-text-secondary leading-relaxed">
               What sets us apart is our commitment to the full translational pipeline.
-              We don&apos;t stop at publishing — we build, validate, and deploy.
+              We don&apos;t stop at publishing. We build, validate, and deploy.
             </p>
           </div>
         </div>

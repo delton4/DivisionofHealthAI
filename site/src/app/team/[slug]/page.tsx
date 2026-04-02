@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -7,6 +8,10 @@ import {
   getProjectsByIds,
   getPublicationsByIds,
 } from "@/data";
+
+const photos: Record<string, string> = {
+  "theodoros-zanos": "/zanos.jpg",
+};
 
 export function generateStaticParams() {
   return researchers.map((r) => ({ slug: r.slug }));
@@ -45,7 +50,17 @@ export default async function ResearcherDetailPage({
           ← Team
         </Link>
 
-        <h1 className="font-display text-3xl md:text-4xl tracking-tight mt-8">
+        {photos[researcher.slug] && (
+          <Image
+            src={photos[researcher.slug]}
+            alt={researcher.name}
+            width={200}
+            height={200}
+            className="rounded-md object-cover w-36 h-36 md:w-48 md:h-48 mt-8"
+          />
+        )}
+
+        <h1 className="font-display text-3xl md:text-4xl tracking-tight mt-6">
           {researcher.name}
         </h1>
         {researcher.title && (

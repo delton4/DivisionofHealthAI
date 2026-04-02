@@ -1,12 +1,23 @@
 import type { Metadata } from "next";
-import { PublicationCard } from "@/components/PublicationCard";
-import { AnimatedSection } from "@/components/AnimatedSection";
 import { AccentLine } from "@/components/AccentLine";
-import { publications } from "@/data";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { publications, projects } from "@/data";
+import { PublicationFilter } from "./PublicationFilter";
 
 export const metadata: Metadata = {
   title: "Publications",
 };
+
+// Pre-compute filter data at build time
+const journals = Array.from(
+  new Set(publications.map((p) => p.journal).filter(Boolean))
+).sort();
+
+const projectFilters = projects.map((p) => ({
+  id: p.id,
+  name: p.name,
+  pubIds: p.publicationIds,
+}));
 
 export default function PublicationsPage() {
   return (
@@ -25,11 +36,11 @@ export default function PublicationsPage() {
       </section>
 
       <AnimatedSection className="pb-20">
-        <div className="mx-auto max-w-3xl px-6">
-          {publications.map((pub) => (
-            <PublicationCard key={pub.id} publication={pub} />
-          ))}
-        </div>
+        <PublicationFilter
+          publications={publications}
+          journals={journals}
+          projectFilters={projectFilters}
+        />
       </AnimatedSection>
     </>
   );

@@ -35,7 +35,7 @@ export default function JoinPage() {
               development, and contribute to publications.
             </p>
             <ul className="mt-4 space-y-1.5 text-sm text-text-secondary">
-              <li>· 3–12 month research rotations</li>
+              <li>· 3 to 12 month research rotations</li>
               <li>· Access to clinical datasets and computing resources</li>
               <li>· Mentorship from senior researchers</li>
               <li>· Publication opportunities</li>
@@ -70,7 +70,7 @@ export default function JoinPage() {
           <div className="max-w-3xl">
             <h2 className="font-display text-2xl tracking-tight">Where We Work</h2>
             <p className="mt-4 text-text-secondary leading-relaxed">
-              Feinstein Institutes for Medical Research — Northwell Health&apos;s
+              Feinstein Institutes for Medical Research, Northwell Health&apos;s
               research arm and one of the largest biomedical research organizations
               in the US.
             </p>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogoMark } from "@/components/LogoMark";
 
 export function Footer() {
   return (
@@ -6,9 +7,12 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="flex flex-col md:flex-row justify-between gap-8">
           <div>
-            <span className="font-display text-lg text-foreground">
-              Division of Health AI
-            </span>
+            <div className="flex items-center gap-3 mb-2">
+              <LogoMark size={24} />
+              <span className="font-display text-lg text-foreground">
+                Division of Health AI
+              </span>
+            </div>
             <p className="text-sm text-text-muted mt-1 max-w-sm">
               Feinstein Institutes for Medical Research, Northwell Health
             </p>

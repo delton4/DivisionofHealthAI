@@ -19,7 +19,7 @@ export default function ResearchPage() {
           <AccentLine />
           <p className="hero-subtitle mt-6 text-text-secondary max-w-2xl leading-relaxed">
             Five interconnected verticals spanning the full translational
-            pipeline — from preclinical neural decoding to hospital-wide
+            pipeline, from preclinical neural decoding to hospital-wide
             operational AI.
           </p>
         </div>
