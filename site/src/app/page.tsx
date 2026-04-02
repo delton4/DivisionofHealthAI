@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ProjectCard } from "@/components/ProjectCard";
 import { PublicationCard } from "@/components/PublicationCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
@@ -9,25 +8,27 @@ import { EditableText } from "@/components/EditableText";
 import {
   getAllProjectsWithOverrides,
   getAllPublicationsWithOverrides,
-  getAllResearchersWithOverrides,
   getPageOverrides,
 } from "@/data";
 
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const [allProjects, allPubs, allResearchers, pageOverrides] = await Promise.all([
+  const [allProjects, allPubs, pageOverrides] = await Promise.all([
     getAllProjectsWithOverrides(),
     getAllPublicationsWithOverrides(),
-    getAllResearchersWithOverrides(),
     getPageOverrides("home"),
   ]);
 
   const featuredPubs = allPubs.slice(0, 4);
-  const leader = allResearchers.find((r) => r.id === "1");
+  // Nature Communications paper on deterioration prediction
+  const highlightPub = allPubs.find((p) => p.id === "2");
 
   const heroSubtitle = pageOverrides.subtitle ||
     "Machine learning for early diagnosis, deterioration prediction, and personalized therapeutics.";
+
+  const highlightDesc = pageOverrides.highlight_desc ||
+    "A wearable-based deep learning model that identifies the onset of clinical deterioration earlier than traditional early warning systems, predicting adverse outcomes up to 17 hours in advance with over 81% accuracy.";
 
   return (
     <>
@@ -89,48 +90,34 @@ export default async function HomePage() {
         </div>
       </AnimatedSection>
 
-      {/* Leadership */}
-      {leader && (
+      {/* Paper Highlight */}
+      {highlightPub && (
         <AnimatedSection className="pt-20 pb-16">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="flex items-baseline justify-between mb-8">
-              <h2 className="font-display text-3xl tracking-tight">Leadership</h2>
-              <Link href="/team" className="text-xs text-text-muted hover:text-text-secondary transition-colors duration-200">
-                Full team
-              </Link>
-            </div>
-            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-              <Link href={`/team/${leader.slug}`}>
-                <Image
-                  src="/zanos.jpg"
-                  alt="Dr. Theodoros P. Zanos"
-                  width={160}
-                  height={160}
-                  className="rounded-md object-cover w-32 h-32 md:w-40 md:h-40 shrink-0"
-                />
-              </Link>
-              <div>
-                <Link href={`/team/${leader.slug}`} className="group">
-                  <h3 className="font-display text-2xl group-hover:underline underline-offset-4 decoration-text-muted/40">
-                    Dr. Theodoros P. Zanos
-                  </h3>
-                </Link>
+            <h2 className="font-display text-3xl tracking-tight mb-8">Paper Highlight</h2>
+            <div className="max-w-3xl">
+              <a
+                href={highlightPub.publicationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+              >
+                <span className="text-xs italic text-text-muted">
+                  {highlightPub.journal}
+                </span>
+                <h3 className="font-display text-xl md:text-2xl mt-1 group-hover:underline underline-offset-4 decoration-text-muted/40">
+                  {highlightPub.name}
+                </h3>
+              </a>
+              <div className="mt-3">
                 <EditableText
-                  entity="researcher"
-                  entityId={leader.id}
-                  field="title"
-                  value={leader.title}
-                  as="p"
-                  className="text-sm text-text-muted mt-1"
-                />
-                <EditableText
-                  entity="researcher"
-                  entityId={leader.id}
-                  field="about"
-                  value={leader.about.length > 300 ? leader.about.slice(0, 300) + "..." : leader.about}
+                  entity="page"
+                  entityId="home"
+                  field="highlight_desc"
+                  value={highlightDesc}
                   multiline
                   as="p"
-                  className="text-sm text-text-secondary mt-3 leading-relaxed max-w-xl"
+                  className="text-sm text-text-secondary leading-relaxed"
                 />
               </div>
             </div>

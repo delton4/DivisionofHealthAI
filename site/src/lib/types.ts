@@ -7,6 +7,14 @@ export interface Researcher {
   projectIds: string[];
   publicationIds: string[];
   image: string;
+  email?: string;
+  linkedin?: string;
+  alumni?: boolean;
+}
+
+export interface Alumni {
+  name: string;
+  credentials: string;
 }
 
 export interface Project {

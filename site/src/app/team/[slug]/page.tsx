@@ -84,6 +84,25 @@ export default async function ResearcherDetailPage({
           </p>
         )}
 
+        <div className="flex gap-4 mt-2 text-sm">
+          <EditableText
+            entity="researcher"
+            entityId={researcher.id}
+            field="email"
+            value={researcher.email || ""}
+            as="span"
+            className="text-text-muted"
+          />
+          <EditableText
+            entity="researcher"
+            entityId={researcher.id}
+            field="linkedin"
+            value={researcher.linkedin || ""}
+            as="span"
+            className="text-text-muted"
+          />
+        </div>
+
         {researcher.about && (
           <div className="mt-6">
             <EditableText

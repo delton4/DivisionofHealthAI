@@ -3,7 +3,7 @@ import Link from "next/link";
 import { TeamCard } from "@/components/TeamCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { EditableText } from "@/components/EditableText";
-import { getAllResearchersWithOverrides } from "@/data";
+import { getAllResearchersWithOverrides, alumni } from "@/data";
 
 export const metadata: Metadata = { title: "Team" };
 export const revalidate = 60;
@@ -58,7 +58,7 @@ export default async function TeamPage() {
         </AnimatedSection>
       )}
 
-      <AnimatedSection className="pb-24">
+      <AnimatedSection className="pb-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {rest.map((researcher) => (
@@ -67,6 +67,20 @@ export default async function TeamPage() {
           </div>
         </div>
       </AnimatedSection>
+
+      {/* Alumni */}
+      <section className="py-16 border-t border-border">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="font-display text-2xl tracking-tight mb-6">Alumni</h2>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-text-muted">
+            {alumni.map((a) => (
+              <span key={a.name}>
+                {a.name} {a.credentials}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

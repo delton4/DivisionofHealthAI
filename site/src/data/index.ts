@@ -1,11 +1,25 @@
-import type { Researcher, Project, Publication } from "@/lib/types";
+import type { Researcher, Project, Publication, Alumni } from "@/lib/types";
 import researchersJson from "./researchers.json";
 import projectsJson from "./projects.json";
 import publicationsJson from "./publications.json";
 
+// ---- Alumni (removed from active team, listed separately) ----
+const removedIds = new Set(["17", "18", "21", "22"]); // Hardik=17, Viktor=18, Avantika=21, Fylaktis=22
+
+export const alumni: Alumni[] = [
+  { name: "Avantika Vardhan", credentials: "PhD" },
+  { name: "Fylaktis Fylaktou", credentials: "PhD" },
+  { name: "Hardik Patel", credentials: "DO" },
+  { name: "Viktor Toth", credentials: "MS" },
+  { name: "Sia Bolourani", credentials: "MD PhD" },
+  { name: "Subash Padmanaban", credentials: "PhD" },
+];
+
 // ---- Static data (unchanged, always available) ----
 
-export const researchers: Researcher[] = researchersJson as Researcher[];
+export const researchers: Researcher[] = (researchersJson as Researcher[]).filter(
+  (r) => !removedIds.has(r.id)
+);
 
 export const projects: Project[] = (projectsJson as Project[]).filter(
   (p) => p.id !== "6"
