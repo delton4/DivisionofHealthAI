@@ -21,12 +21,24 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://divhealthai.org"),
   title: {
     default: "Division of Health AI | Northwell Health",
     template: "%s | Division of Health AI",
   },
   description:
-    "Advancing healthcare through artificial intelligence at Northwell Health.",
+    "Advancing healthcare through artificial intelligence at Northwell Health. Research in clinical AI, bioelectronic medicine, neural engineering, and medical imaging.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Division of Health AI",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default async function RootLayout({
@@ -43,6 +55,29 @@ export default async function RootLayout({
       className={`${instrumentSerif.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ResearchOrganization",
+              name: "Division of Health AI",
+              url: "https://divhealthai.org",
+              description:
+                "Advancing healthcare through artificial intelligence at Northwell Health.",
+              parentOrganization: {
+                "@type": "Organization",
+                name: "Feinstein Institutes for Medical Research",
+                url: "https://feinstein.northwell.edu",
+                parentOrganization: {
+                  "@type": "Organization",
+                  name: "Northwell Health",
+                  url: "https://www.northwell.edu",
+                },
+              },
+            }),
+          }}
+        />
         <AdminProvider isAdmin={isAdmin}>
           <Navigation />
           <main className="flex-1">{children}</main>

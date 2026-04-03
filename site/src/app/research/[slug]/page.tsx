@@ -24,7 +24,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = await getProjectWithOverrides(slug);
   if (!project) return { title: "Not Found" };
-  return { title: project.name };
+  return {
+    title: project.name,
+    description: project.about
+      ? project.about.slice(0, 160)
+      : `${project.name} — a research project from the Division of Health AI at Northwell Health.`,
+    alternates: { canonical: `/research/${slug}` },
+  };
 }
 
 export default async function ProjectDetailPage({

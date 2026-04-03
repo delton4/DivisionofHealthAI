@@ -4,7 +4,11 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 import { EditableText } from "@/components/EditableText";
 import { getPageOverrides } from "@/data";
 
-export const metadata: Metadata = { title: "About" };
+export const metadata: Metadata = {
+  title: "About",
+  description: "The Division of Health AI at Northwell Health develops machine learning systems for early diagnosis, deterioration prediction, and personalized therapeutics.",
+  alternates: { canonical: "/about" },
+};
 export const revalidate = 60;
 
 const defaults: Record<string, string> = {

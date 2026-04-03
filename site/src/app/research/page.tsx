@@ -3,7 +3,11 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { getAllProjectsWithOverrides } from "@/data";
 
-export const metadata: Metadata = { title: "Research" };
+export const metadata: Metadata = {
+  title: "Research",
+  description: "Research projects in clinical AI, bioelectronic medicine, neural engineering, computer vision, and health system science at Northwell Health.",
+  alternates: { canonical: "/research" },
+};
 export const revalidate = 60;
 
 export default async function ResearchPage() {

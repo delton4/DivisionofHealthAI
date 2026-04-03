@@ -5,7 +5,11 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 import { EditableText } from "@/components/EditableText";
 import { getAllResearchersWithOverrides, getAllAlumni } from "@/data";
 
-export const metadata: Metadata = { title: "Team" };
+export const metadata: Metadata = {
+  title: "Team",
+  description: "Meet the researchers, engineers, and clinicians of the Division of Health AI at Northwell Health.",
+  alternates: { canonical: "/team" },
+};
 export const revalidate = 60;
 
 export default async function TeamPage() {

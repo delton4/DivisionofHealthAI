@@ -29,7 +29,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const researcher = await getResearcherWithOverrides(slug);
   if (!researcher) return { title: "Not Found" };
-  return { title: researcher.name };
+  return {
+    title: researcher.name,
+    description: researcher.about
+      ? researcher.about.slice(0, 160)
+      : `${researcher.name}, ${researcher.title} at the Division of Health AI, Northwell Health.`,
+    alternates: { canonical: `/team/${slug}` },
+  };
 }
 
 export default async function ResearcherDetailPage({

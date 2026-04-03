@@ -3,7 +3,11 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 import { getAllPublicationsWithOverrides, getAllProjectsWithOverrides } from "@/data";
 import { PublicationFilter } from "./PublicationFilter";
 
-export const metadata: Metadata = { title: "Publications" };
+export const metadata: Metadata = {
+  title: "Publications",
+  description: "Peer-reviewed publications from the Division of Health AI, spanning clinical decision support, wearable monitoring, neural decoding, and medical imaging.",
+  alternates: { canonical: "/publications" },
+};
 export const revalidate = 60;
 
 export default async function PublicationsPage() {

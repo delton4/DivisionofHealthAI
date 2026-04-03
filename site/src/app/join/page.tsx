@@ -4,7 +4,11 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 import { EditableText } from "@/components/EditableText";
 import { getPageOverrides } from "@/data";
 
-export const metadata: Metadata = { title: "Join Us" };
+export const metadata: Metadata = {
+  title: "Join Us",
+  description: "Join the Division of Health AI at Northwell Health. Open positions for researchers, engineers, clinicians, and research scholars.",
+  alternates: { canonical: "/join" },
+};
 export const revalidate = 60;
 
 const defaults: Record<string, string> = {
