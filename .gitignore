@@ -29,6 +29,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Local dev / AI tooling
+.claude/
+.superpowers/
+
 # Archive (old site)
 archive/dist/
 archive/node_modules/
