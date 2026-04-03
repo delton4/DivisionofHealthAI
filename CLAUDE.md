@@ -8,6 +8,10 @@ Research division website for the Division of Health AI at Northwell Health's Fe
 
 IGNORE EVERYTHING UNDER /ARCHIVE — NO READING FROM THIS FOLDER.
 
+## Next.js Version Warning
+
+This project uses Next.js 16 which has breaking changes from earlier versions. APIs, conventions, and file structure may differ from training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+
 ## Commands
 
 All commands run from `site/`:
