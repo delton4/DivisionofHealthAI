@@ -28,6 +28,7 @@ export function EditableText({
   const [editing, setEditing] = useState(false);
   const [text, setText] = useState(value);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
   const pathname = usePathname();
@@ -49,8 +50,13 @@ export function EditableText({
   }
 
   const handleSave = useCallback(() => {
+    setError(null);
     startTransition(async () => {
-      await saveTextOverride(entity, entityId, field, text, pathname);
+      const result = await saveTextOverride(entity, entityId, field, text, pathname);
+      if (result && "error" in result) {
+        setError(result.error ?? "Save failed");
+        return;
+      }
       setEditing(false);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
@@ -59,6 +65,7 @@ export function EditableText({
 
   const handleCancel = useCallback(() => {
     setText(value);
+    setError(null);
     setEditing(false);
   }, [value]);
 
@@ -94,7 +101,7 @@ export function EditableText({
             className={`w-full bg-surface border border-accent/40 rounded px-2 py-1 text-foreground focus:outline-none focus:border-accent ${className}`}
           />
         )}
-        <div className="flex gap-2 mt-1">
+        <div className="flex gap-2 mt-1 items-center">
           <button
             onClick={handleSave}
             disabled={isPending}
@@ -108,6 +115,7 @@ export function EditableText({
           >
             Cancel
           </button>
+          {error && <span className="text-xs text-red-400">{error}</span>}
         </div>
       </div>
     );

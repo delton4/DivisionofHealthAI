@@ -96,7 +96,18 @@ const VALID_FIELDS: Record<string, Set<string>> = {
   researcher: new Set(["name", "title", "about", "photo", "credentials"]),
   project: new Set(["name", "about"]),
   publication: new Set(["name", "journal", "abstract", "publicationUrl"]),
-  page: new Set(["heading", "subheading", "description", "body", "content"]),
+};
+
+// Page fields are validated per-page since each page defines its own field keys.
+const VALID_PAGE_IDS = new Set(["home", "about", "join"]);
+const VALID_PAGE_FIELDS: Record<string, Set<string>> = {
+  home: new Set(["subtitle", "highlight_desc"]),
+  about: new Set([
+    "intro1", "intro2", "approach1", "approach2",
+    "achieve1_title", "achieve1_desc", "achieve2_title", "achieve2_desc",
+    "achieve3_title", "achieve3_desc", "achieve4_title", "achieve4_desc",
+  ]),
+  join: new Set(["intro", "scholar_desc", "collab_desc", "location_desc"]),
 };
 
 export async function saveTextOverride(
@@ -113,6 +124,19 @@ export async function saveTextOverride(
 
   if (!VALID_ENTITIES.has(entity)) {
     return { error: "Invalid entity type." };
+  }
+
+  if (entity === "page") {
+    if (!VALID_PAGE_IDS.has(entityId)) {
+      return { error: "Invalid page." };
+    }
+    const pageFields = VALID_PAGE_FIELDS[entityId];
+    if (!pageFields?.has(field)) {
+      return { error: "Invalid field." };
+    }
+    await upsertOverride(entity, entityId, field, value);
+    revalidatePath(currentPath);
+    return { success: true };
   }
 
   const allowedFields = VALID_FIELDS[entity];
