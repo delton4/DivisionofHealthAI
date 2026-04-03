@@ -16,7 +16,10 @@ All commands run from `site/`:
 npm run dev          # Start dev server (Next.js 16, http://localhost:3000)
 npm run build        # Production build
 npm run lint         # ESLint (eslint-config-next core-web-vitals + typescript)
-npx tsx scripts/seed-admin.ts <username> <password>  # Create/reset admin user + seed DB tables
+npx tsx scripts/seed-admin.ts <username> <password>  # Create/reset admin user + seed data
+npx tsx scripts/migrate.ts           # Apply pending DB migrations
+npx tsx scripts/migrate.ts status    # Show migration status
+npx tsx scripts/migrate.ts create <name>  # Create new migration file
 ```
 
 No test framework is configured.

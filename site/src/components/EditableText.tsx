@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useRef, useEffect } from "react";
+import { useState, useTransition, useRef, useEffect, useCallback } from "react";
 import { useAdmin } from "./AdminProvider";
 import { saveTextOverride } from "@/lib/actions";
 import { usePathname } from "next/navigation";
@@ -48,29 +48,32 @@ export function EditableText({
     return <Tag className={className}>{text}</Tag>;
   }
 
-  if (editing) {
-    const handleSave = () => {
-      startTransition(async () => {
-        await saveTextOverride(entity, entityId, field, text, pathname);
-        setEditing(false);
-        setSaved(true);
-        setTimeout(() => setSaved(false), 2000);
-      });
-    };
-
-    const handleCancel = () => {
-      setText(value);
+  const handleSave = useCallback(() => {
+    startTransition(async () => {
+      await saveTextOverride(entity, entityId, field, text, pathname);
       setEditing(false);
-    };
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    });
+  }, [entity, entityId, field, text, pathname, startTransition]);
 
-    const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleCancel = useCallback(() => {
+    setText(value);
+    setEditing(false);
+  }, [value]);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
       if (e.key === "Escape") handleCancel();
       if (e.key === "Enter" && !multiline) {
         e.preventDefault();
         handleSave();
       }
-    };
+    },
+    [handleCancel, handleSave, multiline]
+  );
 
+  if (editing) {
     return (
       <div className="relative">
         {multiline ? (

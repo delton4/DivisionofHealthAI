@@ -29,6 +29,30 @@ export async function getOverrides(
   }
 }
 
+export async function getBatchOverrides(
+  entity: string,
+  entityIds: string[]
+): Promise<Record<string, Record<string, string>>> {
+  if (process.env.GITHUB_ACTIONS === "true") return {};
+  if (entityIds.length === 0) return {};
+
+  try {
+    const sql = getDb();
+    const rows = await sql`
+      SELECT entity_id, field, value FROM text_overrides
+      WHERE entity = ${entity} AND entity_id = ANY(${entityIds})
+    `;
+    const result: Record<string, Record<string, string>> = {};
+    for (const row of rows) {
+      if (!result[row.entity_id]) result[row.entity_id] = {};
+      result[row.entity_id][row.field] = row.value;
+    }
+    return result;
+  } catch {
+    return {};
+  }
+}
+
 export async function upsertOverride(
   entity: string,
   entityId: string,

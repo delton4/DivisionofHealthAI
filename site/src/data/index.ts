@@ -67,6 +67,29 @@ async function mergeOverrides<T>(
   }
 }
 
+async function batchMergeOverrides<T extends { id: string }>(
+  entity: string,
+  items: T[]
+): Promise<T[]> {
+  if (process.env.GITHUB_ACTIONS === "true") return items;
+  if (items.length === 0) return items;
+
+  try {
+    const { getBatchOverrides } = await import("@/lib/db");
+    const allOverrides = await getBatchOverrides(
+      entity,
+      items.map((item) => item.id)
+    );
+    return items.map((item) => {
+      const overrides = allOverrides[item.id];
+      if (!overrides || Object.keys(overrides).length === 0) return item;
+      return { ...item, ...overrides };
+    });
+  } catch {
+    return items;
+  }
+}
+
 export async function getResearcherWithOverrides(
   slug: string
 ): Promise<Researcher | undefined> {
@@ -115,9 +138,7 @@ export async function getAllResearchersWithOverrides(): Promise<Researcher[]> {
     // DB unavailable
   }
 
-  return Promise.all(
-    allResearchers.map((r) => mergeOverrides("researcher", r.id, r))
-  );
+  return batchMergeOverrides("researcher", allResearchers);
 }
 
 export async function getAllProjectsWithOverrides(): Promise<Project[]> {
@@ -147,9 +168,7 @@ export async function getAllProjectsWithOverrides(): Promise<Project[]> {
     // DB unavailable
   }
 
-  return Promise.all(
-    allProjects.map((p) => mergeOverrides("project", p.id, p))
-  );
+  return batchMergeOverrides("project", allProjects);
 }
 
 export async function getAllAlumni(): Promise<Alumni[]> {
@@ -197,9 +216,7 @@ export async function getAllPublicationsWithOverrides(): Promise<Publication[]> 
     // DB unavailable, use static only
   }
 
-  return Promise.all(
-    allPubs.map((p) => mergeOverrides("publication", p.id, p))
-  );
+  return batchMergeOverrides("publication", allPubs);
 }
 
 export async function getPageOverrides(

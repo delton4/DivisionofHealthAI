@@ -21,75 +21,15 @@ if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
 async function seed() {
   const sql = neon(DATABASE_URL!);
 
-  // Create all tables
-  await sql`
-    CREATE TABLE IF NOT EXISTS text_overrides (
-      id         SERIAL PRIMARY KEY,
-      entity     TEXT NOT NULL,
-      entity_id  TEXT NOT NULL,
-      field      TEXT NOT NULL,
-      value      TEXT NOT NULL,
-      updated_at TIMESTAMPTZ DEFAULT NOW(),
-      UNIQUE(entity, entity_id, field)
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS admin_users (
-      id            SERIAL PRIMARY KEY,
-      email         TEXT NOT NULL UNIQUE,
-      password_hash TEXT NOT NULL
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS custom_publications (
-      id              TEXT PRIMARY KEY,
-      name            TEXT NOT NULL,
-      journal         TEXT NOT NULL DEFAULT '',
-      abstract        TEXT NOT NULL DEFAULT '',
-      publication_url TEXT NOT NULL DEFAULT '',
-      created_at      TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS hidden_entities (
-      entity    TEXT NOT NULL,
-      entity_id TEXT NOT NULL,
-      PRIMARY KEY (entity, entity_id)
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS custom_projects (
-      id         TEXT PRIMARY KEY,
-      name       TEXT NOT NULL,
-      about      TEXT NOT NULL DEFAULT '',
-      created_at TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS custom_researchers (
-      id         TEXT PRIMARY KEY,
-      name       TEXT NOT NULL,
-      title      TEXT NOT NULL DEFAULT '',
-      created_at TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS db_alumni (
-      id          SERIAL PRIMARY KEY,
-      name        TEXT NOT NULL,
-      credentials TEXT NOT NULL DEFAULT '',
-      created_at  TIMESTAMPTZ DEFAULT NOW(),
-      UNIQUE(name, credentials)
-    )
-  `;
-  console.log("Tables created.");
+  // Schema is managed by migrations (npx tsx scripts/migrate.ts).
+  // This script only seeds data.
 
   // Create admin user
   const passwordHash = await hash(ADMIN_PASSWORD, 12);
   await sql`
     INSERT INTO admin_users (email, password_hash)
     VALUES (${ADMIN_EMAIL}, ${passwordHash})
-    ON CONFLICT (email) DO UPDATE SET password_hash = ${passwordHash}
+    ON CONFLICT (email) DO UPDATE SET password_hash = ${passwordHash}, updated_at = NOW()
   `;
   console.log(`Admin user created: ${ADMIN_EMAIL}`);
 

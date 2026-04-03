@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 const triangleCount = 15;
 const browns = [
@@ -23,31 +23,37 @@ export function HeroLogo({ size = 120, className = "" }: { size?: number; classN
   const radius = 32;
   const triSize = 8;
 
-  const triangles = Array.from({ length: triangleCount }, (_, i) => {
-    const angle = (i / triangleCount) * Math.PI * 2 - Math.PI / 2;
-    const x = cx + Math.cos(angle) * radius;
-    const y = cy + Math.sin(angle) * radius;
-    const rotation = (angle * 180) / Math.PI + 90;
-    const points = [
-      `${-triSize / 2},${triSize / 2}`,
-      `${triSize / 2},${triSize / 2}`,
-      `${triSize / 2},${-triSize / 2}`,
-    ].join(" ");
+  // Precompute triangle geometry (static — only depends on constants)
+  const triGeometry = useMemo(
+    () =>
+      Array.from({ length: triangleCount }, (_, i) => {
+        const angle = (i / triangleCount) * Math.PI * 2 - Math.PI / 2;
+        const x = cx + Math.cos(angle) * radius;
+        const y = cy + Math.sin(angle) * radius;
+        const rotation = (angle * 180) / Math.PI + 90;
+        const points = [
+          `${-triSize / 2},${triSize / 2}`,
+          `${triSize / 2},${triSize / 2}`,
+          `${triSize / 2},${-triSize / 2}`,
+        ].join(" ");
+        return { x, y, rotation, points, fill: browns[i] };
+      }),
+    []
+  );
 
-    return (
-      <g
-        key={i}
-        className={phase === "bloom" ? "hero-bloom-tri" : "hero-breathe-tri"}
-        style={{ "--i": String(i), transformOrigin: `${x}px ${y}px` } as React.CSSProperties}
-      >
-        <polygon
-          points={points}
-          fill={browns[i]}
-          transform={`translate(${x},${y}) rotate(${rotation})`}
-        />
-      </g>
-    );
-  });
+  const triangles = triGeometry.map((tri, i) => (
+    <g
+      key={i}
+      className={phase === "bloom" ? "hero-bloom-tri" : "hero-breathe-tri"}
+      style={{ "--i": String(i), transformOrigin: `${tri.x}px ${tri.y}px` } as React.CSSProperties}
+    >
+      <polygon
+        points={tri.points}
+        fill={tri.fill}
+        transform={`translate(${tri.x},${tri.y}) rotate(${tri.rotation})`}
+      />
+    </g>
+  ));
 
   return (
     <svg

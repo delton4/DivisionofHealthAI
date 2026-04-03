@@ -45,6 +45,12 @@ function checkRateLimit(ip: string): boolean {
   return entry.count <= MAX_ATTEMPTS;
 }
 
+// Exponential delay on failed attempts — works across cold starts
+function failDelay(attempt: number): Promise<void> {
+  const ms = Math.min(1000 * 2 ** (attempt - 1), 8000);
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function login(
   _prevState: { error: string } | null,
   formData: FormData
@@ -65,11 +71,14 @@ export async function login(
 
   const admin = await getAdminByUsername(username);
   if (!admin) {
+    await failDelay(3);
     return { error: "Invalid credentials." };
   }
 
   const valid = await compare(password, admin.password_hash);
   if (!valid) {
+    const entry = loginAttempts.get(ip);
+    await failDelay(entry?.count ?? 1);
     return { error: "Invalid credentials." };
   }
 
@@ -82,6 +91,14 @@ export async function logout() {
   redirect("/");
 }
 
+const VALID_ENTITIES = new Set(["researcher", "project", "publication", "page"]);
+const VALID_FIELDS: Record<string, Set<string>> = {
+  researcher: new Set(["name", "title", "about", "photo", "credentials"]),
+  project: new Set(["name", "about"]),
+  publication: new Set(["name", "journal", "abstract", "publicationUrl"]),
+  page: new Set(["heading", "subheading", "description", "body", "content"]),
+};
+
 export async function saveTextOverride(
   entity: string,
   entityId: string,
@@ -92,6 +109,15 @@ export async function saveTextOverride(
   const session = await verifySession();
   if (!session) {
     return { error: "Not authenticated." };
+  }
+
+  if (!VALID_ENTITIES.has(entity)) {
+    return { error: "Invalid entity type." };
+  }
+
+  const allowedFields = VALID_FIELDS[entity];
+  if (allowedFields && !allowedFields.has(field)) {
+    return { error: "Invalid field." };
   }
 
   await upsertOverride(entity, entityId, field, value);
@@ -263,8 +289,15 @@ export async function uploadResearcherPhoto(formData: FormData) {
 
   if (!file || !researcherId) return { error: "Missing file or researcher ID." };
 
-  const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-  if (!ALLOWED_TYPES.includes(file.type)) {
+  const MIME_TO_EXT: Record<string, string> = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+    "image/gif": "gif",
+  };
+
+  const ext = MIME_TO_EXT[file.type];
+  if (!ext) {
     return { error: "Only JPEG, PNG, WebP, and GIF images are allowed." };
   }
 
@@ -273,7 +306,7 @@ export async function uploadResearcherPhoto(formData: FormData) {
     return { error: "File must be under 5 MB." };
   }
 
-  const blob = await put(`photos/${researcherId}-${Date.now()}.${file.name.split(".").pop()}`, file, {
+  const blob = await put(`photos/${researcherId}-${Date.now()}.${ext}`, file, {
     access: "public",
   });
 

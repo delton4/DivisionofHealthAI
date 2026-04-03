@@ -3,8 +3,8 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
 const SECRET_KEY = process.env.SESSION_SECRET;
-if (!SECRET_KEY && process.env.NODE_ENV === "production") {
-  throw new Error("SESSION_SECRET must be set in production");
+if (!SECRET_KEY && process.env.NODE_ENV !== "development" && !process.env.GITHUB_ACTIONS) {
+  throw new Error("SESSION_SECRET must be set");
 }
 const key = new TextEncoder().encode(SECRET_KEY || "dev-secret-change-me");
 const COOKIE_NAME = "session";
@@ -46,7 +46,7 @@ export async function createSession(userId: number, email: string) {
   cookieStore.set(COOKIE_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: "strict",
     path: "/",
     expires: expiresAt,
   });
@@ -55,11 +55,13 @@ export async function createSession(userId: number, email: string) {
   cookieStore.set(ADMIN_HINT_COOKIE, "1", {
     httpOnly: false,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: "strict",
     path: "/",
     expires: expiresAt,
   });
 }
+
+const ROTATION_THRESHOLD_MS = 24 * 60 * 60 * 1000; // Rotate after 24h of active use
 
 export async function verifySession(): Promise<SessionPayload | null> {
   const cookieStore = await cookies();
@@ -69,7 +71,15 @@ export async function verifySession(): Promise<SessionPayload | null> {
   const payload = await decrypt(token);
   if (!payload) return null;
 
-  if (new Date(payload.expiresAt) < new Date()) return null;
+  const expiresAt = new Date(payload.expiresAt);
+  if (expiresAt < new Date()) return null;
+
+  // Rotate token if past threshold — limits window for compromised tokens
+  const maxLifetime = 7 * 24 * 60 * 60 * 1000;
+  const elapsed = maxLifetime - (expiresAt.getTime() - Date.now());
+  if (elapsed > ROTATION_THRESHOLD_MS) {
+    await createSession(payload.userId, payload.email);
+  }
 
   return payload;
 }

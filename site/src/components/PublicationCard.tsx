@@ -1,9 +1,10 @@
 "use client";
 
+import { memo } from "react";
 import type { Publication } from "@/lib/types";
 import { EditableText } from "@/components/EditableText";
 
-export function PublicationCard({
+export const PublicationCard = memo(function PublicationCard({
   publication,
 }: {
   publication: Publication;
@@ -44,4 +45,4 @@ export function PublicationCard({
       )}
     </div>
   );
-}
+});

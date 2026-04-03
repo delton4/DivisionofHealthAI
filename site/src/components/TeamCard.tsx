@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import Link from "next/link";
 import type { Researcher } from "@/lib/types";
 
@@ -11,7 +12,7 @@ function getInitials(name: string): string {
   return name.slice(0, 2).toUpperCase();
 }
 
-export function TeamCard({ researcher }: { researcher: Researcher }) {
+export const TeamCard = memo(function TeamCard({ researcher }: { researcher: Researcher }) {
   return (
     <div className="border border-border rounded-md p-5">
       <Link
@@ -36,4 +37,4 @@ export function TeamCard({ researcher }: { researcher: Researcher }) {
       </Link>
     </div>
   );
-}
+});
