@@ -2,8 +2,11 @@ import "server-only";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-const SECRET_KEY = process.env.SESSION_SECRET || "dev-secret-change-me";
-const key = new TextEncoder().encode(SECRET_KEY);
+const SECRET_KEY = process.env.SESSION_SECRET;
+if (!SECRET_KEY && process.env.NODE_ENV === "production") {
+  throw new Error("SESSION_SECRET must be set in production");
+}
+const key = new TextEncoder().encode(SECRET_KEY || "dev-secret-change-me");
 const COOKIE_NAME = "session";
 const ADMIN_HINT_COOKIE = "admin_logged_in";
 

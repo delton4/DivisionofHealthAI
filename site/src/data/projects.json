@@ -4,6 +4,7 @@
     "name": "Point-of-care AI",
     "title": "Prevent",
     "about": "Develop clinical decision support tools to diagnose and predict clinical outcomes and trajectories. This vertical focuses on preventing in-hospital deterioration through AI-driven monitoring, including a deep-learning model to reduce unnecessary overnight vitals checks, a deterioration prediction model trained on over 1.5 million hospitalizations that outperforms Epic's Deterioration Index by 25%, and a wearable-based continuous monitoring system funded by a $3.2M NIH grant that predicts clinical alerts 17 hours in advance with over 94% sensitivity.",
+    "slug": "point-of-care-ai",
     "researcherIds": [
       "1",
       "3",
@@ -41,19 +42,14 @@
       "44",
       "50"
     ],
-    "image": "",
-    "projectIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "point-of-care-ai",
-    "path": "projects/1-point-of-care-ai.html"
+    "image": ""
   },
   {
     "id": "2",
     "name": "Operational AI",
     "title": "Predict",
     "about": "Develop operational decision support tools to provide enterprise insights and assist in health system wide issues. This vertical addresses the nursing workforce crisis through AI-driven forecasting, using DeepAR models trained on 5 years of historical data to predict nursing demand and attrition up to 12 months ahead. The preemptive hiring strategy is estimated to save close to $10 million annually across just 10 of Northwell's 400+ units by reducing reliance on flex staff and overtime. Also includes unsupervised clustering to phenotype nurse attrition and identify modifiable factors.",
+    "slug": "operational-ai",
     "researcherIds": [
       "1",
       "3",
@@ -63,19 +59,14 @@
       "4",
       "21"
     ],
-    "image": "",
-    "projectIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "operational-ai",
-    "path": "projects/2-operational-ai.html"
+    "image": ""
   },
   {
     "id": "3",
     "name": "Preclinical AI",
     "title": "Preclinical AI",
     "about": "Develop algorithms that use neural recordings from preclinical models to diagnose and predict disease states. This vertical focuses on decoding vagus nerve signals related to inflammation and metabolic states, building on foundational work published in PNAS showing that cytokine-specific neural activity can be decoded from the cervical vagus nerve. Includes chronic vagus nerve recording in implanted mouse models and predicting disease severity and treatment efficacy for conditions such as rheumatoid arthritis using vagus nerve stimulation.",
+    "slug": "preclinical-ai",
     "researcherIds": [
       "1",
       "3",
@@ -95,19 +86,14 @@
       "53",
       "55"
     ],
-    "image": "",
-    "projectIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "preclinical-ai",
-    "path": "projects/3-preclinical-ai.html"
+    "image": ""
   },
   {
     "id": "4",
     "name": "Autonomic Nervous System AI",
     "title": "Personalize",
     "about": "Develop algorithms that use non-invasive physiological data to diagnose disease presence and severity and predict treatment efficacy. Key projects include predicting vagus nerve stimulation treatment response for drug-resistant epilepsy patients, and using machine learning on autonomic nervous system biomarkers to detect and quantify PTSD presence and severity from physiological signatures. This work uses heart rate variability and other non-invasive measures to build parsimonious diagnostic and prognostic models.",
+    "slug": "autonomic-nervous-system-ai",
     "researcherIds": [
       "1",
       "4",
@@ -123,19 +109,14 @@
       "35",
       "46"
     ],
-    "image": "",
-    "projectIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "autonomic-nervous-system-ai",
-    "path": "projects/4-autonomic-nervous-system-ai.html"
+    "image": ""
   },
   {
     "id": "5",
     "name": "Anatomical Data AI",
     "title": "Anatomical Data AI",
     "about": "Develop accurate in-silico models of human anatomy using multimodal imaging and AI. This vertical is creating the most detailed human vagus nerve digital twin in existence, processing over 4 million microscopy and micro-CT images (approximately 200 terabytes of data) from 60 vagus nerves to map the spatial arrangement of fascicles and fibers from the cervical trunk to organ-level branches. Funded by a $6.7M NIH grant, this work uses 3D nn-U-Net deep learning segmentation to enable next-generation selective vagus nerve stimulation therapies.",
+    "slug": "anatomical-data-ai",
     "researcherIds": [
       "1",
       "3",
@@ -148,29 +129,18 @@
       "42",
       "47"
     ],
-    "image": "",
-    "projectIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "anatomical-data-ai",
-    "path": "projects/5-anatomical-data-ai.html"
+    "image": ""
   },
   {
     "id": "6",
     "name": "Website",
     "title": "Division Website",
     "about": "The Division of Health AI website is built from a data-driven spreadsheet architecture, making it easy to update and maintain as the division grows.",
+    "slug": "website",
     "researcherIds": [
       "2"
     ],
     "publicationIds": [],
-    "image": "",
-    "projectIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "website",
-    "path": "projects/6-website.html"
+    "image": ""
   }
 ]

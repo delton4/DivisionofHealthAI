@@ -78,7 +78,7 @@ export function TeamManager({
       {/* Database alumni (removable) */}
       {dbAlumni.length > 0 && (
         <div className="mt-8 pt-8 border-t border-border">
-          <h3 className="text-sm font-medium mb-4">Alumni added via admin</h3>
+          <h3 className="text-sm font-medium mb-4">Alumni</h3>
           <div className="space-y-2">
             {dbAlumni.map((a) => (
               <AlumniRow key={a.id} alumni={a} />

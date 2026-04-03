@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EditableText } from "@/components/EditableText";
@@ -58,7 +57,7 @@ export default async function ResearcherDetailPage({
           researcherId={researcher.id}
           researcherSlug={researcher.slug}
           researcherName={researcher.name}
-          photoUrl={(researcher as unknown as Record<string, string>).photo || staticPhotos[researcher.slug]}
+          photoUrl={researcher.photo || staticPhotos[researcher.slug]}
         />
 
         <h1 className="font-display text-3xl md:text-4xl tracking-tight mt-6">

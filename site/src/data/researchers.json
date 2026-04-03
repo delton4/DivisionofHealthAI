@@ -4,6 +4,7 @@
     "name": "Theodoros Zanos",
     "title": "Professor & AVP, Division of Health Artificial Intelligence",
     "about": "Dr. Theodoros P. Zanos is Professor & AVP of the Division of Health Artificial Intelligence at the Feinstein Institutes for Medical Research and the Zucker School of Medicine at Hofstra/Northwell. He also leads the Neural and Data Science Lab and holds a faculty appointment at the Institute of Bioelectronic Medicine. Dr. Zanos earned his Ph.D. in Biomedical Engineering from the University of Southern California and completed postdoctoral training at the Montreal Neurological Institute at McGill University. His research sits at the intersection of artificial intelligence, computational neuroscience, and clinical medicine, with a focus on developing machine learning algorithms for early disease diagnosis, patient deterioration prediction, and personalized therapeutic interventions. His work spans multiple healthcare data modalities including electronic health records, continuous physiological monitoring, medical imaging, and neural signal processing. He has authored over 50 peer-reviewed publications in leading journals such as Nature Communications, PNAS, JAMA, and Nature Machine Intelligence, accumulating over 10,000 citations. Dr. Zanos is the recipient of a $3.1 million NIH grant for advancing AI-driven patient monitoring in hospital settings.",
+    "slug": "theodoros-zanos",
     "projectIds": [
       "1",
       "2",
@@ -69,12 +70,6 @@
       "55"
     ],
     "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "theodoros-zanos",
-    "path": "researchers/1-theodoros-zanos.html",
     "linkedin": "https://www.linkedin.com/in/theozanos/"
   },
   {
@@ -82,23 +77,19 @@
     "name": "Diego Gonzalez Garcia-Torres",
     "title": "Visiting Scholar",
     "about": "Diego helped us build this website",
+    "slug": "diego-gonzalez-garcia-torres",
     "projectIds": [
       "6"
     ],
     "publicationIds": [],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "diego-gonzalez-garcia-torres",
-    "path": "researchers/2-diego-gonzalez-garcia-torres.html"
+    "image": ""
   },
   {
     "id": "3",
     "name": "Todd Levy",
     "title": "Senior Biomedical Engineer, MS",
     "about": "Todd Levy is a Senior Biomedical Engineer at the Feinstein Institutes for Medical Research's Center for Bioelectronic Medicine, with an MS in Electrical Engineering from Case Western Reserve University and a post-masters certificate in Applied Biomedical Engineering from Johns Hopkins University. He specializes in neural decoding and data analytics, applying signal processing and machine learning to advance bioelectronic medicine research. As a key contributor to the Neural Decoding and Data Analytics laboratory, Levy has co-authored 17 publications including papers in Nature Communications and JAMA, with research focus on COVID-19 prognostic models, vagus nerve signal recording and analysis, and development of self-monitoring auto-updating clinical models.",
+    "slug": "todd-levy",
     "projectIds": [
       "1",
       "2",
@@ -125,12 +116,6 @@
       "53"
     ],
     "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "todd-levy",
-    "path": "researchers/3-todd-levy.html",
     "linkedin": "https://www.linkedin.com/in/todd-levy-85bb824/"
   },
   {
@@ -138,6 +123,7 @@
     "name": "Shubham Debnath",
     "title": "Senior Research Scientist, PhD",
     "about": "Shubham Debnath is a Senior Research Scientist at the Feinstein Institutes for Medical Research with expertise in autonomic nervous system quantification and bioelectronic medicine. His research focuses on developing methods to quantify autonomic nervous system function using non-invasive sensors and on clinical applications including maternal fever prediction, COVID-19 clinical decision support systems, and analysis of chronic vagus nerve recordings. Debnath has contributed to peer-reviewed publications on autonomic function assessment methodologies and their translational applications in clinical care.",
+    "slug": "shubham-debnath",
     "projectIds": [
       "1",
       "3",
@@ -153,12 +139,6 @@
       "43"
     ],
     "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "shubham-debnath",
-    "path": "researchers/4-shubham-debnath.html",
     "linkedin": "https://www.linkedin.com/in/shubhamdebnath/"
   },
   {
@@ -166,6 +146,7 @@
     "name": "Michael Scheid",
     "title": "Senior Biomedical Engineer, PhD",
     "about": "Michael Scheid is a Senior Biomedical Engineer and lead author at the Feinstein Institutes for Medical Research who developed an artificial intelligence model for predicting in-hospital patient deterioration using continuous wearable biosensor data. His research published in Nature Communications (2025) demonstrates a deep learning approach that predicts clinical deterioration up to 17 hours in advance, achieving over 83% accuracy in identifying unplanned ICU transfers and critical outcomes. Additional work includes development of clinical alert systems for early detection of clinical decline and analysis of ICD remote transmissions for atrial fibrillation prediction.",
+    "slug": "michael-scheid",
     "projectIds": [
       "1"
     ],
@@ -174,12 +155,6 @@
       "5"
     ],
     "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "michael-scheid",
-    "path": "researchers/5-michael-scheid.html",
     "linkedin": "https://www.linkedin.com/in/michaelrscheid/"
   },
   {
@@ -187,24 +162,20 @@
     "name": "Lucas Cang",
     "title": "Research Assistant",
     "about": "Lucas Cang (Jinxuan Cang) is an Associate Clinical Research Assistant at the Feinstein Institutes for Medical Research, Northwell Health, working within the Institute of Health System Science and Institute of Bioelectronic Medicine. He collaborates with senior researchers on anatomical data AI and autonomic nervous system research projects under the direction of principal investigators at the institute.",
+    "slug": "lucas-cang",
     "projectIds": [
       "4",
       "5"
     ],
     "publicationIds": [],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "lucas-cang",
-    "path": "researchers/6-lucas-cang.html"
+    "image": ""
   },
   {
     "id": "7",
     "name": "Nabil Ettehadi",
     "title": "Lead Data Engineer, PhD",
     "about": "Nabil Ettehadi is an Advisor of Emerging Technology (AI) at Northwell Health and Professor at Hofstra University with over 10 years of experience in academia, clinical research, and industry. He leads AI strategy and development at Northwell Health's Division of Health AI, specializing in deep learning for medical imaging and computational analysis. His work includes development of nursing workforce demand forecasting models using DeepAR deep learning architectures and design of graduate-level coursework on AI and deep learning applications in medical research.",
+    "slug": "nabil-ettehadi",
     "projectIds": [
       "1",
       "2"
@@ -213,12 +184,6 @@
       "4"
     ],
     "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "nabil-ettehadi",
-    "path": "researchers/7-nabil-ettehadi.html",
     "linkedin": "https://www.linkedin.com/in/nabil-ettehadi/"
   },
   {
@@ -226,6 +191,7 @@
     "name": "Alejandro Quintero Villegas",
     "title": "Elmezzi Scholar, MD",
     "about": "Alejandro Quintero-Villegas is an Elmezzi Scholar at the Feinstein Institutes for Medical Research affiliated with the Institute of Bioelectronic Medicine. His research focuses on applying machine learning frameworks to predict response to neuromodulation therapies in drug-resistant epilepsy and investigating the role of antiphospholipid syndrome in neurological manifestations. He has contributed to systematic reviews and meta-analyses examining machine learning approaches for optimizing treatment outcomes in complex neurological conditions.",
+    "slug": "alejandro-quintero-villegas",
     "projectIds": [
       "4"
     ],
@@ -234,12 +200,6 @@
       "8"
     ],
     "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "alejandro-quintero-villegas",
-    "path": "researchers/8-alejandro-quintero-villegas.html",
     "linkedin": "https://www.linkedin.com/in/alejandro-qv/"
   },
   {
@@ -247,21 +207,17 @@
     "name": "Philip (Arash) Mirian",
     "title": "MSDS, PT",
     "about": "",
+    "slug": "philip-arash-mirian",
     "projectIds": [],
     "publicationIds": [],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "philip-arash-mirian",
-    "path": "researchers/9-philip-arash-mirian.html"
+    "image": ""
   },
   {
     "id": "10",
     "name": "Theofilos Kanavos",
     "title": "MD",
     "about": "",
+    "slug": "theofilos-kanavos",
     "projectIds": [
       "1"
     ],
@@ -269,19 +225,14 @@
       "1",
       "7"
     ],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "theofilos-kanavos",
-    "path": "researchers/10-theofilos-kanavos.html"
+    "image": ""
   },
   {
     "id": "11",
     "name": "Effrosyni Birbas",
     "title": "MD",
     "about": "Effrosyni Birbas, MD, is an affiliate at the Feinstein Institutes for Medical Research who co-authored a systematic review published in Cancers (2025) examining deep learning applications for interpreting positron emission tomography images in lymphoma patients. Her work synthesizes evidence from 21 studies with over 9,400 participants on deep learning models for lymphoma detection, classification, quantification of metabolic tumor burden, and prediction of treatment response and survival outcomes.",
+    "slug": "effrosyni-birbas",
     "projectIds": [
       "1"
     ],
@@ -289,30 +240,19 @@
       "1",
       "7"
     ],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "effrosyni-birbas",
-    "path": "researchers/11-effrosyni-birbas.html"
+    "image": ""
   },
   {
     "id": "12",
     "name": "Derek Hansen",
     "title": "PhD",
     "about": "",
+    "slug": "derek-hansen",
     "projectIds": [
       "1"
     ],
     "publicationIds": [],
     "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "derek-hansen",
-    "path": "researchers/12-derek-hansen.html",
     "linkedin": "https://www.linkedin.com/in/dereklhansen/"
   },
   {
@@ -320,30 +260,20 @@
     "name": "Elly Konjkav",
     "title": "",
     "about": "",
+    "slug": "elly-konjkav",
     "projectIds": [],
     "publicationIds": [],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "elly-konjkav",
-    "path": "researchers/13-elly-konjkav.html"
+    "image": ""
   },
   {
     "id": "14",
     "name": "Soroush Arabshahi",
     "title": "PhD",
     "about": "Soroush Arabshahi is a PhD candidate in Biomedical Engineering at Columbia University, specializing in deep learning approaches for medical image analysis and neuroimaging. His research focuses on innovative methods for quantitative analysis in high-dimensional medical imaging spaces, with applications to brain MRI and lung CT imaging. He is affiliated with Columbia University's Heffner Biomedical Imaging Lab and has published on brain tissue segmentation using transformer-based approaches.",
+    "slug": "soroush-arabshahi",
     "projectIds": [],
     "publicationIds": [],
     "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "soroush-arabshahi",
-    "path": "researchers/14-soroush-arabshahi.html",
     "linkedin": "https://www.linkedin.com/in/soroush-arabshahi"
   },
   {
@@ -351,30 +281,20 @@
     "name": "Nick Tsaftaridis",
     "title": "MD",
     "about": "Nikolaos Tsaftaridis, MD, is affiliated with the Institute of Health System Science at the Feinstein Institutes for Medical Research at Northwell Health. His research focuses on health systems science and clinical education, including the development of virtual patient cases for medical training and research on anticoagulation management and thromboprophylaxis in hospitalized patients.",
+    "slug": "nick-tsaftaridis",
     "projectIds": [],
     "publicationIds": [],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "nick-tsaftaridis",
-    "path": "researchers/15-nick-tsaftaridis.html"
+    "image": ""
   },
   {
     "id": "16",
     "name": "Panayiotis Christou",
     "title": "MS",
     "about": "Panayiotis Christou holds a PhD in Computer Science from Fordham University and a Master's degree in Computer Engineering from NYU. His research interests include AI/ML applications, geometric deep learning, physics-informed neural networks (PINNs), quantum computing, and high-performance computing, with particular focus on applying these techniques to healthcare challenges.",
+    "slug": "panayiotis-christou",
     "projectIds": [],
     "publicationIds": [],
     "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "panayiotis-christou",
-    "path": "researchers/16-panayiotis-christou.html",
     "linkedin": "https://www.linkedin.com/in/panayiotis-christou/"
   },
   {
@@ -382,25 +302,21 @@
     "name": "Hardik Patel",
     "title": "Postdoctoral Fellow, DO",
     "about": "Hardik Patel, DO, is a Research Fellow at the Feinstein Institutes for Medical Research specializing in computer vision applications in surgery. He authored a comprehensive review on deep learning applications in pancreatic cancer, published in Cancers journal in 2024. His work focuses on advancing artificial intelligence methodologies for cancer diagnosis, management, and monitoring.",
+    "slug": "hardik-patel",
     "projectIds": [
       "1"
     ],
     "publicationIds": [
       "15"
     ],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "hardik-patel",
-    "path": "researchers/17-hardik-patel.html"
+    "image": ""
   },
   {
     "id": "18",
     "name": "Viktor Toth",
     "title": "MS",
     "about": "Viktor Tóth, MSc, is a Research Associate at the Institute of Bioelectronic Medicine at the Feinstein Institutes for Medical Research with expertise in neuroscience and deep learning. He is the lead author of 'Let Sleeping Patients Lie,' published in npj Digital Medicine in 2020, which developed a clinical deep learning model to safely avoid unnecessary overnight vital sign monitoring in approximately 50% of hospitalized patient-nights. His research encompasses clinical decision support systems and neural data analysis.",
+    "slug": "viktor-toth",
     "projectIds": [
       "1"
     ],
@@ -411,49 +327,34 @@
       "42",
       "43"
     ],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "viktor-toth",
-    "path": "researchers/18-viktor-toth.html"
+    "image": ""
   },
   {
     "id": "19",
     "name": "Thanh Nguyen",
     "title": "",
     "about": "",
+    "slug": "thanh-nguyen",
     "projectIds": [],
     "publicationIds": [],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "thanh-nguyen",
-    "path": "researchers/19-thanh-nguyen.html"
+    "image": ""
   },
   {
     "id": "20",
     "name": "Rohan Sen",
     "title": "",
     "about": "",
+    "slug": "rohan-sen",
     "projectIds": [],
     "publicationIds": [],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "rohan-sen",
-    "path": "researchers/20-rohan-sen.html"
+    "image": ""
   },
   {
     "id": "21",
     "name": "Avantika Vardhan",
     "title": "Electrical Engineer, PhD",
     "about": "Avantika Vardhan, PhD, is an Electrical Engineer at the Feinstein Institutes for Medical Research with a PhD in Bioengineering and Biomedical Engineering from the University of Utah. She authored research on a deep transfer learning framework for estimating lung opacities from chest x-rays, published in Bioelectronic Medicine in 2023, where she designed the computational models, implementation, and data analysis. Her expertise spans image processing, machine learning, signal processing, and pattern recognition.",
+    "slug": "avantika-vardhan",
     "projectIds": [
       "1",
       "5"
@@ -462,19 +363,14 @@
       "18",
       "24"
     ],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "avantika-vardhan",
-    "path": "researchers/21-avantika-vardhan.html"
+    "image": ""
   },
   {
     "id": "22",
     "name": "Fylaktis Fylaktou",
     "title": "PhD Student",
     "about": "Fylaktis Fylaktou, PhD, is a doctoral researcher at the Feinstein Institutes for Medical Research with a PhD in Molecular Medicine from Hofstra University and an MEng in Electrical and Computer Engineering from NTUA. He is affiliated with the Elmezzi Graduate School of Molecular Medicine, the Institute of Health System Science, and the Institute of Bioelectronic Medicine, focusing on machine learning applications in neuromodulation and epilepsy. His research includes predicting neuromodulation therapy response in drug-resistant epilepsy and developing real-time EEG analysis techniques for autonomic response detection.",
+    "slug": "fylaktis-fylaktou",
     "projectIds": [
       "4"
     ],
@@ -482,12 +378,6 @@
       "3",
       "6"
     ],
-    "image": "",
-    "researcherIds": [],
-    "journal": "",
-    "abstract": "",
-    "publicationUrl": "",
-    "slug": "fylaktis-fylaktou",
-    "path": "researchers/22-fylaktis-fylaktou.html"
+    "image": ""
   }
 ]

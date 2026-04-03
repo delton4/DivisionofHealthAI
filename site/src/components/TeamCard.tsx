@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import type { Researcher } from "@/lib/types";
-import { EditableText } from "@/components/EditableText";
 
 function getInitials(name: string): string {
   const parts = name.split(" ");
@@ -35,16 +34,6 @@ export function TeamCard({ researcher }: { researcher: Researcher }) {
           </div>
         </div>
       </Link>
-      <div className="mt-2 ml-14">
-        <EditableText
-          entity="researcher"
-          entityId={researcher.id}
-          field="title"
-          value={researcher.title || ""}
-          as="span"
-          className="text-xs text-text-muted"
-        />
-      </div>
     </div>
   );
 }

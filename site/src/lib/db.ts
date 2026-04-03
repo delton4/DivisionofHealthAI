@@ -66,10 +66,10 @@ export async function upsertOverride(
   `;
 }
 
-export async function getAdminByEmail(email: string) {
+export async function getAdminByUsername(username: string) {
   const sql = getDb();
   const rows = await sql`
-    SELECT id, email, password_hash FROM admin_users WHERE email = ${email}
+    SELECT id, email, password_hash FROM admin_users WHERE email = ${username}
   `;
   return rows[0] || null;
 }
@@ -102,6 +102,30 @@ export async function initPublicationTables() {
       entity    TEXT NOT NULL,
       entity_id TEXT NOT NULL,
       PRIMARY KEY (entity, entity_id)
+    )
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS custom_projects (
+      id         TEXT PRIMARY KEY,
+      name       TEXT NOT NULL,
+      about      TEXT NOT NULL DEFAULT '',
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS custom_researchers (
+      id         TEXT PRIMARY KEY,
+      name       TEXT NOT NULL,
+      title      TEXT NOT NULL DEFAULT '',
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS db_alumni (
+      id          SERIAL PRIMARY KEY,
+      name        TEXT NOT NULL,
+      credentials TEXT NOT NULL DEFAULT '',
+      created_at  TIMESTAMPTZ DEFAULT NOW()
     )
   `;
 }

@@ -10,6 +10,7 @@ export interface Researcher {
   email?: string;
   linkedin?: string;
   alumni?: boolean;
+  photo?: string;
 }
 
 export interface Alumni {

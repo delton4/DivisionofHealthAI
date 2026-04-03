@@ -43,6 +43,7 @@ export function PublicationFilter({
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setActiveProject(null)}
+            aria-pressed={activeProject === null}
             className={`text-xs px-3 py-1.5 rounded-md border transition-colors duration-200 ${
               activeProject === null
                 ? "border-accent text-accent"
@@ -55,6 +56,7 @@ export function PublicationFilter({
             <button
               key={p.id}
               onClick={() => setActiveProject(activeProject === p.id ? null : p.id)}
+              aria-pressed={activeProject === p.id}
               className={`text-xs px-3 py-1.5 rounded-md border transition-colors duration-200 ${
                 activeProject === p.id
                   ? "border-accent text-accent"

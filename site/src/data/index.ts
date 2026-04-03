@@ -3,27 +3,14 @@ import researchersJson from "./researchers.json";
 import projectsJson from "./projects.json";
 import publicationsJson from "./publications.json";
 
-// ---- Alumni (removed from active team, listed separately) ----
-const removedIds = new Set(["17", "18", "21", "22"]); // Hardik=17, Viktor=18, Avantika=21, Fylaktis=22
+// ---- Static data ----
+// All entries are included here. Visibility filtering (alumni, hidden)
+// is handled by the async getAll*WithOverrides() functions via the
+// hidden_entities DB table.
 
-export const alumni: Alumni[] = [
-  { name: "Avantika Vardhan", credentials: "PhD" },
-  { name: "Fylaktis Fylaktou", credentials: "PhD" },
-  { name: "Hardik Patel", credentials: "DO" },
-  { name: "Viktor Toth", credentials: "MS" },
-  { name: "Sia Bolourani", credentials: "MD PhD" },
-  { name: "Subash Padmanaban", credentials: "PhD" },
-];
+export const researchers: Researcher[] = researchersJson as Researcher[];
 
-// ---- Static data (unchanged, always available) ----
-
-export const researchers: Researcher[] = (researchersJson as Researcher[]).filter(
-  (r) => !removedIds.has(r.id)
-);
-
-export const projects: Project[] = (projectsJson as Project[]).filter(
-  (p) => p.id !== "6"
-);
+export const projects: Project[] = projectsJson as Project[];
 
 export const publications: Publication[] = publicationsJson as Publication[];
 
@@ -154,19 +141,16 @@ export async function getAllProjectsWithOverrides(): Promise<Project[]> {
 }
 
 export async function getAllAlumni(): Promise<Alumni[]> {
-  const staticAlumni = [...alumni];
-
   try {
     const { getDbAlumni } = await import("@/lib/db");
     const dbRows = await getDbAlumni();
-    for (const row of dbRows) {
-      staticAlumni.push({ name: row.name, credentials: row.credentials });
-    }
+    return (dbRows as { name: string; credentials: string }[]).map((row) => ({
+      name: row.name,
+      credentials: row.credentials,
+    }));
   } catch {
-    // DB unavailable
+    return [];
   }
-
-  return staticAlumni;
 }
 
 export async function getAllPublicationsWithOverrides(): Promise<Publication[]> {

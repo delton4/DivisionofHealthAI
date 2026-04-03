@@ -95,6 +95,7 @@ export function Navigation() {
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 text-text-secondary hover:text-foreground"
             aria-label="Toggle menu"
+            aria-expanded={isOpen}
           >
             {isOpen ? (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -112,7 +113,7 @@ export function Navigation() {
       {/* Mobile menu */}
       <div
         className={`md:hidden border-t border-border bg-surface overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+          isOpen ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="px-6 py-4 space-y-1">
@@ -126,6 +127,24 @@ export function Navigation() {
               {link.label}
             </Link>
           ))}
+          {isAdmin && (
+            <div className="pt-3 mt-3 border-t border-border space-y-1">
+              <Link href="/admin/team" onClick={() => setIsOpen(false)} className="block py-2 text-xs text-text-muted hover:text-accent transition-colors duration-200">
+                Admin: Team
+              </Link>
+              <Link href="/admin/research" onClick={() => setIsOpen(false)} className="block py-2 text-xs text-text-muted hover:text-accent transition-colors duration-200">
+                Admin: Research
+              </Link>
+              <Link href="/admin/publications" onClick={() => setIsOpen(false)} className="block py-2 text-xs text-text-muted hover:text-accent transition-colors duration-200">
+                Admin: Pubs
+              </Link>
+              <form action={logout}>
+                <button type="submit" className="block py-2 text-xs text-text-muted hover:text-accent-warm transition-colors duration-200">
+                  Logout
+                </button>
+              </form>
+            </div>
+          )}
         </div>
       </div>
     </nav>

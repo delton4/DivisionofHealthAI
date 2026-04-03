@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { verifySession } from "@/lib/session";
 import { LoginForm } from "./LoginForm";
 
 export const metadata: Metadata = {
   title: "Admin Login",
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await verifySession();
+  if (session) redirect("/");
+
   return (
     <div className="pt-36 pb-20">
       <div className="mx-auto max-w-sm px-6">

@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { put } from "@vercel/blob";
 import {
-  getAdminByEmail,
+  getAdminByUsername,
   upsertOverride,
   addCustomPublication,
   removeCustomPublication,
@@ -19,11 +19,35 @@ import {
   unhideEntity,
 } from "./db";
 import { createSession, verifySession, deleteSession } from "./session";
+import { headers } from "next/headers";
+
+// Simple in-memory rate limiter for login attempts
+const loginAttempts = new Map<string, { count: number; resetAt: number }>();
+const MAX_ATTEMPTS = 5;
+const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = loginAttempts.get(ip);
+  if (!entry || now > entry.resetAt) {
+    loginAttempts.set(ip, { count: 1, resetAt: now + WINDOW_MS });
+    return true;
+  }
+  entry.count++;
+  return entry.count <= MAX_ATTEMPTS;
+}
 
 export async function login(
   _prevState: { error: string } | null,
   formData: FormData
 ): Promise<{ error: string } | null> {
+  const headersList = await headers();
+  const ip = headersList.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+
+  if (!checkRateLimit(ip)) {
+    return { error: "Too many login attempts. Try again in 15 minutes." };
+  }
+
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
@@ -31,7 +55,7 @@ export async function login(
     return { error: "Username and password are required." };
   }
 
-  const admin = await getAdminByEmail(username);
+  const admin = await getAdminByUsername(username);
   if (!admin) {
     return { error: "Invalid credentials." };
   }
