@@ -1,6 +1,38 @@
 import "server-only";
 import { neon } from "@neondatabase/serverless";
 
+// ---- Row types for typed SELECT queries ----
+
+export interface CustomPublicationRow {
+  id: string;
+  name: string;
+  journal: string;
+  abstract: string;
+  publication_url: string;
+  created_at: string;
+}
+
+export interface CustomProjectRow {
+  id: string;
+  name: string;
+  about: string;
+  created_at: string;
+}
+
+export interface CustomResearcherRow {
+  id: string;
+  name: string;
+  title: string;
+  created_at: string;
+}
+
+export interface DbAlumniRow {
+  id: number;
+  name: string;
+  credentials: string;
+  created_at: string;
+}
+
 function getDb() {
   const url = process.env.DATABASE_URL;
   if (!url) throw new Error("DATABASE_URL is not set");
@@ -78,11 +110,12 @@ export async function getAdminByUsername(username: string) {
 
 // ---- Publication management ----
 
-export async function getCustomPublications() {
+export async function getCustomPublications(): Promise<CustomPublicationRow[]> {
   if (process.env.GITHUB_ACTIONS === "true") return [];
   try {
     const sql = getDb();
-    return await sql`SELECT * FROM custom_publications ORDER BY created_at DESC`;
+    const rows = await sql`SELECT id, name, journal, abstract, publication_url, created_at FROM custom_publications ORDER BY created_at DESC`;
+    return rows as unknown as CustomPublicationRow[];
   } catch {
     return [];
   }
@@ -134,11 +167,12 @@ export async function unhideEntity(entity: string, entityId: string) {
 
 // ---- Custom projects ----
 
-export async function getCustomProjects() {
+export async function getCustomProjects(): Promise<CustomProjectRow[]> {
   if (process.env.GITHUB_ACTIONS === "true") return [];
   try {
     const sql = getDb();
-    return await sql`SELECT * FROM custom_projects ORDER BY created_at DESC`;
+    const rows = await sql`SELECT id, name, about, created_at FROM custom_projects ORDER BY created_at DESC`;
+    return rows as unknown as CustomProjectRow[];
   } catch {
     return [];
   }
@@ -163,11 +197,12 @@ export async function removeCustomProject(id: string) {
 
 // ---- Custom researchers ----
 
-export async function getCustomResearchers() {
+export async function getCustomResearchers(): Promise<CustomResearcherRow[]> {
   if (process.env.GITHUB_ACTIONS === "true") return [];
   try {
     const sql = getDb();
-    return await sql`SELECT * FROM custom_researchers ORDER BY created_at DESC`;
+    const rows = await sql`SELECT id, name, title, created_at FROM custom_researchers ORDER BY created_at DESC`;
+    return rows as unknown as CustomResearcherRow[];
   } catch {
     return [];
   }
@@ -192,11 +227,12 @@ export async function removeCustomResearcher(id: string) {
 
 // ---- Dynamic alumni (database-stored) ----
 
-export async function getDbAlumni() {
+export async function getDbAlumni(): Promise<DbAlumniRow[]> {
   if (process.env.GITHUB_ACTIONS === "true") return [];
   try {
     const sql = getDb();
-    return await sql`SELECT * FROM db_alumni ORDER BY created_at DESC`;
+    const rows = await sql`SELECT id, name, credentials, created_at FROM db_alumni ORDER BY created_at DESC`;
+    return rows as unknown as DbAlumniRow[];
   } catch {
     return [];
   }

@@ -45,10 +45,29 @@ function checkRateLimit(ip: string): boolean {
   return entry.count <= MAX_ATTEMPTS;
 }
 
-// Exponential delay on failed attempts — works across cold starts
+// Exponential delay on failed attempts (best-effort, in-process only)
 function failDelay(attempt: number): Promise<void> {
   const ms = Math.min(1000 * 2 ** (attempt - 1), 8000);
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// ---- Safe FormData extraction ----
+
+function getFormString(form: FormData, key: string): string {
+  const val = form.get(key);
+  if (typeof val !== "string") throw new Error(`Missing required field: ${key}`);
+  return val;
+}
+
+function getFormStringOptional(form: FormData, key: string): string {
+  const val = form.get(key);
+  return typeof val === "string" ? val : "";
+}
+
+function getFormFile(form: FormData, key: string): File {
+  const val = form.get(key);
+  if (!(val instanceof File)) throw new Error(`Missing required file: ${key}`);
+  return val;
 }
 
 export async function login(
@@ -62,10 +81,10 @@ export async function login(
     return { error: "Too many login attempts. Try again in 15 minutes." };
   }
 
-  const username = formData.get("username") as string;
-  const password = formData.get("password") as string;
+  const username = formData.get("username");
+  const password = formData.get("password");
 
-  if (!username || !password) {
+  if (typeof username !== "string" || typeof password !== "string" || !username || !password) {
     return { error: "Username and password are required." };
   }
 
@@ -163,15 +182,13 @@ export async function addPublication(formData: FormData): Promise<void> {
   const session = await verifySession();
   if (!session) throw new Error("Not authenticated.");
 
-  const name = formData.get("name") as string;
-  const journal = formData.get("journal") as string;
-  const abstract = formData.get("abstract") as string;
-  const publicationUrl = formData.get("publicationUrl") as string;
-
-  if (!name) throw new Error("Title is required.");
+  const name = getFormString(formData, "name");
+  const journal = getFormStringOptional(formData, "journal");
+  const abstract = getFormStringOptional(formData, "abstract");
+  const publicationUrl = getFormStringOptional(formData, "publicationUrl");
 
   const id = `custom-${Date.now()}`;
-  await addCustomPublication({ id, name, journal: journal || "", abstract: abstract || "", publicationUrl: publicationUrl || "" });
+  await addCustomPublication({ id, name, journal, abstract, publicationUrl });
 
   revalidatePath("/publications");
   revalidatePath("/admin/publications");
@@ -213,12 +230,11 @@ export async function addProject(formData: FormData): Promise<void> {
   const session = await verifySession();
   if (!session) throw new Error("Not authenticated.");
 
-  const name = formData.get("name") as string;
-  const about = formData.get("about") as string;
-  if (!name) throw new Error("Name is required.");
+  const name = getFormString(formData, "name");
+  const about = getFormStringOptional(formData, "about");
 
   const id = `custom-${Date.now()}`;
-  await addCustomProject({ id, name, about: about || "" });
+  await addCustomProject({ id, name, about });
 
   revalidatePath("/research");
   revalidatePath("/admin/research");
@@ -260,12 +276,11 @@ export async function addResearcher(formData: FormData): Promise<void> {
   const session = await verifySession();
   if (!session) throw new Error("Not authenticated.");
 
-  const name = formData.get("name") as string;
-  const title = formData.get("title") as string;
-  if (!name) throw new Error("Name is required.");
+  const name = getFormString(formData, "name");
+  const title = getFormStringOptional(formData, "title");
 
   const id = `custom-${Date.now()}`;
-  await addCustomResearcher({ id, name, title: title || "" });
+  await addCustomResearcher({ id, name, title });
 
   revalidatePath("/team");
   revalidatePath("/admin/team");
@@ -317,11 +332,9 @@ export async function uploadResearcherPhoto(formData: FormData) {
   const session = await verifySession();
   if (!session) return { error: "Not authenticated." };
 
-  const file = formData.get("file") as File;
-  const researcherId = formData.get("researcherId") as string;
-  const researcherSlug = formData.get("researcherSlug") as string;
-
-  if (!file || !researcherId) return { error: "Missing file or researcher ID." };
+  const file = getFormFile(formData, "file");
+  const researcherId = getFormString(formData, "researcherId");
+  const researcherSlug = getFormString(formData, "researcherSlug");
 
   const MIME_TO_EXT: Record<string, string> = {
     "image/jpeg": "jpg",

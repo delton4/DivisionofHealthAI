@@ -60,7 +60,7 @@ export function PhotoUpload({
       <input
         ref={fileInputRef}
         type="file"
-        accept="image/*"
+        accept=".jpg,.jpeg,.png,.webp,.gif"
         onChange={handleFileChange}
         className="hidden"
       />

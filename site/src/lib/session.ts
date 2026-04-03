@@ -1,5 +1,5 @@
 import "server-only";
-import { SignJWT, jwtVerify } from "jose";
+import { SignJWT, jwtVerify, type JWTPayload } from "jose";
 import { cookies } from "next/headers";
 
 const SECRET_KEY = process.env.SESSION_SECRET;
@@ -16,8 +16,16 @@ interface SessionPayload {
   expiresAt: string;
 }
 
+function isSessionPayload(p: JWTPayload): p is JWTPayload & SessionPayload {
+  return (
+    typeof p.userId === "number" &&
+    typeof p.email === "string" &&
+    typeof p.expiresAt === "string"
+  );
+}
+
 async function encrypt(payload: SessionPayload): Promise<string> {
-  return new SignJWT(payload as unknown as Record<string, unknown>)
+  return new SignJWT({ ...payload })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("7d")
@@ -27,7 +35,8 @@ async function encrypt(payload: SessionPayload): Promise<string> {
 async function decrypt(token: string): Promise<SessionPayload | null> {
   try {
     const { payload } = await jwtVerify(token, key, { algorithms: ["HS256"] });
-    return payload as unknown as SessionPayload;
+    if (!isSessionPayload(payload)) return null;
+    return payload;
   } catch {
     return null;
   }

@@ -31,7 +31,7 @@ export function EditableText({
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -40,11 +40,6 @@ export function EditableText({
       inputRef.current.select();
     }
   }, [editing]);
-
-  // Update text if value prop changes (after revalidation)
-  useEffect(() => {
-    if (!editing) setText(value);
-  }, [value, editing]);
 
   // Cleanup saved indicator timer on unmount
   useEffect(() => {
@@ -90,7 +85,7 @@ export function EditableText({
   );
 
   if (!isAdmin) {
-    return <Tag className={className}>{text}</Tag>;
+    return <Tag className={className}>{value}</Tag>;
   }
 
   if (editing) {
@@ -140,7 +135,7 @@ export function EditableText({
       onClick={() => setEditing(true)}
       title="Click to edit"
     >
-      {text}
+      {value}
       {saved && (
         <span className="ml-2 text-xs text-accent">Saved</span>
       )}

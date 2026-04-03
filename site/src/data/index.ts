@@ -175,7 +175,7 @@ export async function getAllAlumni(): Promise<Alumni[]> {
   try {
     const { getDbAlumni } = await import("@/lib/db");
     const dbRows = await getDbAlumni();
-    return (dbRows as { name: string; credentials: string }[]).map((row) => ({
+    return dbRows.map((row) => ({
       name: row.name,
       credentials: row.credentials,
     }));
