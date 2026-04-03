@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { getAllPublicationsWithOverrides } from "@/data";
-import { projects } from "@/data";
+import { getAllPublicationsWithOverrides, getAllProjectsWithOverrides } from "@/data";
 import { PublicationFilter } from "./PublicationFilter";
 
 export const metadata: Metadata = { title: "Publications" };
 export const revalidate = 60;
 
-const projectFilters = projects.map((p) => ({
-  id: p.id,
-  name: p.name,
-  pubIds: p.publicationIds,
-}));
-
 export default async function PublicationsPage() {
-  const allPubs = await getAllPublicationsWithOverrides();
+  const [allPubs, allProjects] = await Promise.all([
+    getAllPublicationsWithOverrides(),
+    getAllProjectsWithOverrides(),
+  ]);
+
+  const projectFilters = allProjects.map((p) => ({
+    id: p.id,
+    name: p.name,
+    pubIds: p.publicationIds,
+  }));
 
   const journals = Array.from(
     new Set(allPubs.map((p) => p.journal).filter(Boolean))

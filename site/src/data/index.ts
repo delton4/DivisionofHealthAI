@@ -26,16 +26,29 @@ export function getPublication(slug: string): Publication | undefined {
   return publications.find((p) => p.slug === slug);
 }
 
-export function getResearchersByIds(ids: string[]): Researcher[] {
-  return researchers.filter((r) => ids.includes(r.id));
+async function getHidden(entity: string): Promise<Set<string>> {
+  if (process.env.GITHUB_ACTIONS === "true") return new Set();
+  try {
+    const { getHiddenEntityIds } = await import("@/lib/db");
+    return getHiddenEntityIds(entity);
+  } catch {
+    return new Set();
+  }
 }
 
-export function getProjectsByIds(ids: string[]): Project[] {
-  return projects.filter((p) => ids.includes(p.id));
+export async function getResearchersByIds(ids: string[]): Promise<Researcher[]> {
+  const hiddenIds = await getHidden("researcher");
+  return researchers.filter((r) => ids.includes(r.id) && !hiddenIds.has(r.id));
 }
 
-export function getPublicationsByIds(ids: string[]): Publication[] {
-  return publications.filter((p) => ids.includes(p.id));
+export async function getProjectsByIds(ids: string[]): Promise<Project[]> {
+  const hiddenIds = await getHidden("project");
+  return projects.filter((p) => ids.includes(p.id) && !hiddenIds.has(p.id));
+}
+
+export async function getPublicationsByIds(ids: string[]): Promise<Publication[]> {
+  const hiddenIds = await getHidden("publication");
+  return publications.filter((p) => ids.includes(p.id) && !hiddenIds.has(p.id));
 }
 
 // ---- Override-aware async functions (merge static + database) ----
@@ -63,6 +76,8 @@ export async function getResearcherWithOverrides(
 ): Promise<Researcher | undefined> {
   const r = getResearcher(slug);
   if (!r) return undefined;
+  const hiddenIds = await getHidden("researcher");
+  if (hiddenIds.has(r.id)) return undefined;
   return mergeOverrides("researcher", r.id, r);
 }
 
@@ -71,6 +86,8 @@ export async function getProjectWithOverrides(
 ): Promise<Project | undefined> {
   const p = getProject(slug);
   if (!p) return undefined;
+  const hiddenIds = await getHidden("project");
+  if (hiddenIds.has(p.id)) return undefined;
   return mergeOverrides("project", p.id, p);
 }
 

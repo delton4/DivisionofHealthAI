@@ -26,9 +26,6 @@ export function ProjectCard({ project }: { project: Project }) {
           className="text-sm text-text-secondary leading-relaxed line-clamp-2"
         />
       </div>
-      <span className="text-xs text-text-muted mt-2 inline-block">
-        {project.researcherIds.length} researchers · {project.publicationIds.length} publications
-      </span>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EditableText } from "@/components/EditableText";
 import {
-  projects,
+  getAllProjectsWithOverrides,
   getProjectWithOverrides,
   getResearchersByIds,
   getPublicationsByIds,
@@ -11,8 +11,9 @@ import {
 
 export const revalidate = 60;
 
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const visible = await getAllProjectsWithOverrides();
+  return visible.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -35,8 +36,10 @@ export default async function ProjectDetailPage({
   const project = await getProjectWithOverrides(slug);
   if (!project) notFound();
 
-  const teamMembers = getResearchersByIds(project.researcherIds);
-  const pubs = getPublicationsByIds(project.publicationIds);
+  const [teamMembers, pubs] = await Promise.all([
+    getResearchersByIds(project.researcherIds),
+    getPublicationsByIds(project.publicationIds),
+  ]);
 
   return (
     <div className="pt-36 pb-20">

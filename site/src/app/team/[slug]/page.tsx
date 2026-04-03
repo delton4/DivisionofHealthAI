@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { EditableText } from "@/components/EditableText";
 import { PhotoUpload } from "@/components/PhotoUpload";
 import {
-  researchers,
+  getAllResearchersWithOverrides,
   getResearcherWithOverrides,
   getProjectsByIds,
   getPublicationsByIds,
@@ -16,8 +16,9 @@ const staticPhotos: Record<string, string> = {
   "theodoros-zanos": "/zanos.jpg",
 };
 
-export function generateStaticParams() {
-  return researchers.map((r) => ({ slug: r.slug }));
+export async function generateStaticParams() {
+  const visible = await getAllResearchersWithOverrides();
+  return visible.map((r) => ({ slug: r.slug }));
 }
 
 export async function generateMetadata({
@@ -40,8 +41,10 @@ export default async function ResearcherDetailPage({
   const researcher = await getResearcherWithOverrides(slug);
   if (!researcher) notFound();
 
-  const relatedProjects = getProjectsByIds(researcher.projectIds);
-  const relatedPubs = getPublicationsByIds(researcher.publicationIds);
+  const [relatedProjects, relatedPubs] = await Promise.all([
+    getProjectsByIds(researcher.projectIds),
+    getPublicationsByIds(researcher.publicationIds),
+  ]);
 
   return (
     <div className="pt-36 pb-20">
