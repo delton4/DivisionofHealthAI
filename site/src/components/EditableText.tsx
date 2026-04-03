@@ -52,14 +52,18 @@ export function EditableText({
   const handleSave = useCallback(() => {
     setError(null);
     startTransition(async () => {
-      const result = await saveTextOverride(entity, entityId, field, text, pathname);
-      if (result && "error" in result) {
-        setError(result.error ?? "Save failed");
-        return;
+      try {
+        const result = await saveTextOverride(entity, entityId, field, text, pathname);
+        if (result && "error" in result) {
+          setError(result.error ?? "Save failed");
+          return;
+        }
+        setEditing(false);
+        setSaved(true);
+        setTimeout(() => setSaved(false), 2000);
+      } catch {
+        setError("Save failed. Please try again.");
       }
-      setEditing(false);
-      setSaved(true);
-      setTimeout(() => setSaved(false), 2000);
     });
   }, [entity, entityId, field, text, pathname, startTransition]);
 

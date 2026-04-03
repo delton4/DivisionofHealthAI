@@ -134,7 +134,11 @@ export async function saveTextOverride(
     if (!pageFields?.has(field)) {
       return { error: "Invalid field." };
     }
-    await upsertOverride(entity, entityId, field, value);
+    try {
+      await upsertOverride(entity, entityId, field, value);
+    } catch {
+      return { error: "Failed to save. Please try again." };
+    }
     revalidatePath(currentPath);
     return { success: true };
   }
@@ -144,7 +148,11 @@ export async function saveTextOverride(
     return { error: "Invalid field." };
   }
 
-  await upsertOverride(entity, entityId, field, value);
+  try {
+    await upsertOverride(entity, entityId, field, value);
+  } catch {
+    return { error: "Failed to save. Please try again." };
+  }
   revalidatePath(currentPath);
   return { success: true };
 }
