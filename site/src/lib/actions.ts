@@ -110,13 +110,15 @@ const VALID_PAGE_FIELDS: Record<string, Set<string>> = {
   join: new Set(["intro", "scholar_desc", "collab_desc", "location_desc"]),
 };
 
+type SaveResult = { success: true } | { error: string };
+
 export async function saveTextOverride(
   entity: string,
   entityId: string,
   field: string,
   value: string,
   currentPath: string
-) {
+): Promise<SaveResult> {
   const session = await verifySession();
   if (!session) {
     return { error: "Not authenticated." };

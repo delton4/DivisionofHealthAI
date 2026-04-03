@@ -31,6 +31,7 @@ export function EditableText({
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -45,9 +46,12 @@ export function EditableText({
     if (!editing) setText(value);
   }, [value, editing]);
 
-  if (!isAdmin) {
-    return <Tag className={className}>{text}</Tag>;
-  }
+  // Cleanup saved indicator timer on unmount
+  useEffect(() => {
+    return () => {
+      if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
+    };
+  }, []);
 
   const handleSave = useCallback(() => {
     setError(null);
@@ -60,12 +64,13 @@ export function EditableText({
         }
         setEditing(false);
         setSaved(true);
-        setTimeout(() => setSaved(false), 2000);
+        if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
+        savedTimerRef.current = setTimeout(() => setSaved(false), 2000);
       } catch {
         setError("Save failed. Please try again.");
       }
     });
-  }, [entity, entityId, field, text, pathname, startTransition]);
+  }, [entity, entityId, field, text, pathname]);
 
   const handleCancel = useCallback(() => {
     setText(value);
@@ -83,6 +88,10 @@ export function EditableText({
     },
     [handleCancel, handleSave, multiline]
   );
+
+  if (!isAdmin) {
+    return <Tag className={className}>{text}</Tag>;
+  }
 
   if (editing) {
     return (
