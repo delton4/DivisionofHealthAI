@@ -28,6 +28,14 @@ const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 
 function checkRateLimit(ip: string): boolean {
   const now = Date.now();
+
+  // Prune expired entries to prevent unbounded growth
+  if (loginAttempts.size > 1000) {
+    for (const [key, val] of loginAttempts) {
+      if (now > val.resetAt) loginAttempts.delete(key);
+    }
+  }
+
   const entry = loginAttempts.get(ip);
   if (!entry || now > entry.resetAt) {
     loginAttempts.set(ip, { count: 1, resetAt: now + WINDOW_MS });
@@ -254,6 +262,16 @@ export async function uploadResearcherPhoto(formData: FormData) {
   const researcherSlug = formData.get("researcherSlug") as string;
 
   if (!file || !researcherId) return { error: "Missing file or researcher ID." };
+
+  const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+  if (!ALLOWED_TYPES.includes(file.type)) {
+    return { error: "Only JPEG, PNG, WebP, and GIF images are allowed." };
+  }
+
+  const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
+  if (file.size > MAX_SIZE) {
+    return { error: "File must be under 5 MB." };
+  }
 
   const blob = await put(`photos/${researcherId}-${Date.now()}.${file.name.split(".").pop()}`, file, {
     access: "public",

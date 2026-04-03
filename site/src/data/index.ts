@@ -14,16 +14,12 @@ export const projects: Project[] = projectsJson as Project[];
 
 export const publications: Publication[] = publicationsJson as Publication[];
 
-export function getResearcher(slug: string): Researcher | undefined {
+function getResearcher(slug: string): Researcher | undefined {
   return researchers.find((r) => r.slug === slug);
 }
 
-export function getProject(slug: string): Project | undefined {
+function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
-}
-
-export function getPublication(slug: string): Publication | undefined {
-  return publications.find((p) => p.slug === slug);
 }
 
 async function getHidden(entity: string): Promise<Set<string>> {

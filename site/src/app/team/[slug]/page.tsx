@@ -93,18 +93,6 @@ export default async function ResearcherDetailPage({
               LinkedIn
             </a>
           )}
-          {!researcher.email && !researcher.linkedin && (
-            <span className="text-text-muted/50">
-              <EditableText
-                entity="researcher"
-                entityId={researcher.id}
-                field="email"
-                value=""
-                as="span"
-                className="text-text-muted"
-              />
-            </span>
-          )}
         </div>
 
         <div className="mt-6">

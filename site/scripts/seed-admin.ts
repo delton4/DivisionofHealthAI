@@ -78,7 +78,8 @@ async function seed() {
       id          SERIAL PRIMARY KEY,
       name        TEXT NOT NULL,
       credentials TEXT NOT NULL DEFAULT '',
-      created_at  TIMESTAMPTZ DEFAULT NOW()
+      created_at  TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE(name, credentials)
     )
   `;
   console.log("Tables created.");

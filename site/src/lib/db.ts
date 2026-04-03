@@ -7,28 +7,6 @@ function getDb() {
   return neon(url);
 }
 
-export async function initTables() {
-  const sql = getDb();
-  await sql`
-    CREATE TABLE IF NOT EXISTS text_overrides (
-      id         SERIAL PRIMARY KEY,
-      entity     TEXT NOT NULL,
-      entity_id  TEXT NOT NULL,
-      field      TEXT NOT NULL,
-      value      TEXT NOT NULL,
-      updated_at TIMESTAMPTZ DEFAULT NOW(),
-      UNIQUE(entity, entity_id, field)
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS admin_users (
-      id            SERIAL PRIMARY KEY,
-      email         TEXT NOT NULL UNIQUE,
-      password_hash TEXT NOT NULL
-    )
-  `;
-}
-
 export async function getOverrides(
   entity: string,
   entityId: string
@@ -74,61 +52,7 @@ export async function getAdminByUsername(username: string) {
   return rows[0] || null;
 }
 
-export async function createAdmin(email: string, passwordHash: string) {
-  const sql = getDb();
-  await sql`
-    INSERT INTO admin_users (email, password_hash)
-    VALUES (${email}, ${passwordHash})
-    ON CONFLICT (email) DO NOTHING
-  `;
-}
-
 // ---- Publication management ----
-
-export async function initPublicationTables() {
-  const sql = getDb();
-  await sql`
-    CREATE TABLE IF NOT EXISTS custom_publications (
-      id              TEXT PRIMARY KEY,
-      name            TEXT NOT NULL,
-      journal         TEXT NOT NULL DEFAULT '',
-      abstract        TEXT NOT NULL DEFAULT '',
-      publication_url TEXT NOT NULL DEFAULT '',
-      created_at      TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS hidden_entities (
-      entity    TEXT NOT NULL,
-      entity_id TEXT NOT NULL,
-      PRIMARY KEY (entity, entity_id)
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS custom_projects (
-      id         TEXT PRIMARY KEY,
-      name       TEXT NOT NULL,
-      about      TEXT NOT NULL DEFAULT '',
-      created_at TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS custom_researchers (
-      id         TEXT PRIMARY KEY,
-      name       TEXT NOT NULL,
-      title      TEXT NOT NULL DEFAULT '',
-      created_at TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS db_alumni (
-      id          SERIAL PRIMARY KEY,
-      name        TEXT NOT NULL,
-      credentials TEXT NOT NULL DEFAULT '',
-      created_at  TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
-}
 
 export async function getCustomPublications() {
   if (process.env.GITHUB_ACTIONS === "true") return [];
@@ -259,7 +183,7 @@ export async function addDbAlumni(name: string, credentials: string) {
   await sql`
     INSERT INTO db_alumni (name, credentials)
     VALUES (${name}, ${credentials})
-    ON CONFLICT DO NOTHING
+    ON CONFLICT (name, credentials) DO NOTHING
   `;
 }
 

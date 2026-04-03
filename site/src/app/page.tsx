@@ -21,8 +21,8 @@ export default async function HomePage() {
   ]);
 
   const featuredPubs = allPubs.slice(0, 4);
-  // Nature Communications paper on deterioration prediction
-  const highlightPub = allPubs.find((p) => p.id === "2");
+  const highlightPubId = pageOverrides.highlight_pub_id || "2";
+  const highlightPub = allPubs.find((p) => p.id === highlightPubId);
 
   const heroSubtitle = pageOverrides.subtitle ||
     "Machine learning for early diagnosis, deterioration prediction, and personalized therapeutics.";
