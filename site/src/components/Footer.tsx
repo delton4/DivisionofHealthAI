@@ -14,7 +14,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-text-muted mt-1 max-w-sm">
-              Feinstein Institutes for Medical Research, Northwell Health
+              Northwell Health
             </p>
           </div>
 
@@ -76,8 +76,8 @@ export function Footer() {
 
         <div className="mt-12 pt-6 border-t border-border flex justify-between items-center">
           <p className="text-xs text-text-muted">
-            &copy; {new Date().getFullYear()} Division of Health AI, Feinstein
-            Institutes for Medical Research
+            &copy; {new Date().getFullYear()} Division of Health AI, Northwell
+            Health
           </p>
           <Link
             href="/admin/login"

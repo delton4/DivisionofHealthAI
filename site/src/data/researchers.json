@@ -309,7 +309,8 @@
     "publicationIds": [
       "15"
     ],
-    "image": ""
+    "image": "",
+    "alumni": true
   },
   {
     "id": "18",
@@ -327,7 +328,8 @@
       "42",
       "43"
     ],
-    "image": ""
+    "image": "",
+    "alumni": true
   },
   {
     "id": "19",
@@ -363,7 +365,8 @@
       "18",
       "24"
     ],
-    "image": ""
+    "image": "",
+    "alumni": true
   },
   {
     "id": "22",
@@ -378,6 +381,7 @@
       "3",
       "6"
     ],
-    "image": ""
+    "image": "",
+    "alumni": true
   }
 ]

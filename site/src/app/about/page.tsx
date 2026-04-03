@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "About" };
 export const revalidate = 60;
 
 const defaults: Record<string, string> = {
-  intro1: "The Division of Health AI at the Feinstein Institutes develops machine learning systems that directly improve patient outcomes. We operate at the intersection of artificial intelligence, computational neuroscience, and clinical medicine.",
+  intro1: "The Division of Health AI at Northwell Health develops machine learning systems that directly improve patient outcomes. We operate at the intersection of artificial intelligence, computational neuroscience, and clinical medicine.",
   intro2: "Our work spans multiple healthcare data modalities: electronic health records, continuous physiological monitoring, medical imaging, and neural signal processing. Every algorithm we develop is designed not just to advance the science, but to be deployed in clinical settings where it makes a real difference in patient care.",
   approach1: "We combine the rigor of academic research with the urgency of clinical need. Our lab develops AI across five research verticals, each addressing a critical gap in how healthcare leverages data to improve outcomes, from predicting patient deterioration on the ward to decoding neural signals that unlock new therapies.",
   approach2: "We don't stop at publishing. We build, validate, and deploy.",

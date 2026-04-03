@@ -11,7 +11,7 @@ const defaults: Record<string, string> = {
   intro: "We're looking for talented researchers, engineers, and clinicians who want to make a real impact on patient care through artificial intelligence.",
   scholar_desc: "Join our lab for a research rotation. Work alongside our team on active projects, gain hands-on experience with clinical AI development, and contribute to publications.",
   collab_desc: "Partner with us on joint research projects. We collaborate with academic institutions, healthcare systems, and industry partners to advance health AI.",
-  location_desc: "Feinstein Institutes for Medical Research, Northwell Health's research arm and one of the largest biomedical research organizations in the US.",
+  location_desc: "Northwell Health, one of the largest healthcare systems in the US and home to the Feinstein Institutes for Medical Research.",
 };
 
 export default async function JoinPage() {

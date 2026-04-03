@@ -2,6 +2,7 @@ import type { Researcher, Project, Publication, Alumni } from "@/lib/types";
 import researchersJson from "./researchers.json";
 import projectsJson from "./projects.json";
 import publicationsJson from "./publications.json";
+import alumniJson from "./alumni.json";
 
 // ---- Static data ----
 // All entries are included here. Visibility filtering (alumni, hidden)
@@ -111,7 +112,7 @@ export async function getProjectWithOverrides(
 }
 
 export async function getAllResearchersWithOverrides(): Promise<Researcher[]> {
-  let allResearchers = [...researchers];
+  let allResearchers = researchers.filter((r) => !r.alumni);
 
   try {
     const { getCustomResearchers, getHiddenEntityIds } = await import("@/lib/db");
@@ -172,15 +173,18 @@ export async function getAllProjectsWithOverrides(): Promise<Project[]> {
 }
 
 export async function getAllAlumni(): Promise<Alumni[]> {
+  const staticAlumni: Alumni[] = alumniJson as Alumni[];
+
   try {
     const { getDbAlumni } = await import("@/lib/db");
     const dbRows = await getDbAlumni();
-    return dbRows.map((row) => ({
+    const dbAlumni = dbRows.map((row) => ({
       name: row.name,
       credentials: row.credentials,
     }));
+    return [...staticAlumni, ...dbAlumni];
   } catch {
-    return [];
+    return staticAlumni;
   }
 }
 

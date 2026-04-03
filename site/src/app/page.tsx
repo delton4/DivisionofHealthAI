@@ -41,6 +41,9 @@ export default async function HomePage() {
                 <span className="line-reveal"><span>Division of</span></span>
                 <span className="line-reveal"><span>Health AI</span></span>
               </h1>
+              <p className="font-display text-2xl md:text-3xl tracking-tight text-text-secondary mt-2 line-reveal">
+                <span>Northwell Health</span>
+              </p>
               <div className="hero-subtitle mt-6 max-w-lg">
                 <EditableText
                   entity="page"

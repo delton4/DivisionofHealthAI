@@ -42,7 +42,7 @@ export function Navigation() {
                 Division of Health AI
               </span>
               <span className="text-[10px] uppercase tracking-[0.15em] text-text-muted leading-tight block">
-                Feinstein Institutes
+                Northwell Health
               </span>
             </div>
           </Link>

@@ -22,11 +22,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Division of Health AI | Feinstein Institutes",
+    default: "Division of Health AI | Northwell Health",
     template: "%s | Division of Health AI",
   },
   description:
-    "Advancing healthcare through artificial intelligence at the Feinstein Institutes for Medical Research, Northwell Health.",
+    "Advancing healthcare through artificial intelligence at Northwell Health.",
 };
 
 export default async function RootLayout({
