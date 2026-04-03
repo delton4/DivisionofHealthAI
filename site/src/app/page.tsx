@@ -57,7 +57,7 @@ export default async function HomePage() {
               </div>
               <AccentLine delay={600} />
             </div>
-            <div className="flex items-center justify-center shrink-0 w-24 md:w-48 lg:w-72 -mt-4">
+            <div className="flex items-center justify-center shrink-0 w-36 md:w-64 lg:w-96 -mt-4">
               <HeroLogo className="w-full h-auto" />
             </div>
           </div>
