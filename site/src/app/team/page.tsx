@@ -77,7 +77,7 @@ export default async function TeamPage() {
           <h2 className="font-display text-2xl tracking-tight mb-6">Alumni</h2>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-text-muted">
             {allAlumni.map((a) => (
-              <span key={a.name}>
+              <span key={`${a.name}-${a.credentials}`}>
                 {a.name} {a.credentials}
               </span>
             ))}

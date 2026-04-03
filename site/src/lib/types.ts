@@ -21,7 +21,6 @@ export interface Alumni {
 export interface Project {
   id: string;
   name: string;
-  title: string;
   about: string;
   slug: string;
   researcherIds: string[];

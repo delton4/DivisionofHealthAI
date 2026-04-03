@@ -136,7 +136,6 @@ export async function getAllProjectsWithOverrides(): Promise<Project[]> {
       allProjects.push({
         id: row.id,
         name: row.name,
-        title: "",
         about: row.about,
         slug: row.id,
         researcherIds: [],
