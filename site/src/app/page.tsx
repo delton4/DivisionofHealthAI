@@ -35,8 +35,8 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="pt-36 pb-20">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="flex items-start justify-between gap-12">
-            <div>
+          <div className="flex items-start justify-between gap-8 md:gap-12">
+            <div className="min-w-0 flex-1">
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1] text-foreground">
                 <span className="line-reveal"><span>Division of</span></span>
                 <span className="line-reveal"><span>Health AI</span></span>
@@ -57,7 +57,9 @@ export default async function HomePage() {
               </div>
               <AccentLine delay={600} />
             </div>
-            <HeroLogo size={280} className="hidden lg:block shrink-0 -mt-4" />
+            <div className="flex items-center justify-center shrink-0 w-24 md:w-48 lg:w-72 -mt-4">
+              <HeroLogo className="w-full h-auto" />
+            </div>
           </div>
           <nav className="hero-links mt-8 flex flex-wrap gap-6 text-sm">
             <Link href="/research" className="text-text-secondary hover:text-foreground transition-colors duration-200">

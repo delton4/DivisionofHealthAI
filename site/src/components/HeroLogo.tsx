@@ -9,7 +9,7 @@ const browns = [
   "#D4683B", "#C8A870", "#B5A898", "#9B8B7A", "#8A7968",
 ];
 
-export function HeroLogo({ size = 120, className = "" }: { size?: number; className?: string }) {
+export function HeroLogo({ size, className = "" }: { size?: number; className?: string }) {
   const [phase, setPhase] = useState<"bloom" | "breathe">("bloom");
 
   useEffect(() => {
@@ -57,8 +57,8 @@ export function HeroLogo({ size = 120, className = "" }: { size?: number; classN
 
   return (
     <svg
-      width={size}
-      height={size}
+      width={size ?? "100%"}
+      height={size ?? "100%"}
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
