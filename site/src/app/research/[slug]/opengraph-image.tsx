@@ -5,20 +5,13 @@ export const alt = "Research Project — Division of Health AI";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export async function generateImageMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  return [{ id: params.slug, alt: `Research project at Division of Health AI` }];
-}
-
 export default async function Image({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const project = await getProjectWithOverrides(params.slug);
+  const { slug } = await params;
+  const project = await getProjectWithOverrides(slug);
 
   const name = project?.name ?? "Research Project";
   const about = project?.about?.slice(0, 150) ?? "";
@@ -43,7 +36,7 @@ export default async function Image({
             marginBottom: 16,
           }}
         >
-          Division of Health AI &middot; Research
+          Division of Health AI · Research
         </div>
         <div
           style={{

@@ -5,20 +5,13 @@ export const alt = "Researcher — Division of Health AI";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export async function generateImageMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  return [{ id: params.slug, alt: `Researcher at Division of Health AI` }];
-}
-
 export default async function Image({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const researcher = await getResearcherWithOverrides(params.slug);
+  const { slug } = await params;
+  const researcher = await getResearcherWithOverrides(slug);
 
   const name = researcher?.name ?? "Researcher";
   const title = researcher?.title ?? "";
@@ -82,7 +75,7 @@ export default async function Image({
             marginTop: 24,
           }}
         >
-          Northwell Health &middot; Feinstein Institutes for Medical Research
+          Northwell Health · Feinstein Institutes for Medical Research
         </div>
       </div>
     ),
