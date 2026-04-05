@@ -47,8 +47,44 @@ export default async function ProjectDetailPage({
     getPublicationsByIds(project.publicationIds),
   ]);
 
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ResearchProject",
+    name: project.name,
+    description: project.about?.slice(0, 200),
+    url: `https://divhealthai.org/research/${project.slug}`,
+    parentOrganization: {
+      "@type": "ResearchOrganization",
+      name: "Division of Health AI",
+      url: "https://divhealthai.org",
+    },
+    member: teamMembers.map((r) => ({
+      "@type": "Person",
+      name: r.name,
+      url: `https://divhealthai.org/team/${r.slug}`,
+    })),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://divhealthai.org" },
+      { "@type": "ListItem", position: 2, name: "Research", item: "https://divhealthai.org/research" },
+      { "@type": "ListItem", position: 3, name: project.name },
+    ],
+  };
+
   return (
     <div className="pt-36 pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="mx-auto max-w-3xl px-6">
         <Link
           href="/research"

@@ -12,12 +12,14 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   subsets: ["latin"],
   weight: "400",
+  display: "swap",
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -64,7 +66,15 @@ export default async function RootLayout({
               name: "Division of Health AI",
               url: "https://divhealthai.org",
               description:
-                "Advancing healthcare through artificial intelligence at Northwell Health.",
+                "Advancing healthcare through artificial intelligence at Northwell Health. Research in clinical AI, bioelectronic medicine, neural engineering, and medical imaging.",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "350 Community Dr",
+                addressLocality: "Manhasset",
+                addressRegion: "NY",
+                postalCode: "11030",
+                addressCountry: "US",
+              },
               parentOrganization: {
                 "@type": "Organization",
                 name: "Feinstein Institutes for Medical Research",
@@ -75,6 +85,26 @@ export default async function RootLayout({
                   url: "https://www.northwell.edu",
                 },
               },
+              keywords: [
+                "health AI",
+                "clinical AI",
+                "bioelectronic medicine",
+                "neural engineering",
+                "medical imaging",
+                "machine learning",
+                "healthcare",
+              ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Division of Health AI",
+              url: "https://divhealthai.org",
             }),
           }}
         />

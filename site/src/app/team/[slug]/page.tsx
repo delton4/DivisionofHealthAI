@@ -52,8 +52,52 @@ export default async function ResearcherDetailPage({
     getPublicationsByIds(researcher.publicationIds),
   ]);
 
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: researcher.name,
+    jobTitle: researcher.title,
+    url: `https://divhealthai.org/team/${researcher.slug}`,
+    description: researcher.about?.slice(0, 200),
+    affiliation: {
+      "@type": "ResearchOrganization",
+      name: "Division of Health AI",
+      url: "https://divhealthai.org",
+      parentOrganization: {
+        "@type": "Organization",
+        name: "Feinstein Institutes for Medical Research",
+        url: "https://feinstein.northwell.edu",
+      },
+    },
+    worksFor: {
+      "@type": "Organization",
+      name: "Northwell Health",
+      url: "https://www.northwell.edu",
+    },
+    ...(researcher.email && { email: researcher.email }),
+    ...(researcher.linkedin && { sameAs: [researcher.linkedin] }),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://divhealthai.org" },
+      { "@type": "ListItem", position: 2, name: "Team", item: "https://divhealthai.org/team" },
+      { "@type": "ListItem", position: 3, name: researcher.name },
+    ],
+  };
+
   return (
     <div className="pt-36 pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="mx-auto max-w-3xl px-6">
         <Link
           href="/team"
