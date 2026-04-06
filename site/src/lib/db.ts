@@ -39,6 +39,59 @@ function getDb() {
   return neon(url);
 }
 
+// ---- Audit log ----
+
+export interface AuditLogRow {
+  id: number;
+  action: string;
+  entity: string;
+  entity_id: string;
+  field: string | null;
+  old_value: string | null;
+  new_value: string | null;
+  created_at: string;
+}
+
+async function logAudit(entry: {
+  action: string;
+  entity: string;
+  entityId: string;
+  field?: string | null;
+  oldValue?: string | null;
+  newValue?: string | null;
+}) {
+  try {
+    const sql = getDb();
+    await sql`
+      INSERT INTO audit_log (action, entity, entity_id, field, old_value, new_value)
+      VALUES (
+        ${entry.action},
+        ${entry.entity},
+        ${entry.entityId},
+        ${entry.field ?? null},
+        ${entry.oldValue ?? null},
+        ${entry.newValue ?? null}
+      )
+    `;
+  } catch {
+    // Audit logging should never break the main operation
+  }
+}
+
+export async function getAuditLog(limit = 100): Promise<AuditLogRow[]> {
+  if (process.env.GITHUB_ACTIONS === "true") return [];
+  try {
+    const sql = getDb();
+    const rows = await sql`
+      SELECT id, action, entity, entity_id, field, old_value, new_value, created_at
+      FROM audit_log ORDER BY created_at DESC LIMIT ${limit}
+    `;
+    return rows as unknown as AuditLogRow[];
+  } catch {
+    return [];
+  }
+}
+
 export async function getOverrides(
   entity: string,
   entityId: string
@@ -92,12 +145,27 @@ export async function upsertOverride(
   value: string
 ) {
   const sql = getDb();
+  const existing = await sql`
+    SELECT value FROM text_overrides
+    WHERE entity = ${entity} AND entity_id = ${entityId} AND field = ${field}
+  `;
+  const oldValue = existing[0]?.value ?? null;
+
   await sql`
     INSERT INTO text_overrides (entity, entity_id, field, value, updated_at)
     VALUES (${entity}, ${entityId}, ${field}, ${value}, NOW())
     ON CONFLICT (entity, entity_id, field)
     DO UPDATE SET value = ${value}, updated_at = NOW()
   `;
+
+  await logAudit({
+    action: oldValue ? "update" : "create",
+    entity,
+    entityId,
+    field,
+    oldValue,
+    newValue: value,
+  });
 }
 
 export async function getAdminByUsername(username: string) {
@@ -133,11 +201,24 @@ export async function addCustomPublication(pub: {
     INSERT INTO custom_publications (id, name, journal, abstract, publication_url)
     VALUES (${pub.id}, ${pub.name}, ${pub.journal}, ${pub.abstract}, ${pub.publicationUrl})
   `;
+  await logAudit({
+    action: "create",
+    entity: "publication",
+    entityId: pub.id,
+    newValue: pub.name,
+  });
 }
 
 export async function removeCustomPublication(id: string) {
   const sql = getDb();
+  const existing = await sql`SELECT name FROM custom_publications WHERE id = ${id}`;
   await sql`DELETE FROM custom_publications WHERE id = ${id}`;
+  await logAudit({
+    action: "delete",
+    entity: "publication",
+    entityId: id,
+    oldValue: existing[0]?.name ?? null,
+  });
 }
 
 export async function getHiddenEntityIds(entity: string): Promise<Set<string>> {
@@ -158,11 +239,13 @@ export async function hideEntity(entity: string, entityId: string) {
     VALUES (${entity}, ${entityId})
     ON CONFLICT DO NOTHING
   `;
+  await logAudit({ action: "hide", entity, entityId });
 }
 
 export async function unhideEntity(entity: string, entityId: string) {
   const sql = getDb();
   await sql`DELETE FROM hidden_entities WHERE entity = ${entity} AND entity_id = ${entityId}`;
+  await logAudit({ action: "unhide", entity, entityId });
 }
 
 // ---- Custom projects ----
@@ -188,11 +271,24 @@ export async function addCustomProject(proj: {
     INSERT INTO custom_projects (id, name, about)
     VALUES (${proj.id}, ${proj.name}, ${proj.about})
   `;
+  await logAudit({
+    action: "create",
+    entity: "project",
+    entityId: proj.id,
+    newValue: proj.name,
+  });
 }
 
 export async function removeCustomProject(id: string) {
   const sql = getDb();
+  const existing = await sql`SELECT name FROM custom_projects WHERE id = ${id}`;
   await sql`DELETE FROM custom_projects WHERE id = ${id}`;
+  await logAudit({
+    action: "delete",
+    entity: "project",
+    entityId: id,
+    oldValue: existing[0]?.name ?? null,
+  });
 }
 
 // ---- Custom researchers ----
@@ -218,11 +314,24 @@ export async function addCustomResearcher(r: {
     INSERT INTO custom_researchers (id, name, title)
     VALUES (${r.id}, ${r.name}, ${r.title})
   `;
+  await logAudit({
+    action: "create",
+    entity: "researcher",
+    entityId: r.id,
+    newValue: r.name,
+  });
 }
 
 export async function removeCustomResearcher(id: string) {
   const sql = getDb();
+  const existing = await sql`SELECT name FROM custom_researchers WHERE id = ${id}`;
   await sql`DELETE FROM custom_researchers WHERE id = ${id}`;
+  await logAudit({
+    action: "delete",
+    entity: "researcher",
+    entityId: id,
+    oldValue: existing[0]?.name ?? null,
+  });
 }
 
 // ---- Dynamic alumni (database-stored) ----
@@ -245,9 +354,22 @@ export async function addDbAlumni(name: string, credentials: string) {
     VALUES (${name}, ${credentials})
     ON CONFLICT (name, credentials) DO NOTHING
   `;
+  await logAudit({
+    action: "create",
+    entity: "alumni",
+    entityId: name,
+    newValue: `${name}, ${credentials}`,
+  });
 }
 
 export async function removeDbAlumni(id: number) {
   const sql = getDb();
+  const existing = await sql`SELECT name FROM db_alumni WHERE id = ${id}`;
   await sql`DELETE FROM db_alumni WHERE id = ${id}`;
+  await logAudit({
+    action: "delete",
+    entity: "alumni",
+    entityId: String(id),
+    oldValue: existing[0]?.name ?? null,
+  });
 }
