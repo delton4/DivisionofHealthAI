@@ -373,3 +373,101 @@ export async function removeDbAlumni(id: number) {
     oldValue: existing[0]?.name ?? null,
   });
 }
+
+// ---- Association overrides (researcher ↔ publication/project) ----
+
+export interface AssociationOverrideResult {
+  additions: Set<string>;
+  removals: Set<string>;
+}
+
+export async function getAssociationOverrides(
+  researcherId: string,
+  entityType: "publication" | "project"
+): Promise<AssociationOverrideResult> {
+  if (process.env.GITHUB_ACTIONS === "true")
+    return { additions: new Set(), removals: new Set() };
+  try {
+    const sql = getDb();
+    const rows = await sql`
+      SELECT entity_id, action FROM association_overrides
+      WHERE researcher_id = ${researcherId} AND entity_type = ${entityType}
+    `;
+    const additions = new Set<string>();
+    const removals = new Set<string>();
+    for (const row of rows) {
+      if (row.action === "add") additions.add(row.entity_id);
+      else removals.add(row.entity_id);
+    }
+    return { additions, removals };
+  } catch {
+    return { additions: new Set(), removals: new Set() };
+  }
+}
+
+export async function getAssociationOverridesByEntity(
+  entityType: "publication" | "project",
+  entityId: string
+): Promise<AssociationOverrideResult> {
+  if (process.env.GITHUB_ACTIONS === "true")
+    return { additions: new Set(), removals: new Set() };
+  try {
+    const sql = getDb();
+    const rows = await sql`
+      SELECT researcher_id, action FROM association_overrides
+      WHERE entity_type = ${entityType} AND entity_id = ${entityId}
+    `;
+    const additions = new Set<string>();
+    const removals = new Set<string>();
+    for (const row of rows) {
+      if (row.action === "add") additions.add(row.researcher_id);
+      else removals.add(row.researcher_id);
+    }
+    return { additions, removals };
+  } catch {
+    return { additions: new Set(), removals: new Set() };
+  }
+}
+
+export async function upsertAssociationOverride(
+  researcherId: string,
+  entityType: "publication" | "project",
+  entityId: string,
+  action: "add" | "remove"
+) {
+  const sql = getDb();
+  await sql`
+    INSERT INTO association_overrides (researcher_id, entity_type, entity_id, action)
+    VALUES (${researcherId}, ${entityType}, ${entityId}, ${action})
+    ON CONFLICT (researcher_id, entity_type, entity_id)
+    DO UPDATE SET action = ${action}, created_at = NOW()
+  `;
+  await logAudit({
+    action: action === "add" ? "link" : "unlink",
+    entity: entityType,
+    entityId,
+    field: "researcherId",
+    newValue: researcherId,
+  });
+}
+
+export async function deleteAssociationOverride(
+  researcherId: string,
+  entityType: "publication" | "project",
+  entityId: string
+) {
+  const sql = getDb();
+  await sql`
+    DELETE FROM association_overrides
+    WHERE researcher_id = ${researcherId}
+      AND entity_type = ${entityType}
+      AND entity_id = ${entityId}
+  `;
+  await logAudit({
+    action: "restore_link",
+    entity: entityType,
+    entityId,
+    field: "researcherId",
+    newValue: researcherId,
+  });
+}

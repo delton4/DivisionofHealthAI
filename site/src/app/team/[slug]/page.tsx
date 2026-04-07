@@ -8,7 +8,12 @@ import {
   getResearcherWithOverrides,
   getProjectsByIds,
   getPublicationsByIds,
+  getResearcherAssociations,
+  getAllProjectsWithOverrides,
+  getAllPublicationsWithOverrides,
 } from "@/data";
+import { AssociationManager } from "@/components/AssociationManager";
+import type { AssociationItem } from "@/components/AssociationManager";
 
 export const revalidate = 60;
 
@@ -47,9 +52,17 @@ export default async function ResearcherDetailPage({
   const researcher = await getResearcherWithOverrides(slug);
   if (!researcher) notFound();
 
-  const [relatedProjects, relatedPubs] = await Promise.all([
-    getProjectsByIds(researcher.projectIds),
-    getPublicationsByIds(researcher.publicationIds),
+  const { publicationIds, projectIds } = await getResearcherAssociations(
+    researcher.id,
+    researcher.publicationIds,
+    researcher.projectIds
+  );
+
+  const [relatedProjects, relatedPubs, allProjects, allPubs] = await Promise.all([
+    getProjectsByIds(projectIds),
+    getPublicationsByIds(publicationIds),
+    getAllProjectsWithOverrides(),
+    getAllPublicationsWithOverrides(),
   ]);
 
   const personJsonLd = {
@@ -157,52 +170,68 @@ export default async function ResearcherDetailPage({
           />
         </div>
 
-        {relatedProjects.length > 0 && (
-          <section className="mt-12 pt-8 border-t border-border">
-            <h2 className="font-display text-xl mb-4">Research Projects</h2>
-            <ul className="space-y-3">
-              {relatedProjects.map((project) => (
-                <li key={project.id}>
-                  <Link
-                    href={`/research/${project.slug}`}
-                    className="text-sm text-foreground underline underline-offset-4 decoration-text-muted/40 hover:decoration-text-secondary transition-colors duration-200"
-                  >
-                    {project.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+        <AssociationManager
+          researcherId={researcher.id}
+          entityType="project"
+          sectionTitle="Research Projects"
+          currentItems={relatedProjects.map((p): AssociationItem => ({
+            id: p.id,
+            name: p.name,
+            slug: p.slug,
+          }))}
+          allItems={allProjects.map((p): AssociationItem => ({
+            id: p.id,
+            name: p.name,
+            slug: p.slug,
+          }))}
+          renderItem={(item) => (
+            <Link
+              href={`/research/${item.slug}`}
+              className="text-sm text-foreground underline underline-offset-4 decoration-text-muted/40 hover:decoration-text-secondary transition-colors duration-200"
+            >
+              {item.name}
+            </Link>
+          )}
+        />
 
-        {relatedPubs.length > 0 && (
-          <section className="mt-12 pt-8 border-t border-border">
-            <h2 className="font-display text-xl mb-4">
-              Publications ({relatedPubs.length})
-            </h2>
-            <div className="space-y-4">
-              {relatedPubs.map((pub) => (
-                <div key={pub.id} className="border-b border-border pb-4">
-                  <span className="text-xs italic text-text-muted">
-                    {pub.journal}
-                  </span>
-                  {pub.publicationUrl ? (
-                    <a
-                      href={pub.publicationUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-sm font-medium mt-0.5 text-foreground hover:underline underline-offset-4 decoration-text-muted/40"
-                    >
-                      {pub.name}
-                    </a>
-                  ) : (
-                    <p className="text-sm font-medium mt-0.5">{pub.name}</p>
-                  )}
-                </div>
-              ))}
+        <AssociationManager
+          researcherId={researcher.id}
+          entityType="publication"
+          sectionTitle="Publications"
+          currentItems={relatedPubs.map((p): AssociationItem => ({
+            id: p.id,
+            name: p.name,
+            slug: p.slug,
+            journal: p.journal,
+            publicationUrl: p.publicationUrl,
+          }))}
+          allItems={allPubs.map((p): AssociationItem => ({
+            id: p.id,
+            name: p.name,
+            slug: p.slug,
+            journal: p.journal,
+            publicationUrl: p.publicationUrl,
+          }))}
+          renderItem={(item) => (
+            <div className="border-b border-border pb-4">
+              <span className="text-xs italic text-text-muted">
+                {item.journal}
+              </span>
+              {item.publicationUrl ? (
+                <a
+                  href={item.publicationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm font-medium mt-0.5 text-foreground hover:underline underline-offset-4 decoration-text-muted/40"
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <p className="text-sm font-medium mt-0.5">{item.name}</p>
+              )}
             </div>
-          </section>
-        )}
+          )}
+        />
       </div>
     </div>
   );

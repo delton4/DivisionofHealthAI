@@ -223,6 +223,58 @@ export async function getAllPublicationsWithOverrides(): Promise<Publication[]> 
   return batchMergeOverrides("publication", allPubs);
 }
 
+// ---- Association override helpers ----
+
+function getEffectiveIds(
+  staticIds: string[],
+  additions: Set<string>,
+  removals: Set<string>
+): string[] {
+  const filtered = staticIds.filter((id) => !removals.has(id));
+  const added = [...additions].filter((id) => !filtered.includes(id));
+  return [...filtered, ...added];
+}
+
+export async function getResearcherAssociations(
+  researcherId: string,
+  staticPubIds: string[],
+  staticProjIds: string[]
+): Promise<{ publicationIds: string[]; projectIds: string[] }> {
+  if (process.env.GITHUB_ACTIONS === "true")
+    return { publicationIds: staticPubIds, projectIds: staticProjIds };
+  try {
+    const { getAssociationOverrides } = await import("@/lib/db");
+    const [pubOverrides, projOverrides] = await Promise.all([
+      getAssociationOverrides(researcherId, "publication"),
+      getAssociationOverrides(researcherId, "project"),
+    ]);
+    return {
+      publicationIds: getEffectiveIds(staticPubIds, pubOverrides.additions, pubOverrides.removals),
+      projectIds: getEffectiveIds(staticProjIds, projOverrides.additions, projOverrides.removals),
+    };
+  } catch {
+    return { publicationIds: staticPubIds, projectIds: staticProjIds };
+  }
+}
+
+export async function getResearchersForProject(
+  projectId: string,
+  staticResearcherIds: string[]
+): Promise<Researcher[]> {
+  let effectiveIds = staticResearcherIds;
+  if (process.env.GITHUB_ACTIONS !== "true") {
+    try {
+      const { getAssociationOverridesByEntity } = await import("@/lib/db");
+      const overrides = await getAssociationOverridesByEntity("project", projectId);
+      effectiveIds = getEffectiveIds(staticResearcherIds, overrides.additions, overrides.removals);
+    } catch {
+      // DB unavailable, use static
+    }
+  }
+  const hiddenIds = await getHidden("researcher");
+  return researchers.filter((r) => effectiveIds.includes(r.id) && !hiddenIds.has(r.id));
+}
+
 export async function getPageOverrides(
   pageId: string
 ): Promise<Record<string, string>> {

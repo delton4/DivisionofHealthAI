@@ -5,7 +5,7 @@ import { EditableText } from "@/components/EditableText";
 import {
   getAllProjectsWithOverrides,
   getProjectWithOverrides,
-  getResearchersByIds,
+  getResearchersForProject,
   getPublicationsByIds,
 } from "@/data";
 
@@ -43,7 +43,7 @@ export default async function ProjectDetailPage({
   if (!project) notFound();
 
   const [teamMembers, pubs] = await Promise.all([
-    getResearchersByIds(project.researcherIds),
+    getResearchersForProject(project.id, project.researcherIds),
     getPublicationsByIds(project.publicationIds),
   ]);
 

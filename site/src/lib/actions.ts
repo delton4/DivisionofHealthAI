@@ -326,6 +326,78 @@ export async function restoreResearcher(id: string) {
   return { success: true };
 }
 
+// ---- Association management (researcher ↔ publication/project) ----
+
+const VALID_ASSOCIATION_TYPES = new Set(["publication", "project"]);
+
+export async function linkEntityToResearcher(
+  researcherId: string,
+  entityType: string,
+  entityId: string
+): Promise<SaveResult> {
+  const session = await verifySession();
+  if (!session) return { error: "Not authenticated." };
+
+  if (!VALID_ASSOCIATION_TYPES.has(entityType)) {
+    return { error: "Invalid entity type." };
+  }
+  if (!researcherId || !entityId) {
+    return { error: "Missing researcher or entity ID." };
+  }
+
+  try {
+    const { upsertAssociationOverride } = await import("./db");
+    await upsertAssociationOverride(
+      researcherId,
+      entityType as "publication" | "project",
+      entityId,
+      "add"
+    );
+  } catch {
+    return { error: "Failed to link. Please try again." };
+  }
+
+  revalidatePath("/team", "layout");
+  revalidatePath("/research", "layout");
+  revalidatePath("/publications");
+  revalidatePath("/");
+  return { success: true };
+}
+
+export async function unlinkEntityFromResearcher(
+  researcherId: string,
+  entityType: string,
+  entityId: string
+): Promise<SaveResult> {
+  const session = await verifySession();
+  if (!session) return { error: "Not authenticated." };
+
+  if (!VALID_ASSOCIATION_TYPES.has(entityType)) {
+    return { error: "Invalid entity type." };
+  }
+  if (!researcherId || !entityId) {
+    return { error: "Missing researcher or entity ID." };
+  }
+
+  try {
+    const { upsertAssociationOverride } = await import("./db");
+    await upsertAssociationOverride(
+      researcherId,
+      entityType as "publication" | "project",
+      entityId,
+      "remove"
+    );
+  } catch {
+    return { error: "Failed to unlink. Please try again." };
+  }
+
+  revalidatePath("/team", "layout");
+  revalidatePath("/research", "layout");
+  revalidatePath("/publications");
+  revalidatePath("/");
+  return { success: true };
+}
+
 // ---- Photo upload ----
 
 export async function uploadResearcherPhoto(formData: FormData) {
