@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { TeamCard } from "@/components/TeamCard";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { EditableText } from "@/components/EditableText";
 import { getAllResearchersWithOverrides, getAllAlumni } from "@/data";
 
 export const metadata: Metadata = {
@@ -17,10 +15,7 @@ export default async function TeamPage() {
     getAllResearchersWithOverrides(),
     getAllAlumni(),
   ]);
-  const leader = allResearchers.find((r) => r.id === "1");
-  const rest = allResearchers
-    .filter((r) => r.id !== "1")
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const sorted = [...allResearchers].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <>
@@ -30,45 +25,10 @@ export default async function TeamPage() {
         </div>
       </section>
 
-      {leader && (
-        <AnimatedSection className="pb-16">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="p-6 md:p-8">
-              <Link href={`/team/${leader.slug}`} className="group">
-                <h2 className="font-display text-2xl md:text-3xl text-foreground group-hover:underline underline-offset-4 decoration-text-muted/40">
-                  {leader.name}
-                </h2>
-              </Link>
-              <EditableText
-                entity="researcher"
-                entityId={leader.id}
-                field="title"
-                value={leader.title}
-                as="p"
-                className="text-sm text-text-muted mt-1"
-              />
-              {leader.about && (
-                <div className="mt-4 max-w-2xl">
-                  <EditableText
-                    entity="researcher"
-                    entityId={leader.id}
-                    field="about"
-                    value={leader.about}
-                    multiline
-                    as="p"
-                    className="text-sm text-text-secondary leading-relaxed line-clamp-3"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </AnimatedSection>
-      )}
-
       <AnimatedSection className="pb-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {rest.map((researcher) => (
+            {sorted.map((researcher) => (
               <TeamCard key={researcher.id} researcher={researcher} />
             ))}
           </div>
