@@ -184,14 +184,6 @@ export default async function ResearcherDetailPage({
             name: p.name,
             slug: p.slug,
           }))}
-          renderItem={(item) => (
-            <Link
-              href={`/research/${item.slug}`}
-              className="text-sm text-foreground underline underline-offset-4 decoration-text-muted/40 hover:decoration-text-secondary transition-colors duration-200"
-            >
-              {item.name}
-            </Link>
-          )}
         />
 
         <AssociationManager
@@ -212,25 +204,6 @@ export default async function ResearcherDetailPage({
             journal: p.journal,
             publicationUrl: p.publicationUrl,
           }))}
-          renderItem={(item) => (
-            <div className="border-b border-border pb-4">
-              <span className="text-xs italic text-text-muted">
-                {item.journal}
-              </span>
-              {item.publicationUrl ? (
-                <a
-                  href={item.publicationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm font-medium mt-0.5 text-foreground hover:underline underline-offset-4 decoration-text-muted/40"
-                >
-                  {item.name}
-                </a>
-              ) : (
-                <p className="text-sm font-medium mt-0.5">{item.name}</p>
-              )}
-            </div>
-          )}
         />
       </div>
     </div>

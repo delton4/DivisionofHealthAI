@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition, useRef, useEffect } from "react";
+import Link from "next/link";
 import { useAdmin } from "./AdminProvider";
 import { linkEntityToResearcher, unlinkEntityFromResearcher } from "@/lib/actions";
 
@@ -18,7 +19,42 @@ interface AssociationManagerProps {
   sectionTitle: string;
   currentItems: AssociationItem[];
   allItems: AssociationItem[];
-  renderItem: (item: AssociationItem) => React.ReactNode;
+}
+
+function ProjectItem({ item }: { item: AssociationItem }) {
+  return (
+    <Link
+      href={`/research/${item.slug}`}
+      className="text-sm text-foreground underline underline-offset-4 decoration-text-muted/40 hover:decoration-text-secondary transition-colors duration-200"
+    >
+      {item.name}
+    </Link>
+  );
+}
+
+function PublicationItem({ item }: { item: AssociationItem }) {
+  return (
+    <div className="border-b border-border pb-4">
+      <span className="text-xs italic text-text-muted">{item.journal}</span>
+      {item.publicationUrl ? (
+        <a
+          href={item.publicationUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-sm font-medium mt-0.5 text-foreground hover:underline underline-offset-4 decoration-text-muted/40"
+        >
+          {item.name}
+        </a>
+      ) : (
+        <p className="text-sm font-medium mt-0.5">{item.name}</p>
+      )}
+    </div>
+  );
+}
+
+function ItemRenderer({ item, entityType }: { item: AssociationItem; entityType: "publication" | "project" }) {
+  if (entityType === "project") return <ProjectItem item={item} />;
+  return <PublicationItem item={item} />;
 }
 
 export function AssociationManager({
@@ -27,7 +63,6 @@ export function AssociationManager({
   sectionTitle,
   currentItems,
   allItems,
-  renderItem,
 }: AssociationManagerProps) {
   const isAdmin = useAdmin();
   const [editing, setEditing] = useState(false);
@@ -44,7 +79,6 @@ export function AssociationManager({
     }
   }, [pickerOpen]);
 
-  // Keep local state in sync with server-driven props
   useEffect(() => {
     setItems(currentItems);
   }, [currentItems]);
@@ -85,7 +119,6 @@ export function AssociationManager({
     });
   }
 
-  // Non-admin: render section only if there are items
   if (!isAdmin) {
     if (items.length === 0) return null;
     return (
@@ -96,14 +129,15 @@ export function AssociationManager({
         </h2>
         <div className={entityType === "project" ? "space-y-3" : "space-y-4"}>
           {items.map((item) => (
-            <div key={item.id}>{renderItem(item)}</div>
+            <div key={item.id}>
+              <ItemRenderer item={item} entityType={entityType} />
+            </div>
           ))}
         </div>
       </section>
     );
   }
 
-  // Admin view
   return (
     <section className="mt-12 pt-8 border-t border-border">
       <div className="flex items-center justify-between mb-4">
@@ -137,7 +171,9 @@ export function AssociationManager({
       <div className={entityType === "project" ? "space-y-3" : "space-y-4"}>
         {items.map((item) => (
           <div key={item.id} className="flex items-start gap-2">
-            <div className="flex-1">{renderItem(item)}</div>
+            <div className="flex-1">
+              <ItemRenderer item={item} entityType={entityType} />
+            </div>
             {editing && (
               <button
                 onClick={() => handleRemove(item.id)}
