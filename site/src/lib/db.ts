@@ -33,10 +33,46 @@ export interface DbAlumniRow {
   created_at: string;
 }
 
-function getDb() {
+type NeonSql = ReturnType<typeof neon<false, false>>;
+let cachedSql: NeonSql | null = null;
+
+function getDb(): NeonSql {
+  if (cachedSql) return cachedSql;
   const url = process.env.DATABASE_URL;
   if (!url) throw new Error("DATABASE_URL is not set");
-  return neon(url);
+  cachedSql = neon(url);
+  return cachedSql;
+}
+
+// ---- Rate limiting ----
+
+const MAX_LOGIN_ATTEMPTS = 5;
+const RATE_LIMIT_WINDOW_MINUTES = 15;
+
+export async function checkRateLimit(key: string): Promise<boolean> {
+  try {
+    const sql = getDb();
+    const rows = (await sql`
+      INSERT INTO rate_limits (key, count, window_start)
+      VALUES (${key}, 1, now())
+      ON CONFLICT (key) DO UPDATE SET
+        count = CASE
+          WHEN rate_limits.window_start + ${`${RATE_LIMIT_WINDOW_MINUTES} minutes`}::interval < now()
+          THEN 1
+          ELSE rate_limits.count + 1
+        END,
+        window_start = CASE
+          WHEN rate_limits.window_start + ${`${RATE_LIMIT_WINDOW_MINUTES} minutes`}::interval < now()
+          THEN now()
+          ELSE rate_limits.window_start
+        END
+      RETURNING count
+    `) as unknown as { count: number }[];
+    return (rows[0]?.count ?? 1) <= MAX_LOGIN_ATTEMPTS;
+  } catch {
+    // If rate limit check fails, allow the attempt (fail open)
+    return true;
+  }
 }
 
 // ---- Audit log ----
