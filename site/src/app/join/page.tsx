@@ -40,8 +40,8 @@ export default async function JoinPage() {
             <div className="mt-4">
               <EditableText entity="page" entityId="join" field="scholar_desc" value={get("scholar_desc")} multiline as="p" className="text-text-secondary leading-relaxed" />
             </div>
-            <ul className="mt-4 space-y-1.5 text-sm text-text-secondary">
-              <li>· 3 to 12 month research rotations</li>
+            <ul className="mt-4 space-y-1.5 text-sm text-text-secondary list-disc list-inside">
+              <li>3 to 12 month research rotations</li>
               <li>· Access to clinical datasets and computing resources</li>
               <li>· Mentorship from senior researchers</li>
               <li>· Publication opportunities</li>
@@ -57,8 +57,8 @@ export default async function JoinPage() {
             <div className="mt-4">
               <EditableText entity="page" entityId="join" field="collab_desc" value={get("collab_desc")} multiline as="p" className="text-text-secondary leading-relaxed" />
             </div>
-            <ul className="mt-4 space-y-1.5 text-sm text-text-secondary">
-              <li>· Joint grant applications</li>
+            <ul className="mt-4 space-y-1.5 text-sm text-text-secondary list-disc list-inside">
+              <li>Joint grant applications</li>
               <li>· Shared datasets and infrastructure</li>
               <li>· Co-authored publications</li>
               <li>· Technology transfer opportunities</li>

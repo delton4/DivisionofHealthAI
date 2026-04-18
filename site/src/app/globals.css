@@ -109,4 +109,13 @@ body {
     transform: none;
     filter: none;
   }
+  .line-reveal > span {
+    animation: none;
+    transform: none;
+  }
+  .hero-subtitle,
+  .hero-links {
+    animation: none;
+    opacity: 1;
+  }
 }

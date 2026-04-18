@@ -36,18 +36,20 @@ export default async function TeamPage() {
       </AnimatedSection>
 
       {/* Alumni */}
-      <section className="py-16 border-t border-border">
-        <div className="mx-auto max-w-6xl px-6">
-          <h2 className="font-display text-2xl tracking-tight mb-6">Alumni</h2>
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-text-muted">
-            {allAlumni.map((a) => (
-              <span key={`${a.name}-${a.credentials}`}>
-                {a.name} {a.credentials}
-              </span>
-            ))}
+      {allAlumni.length > 0 && (
+        <section className="py-16 border-t border-border">
+          <div className="mx-auto max-w-6xl px-6">
+            <h2 className="font-display text-2xl tracking-tight mb-6">Alumni</h2>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-text-muted">
+              {allAlumni.map((a) => (
+                <span key={`${a.name}-${a.credentials}`}>
+                  {a.name} {a.credentials}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

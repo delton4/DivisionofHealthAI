@@ -34,6 +34,9 @@ export function EditableText({
   const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
 
+  // Sync text state when the prop updates (e.g. after revalidation)
+  useEffect(() => { setText(value); }, [value]);
+
   useEffect(() => {
     if (editing && inputRef.current) {
       inputRef.current.focus();
@@ -135,7 +138,7 @@ export function EditableText({
       onClick={() => setEditing(true)}
       title="Click to edit"
     >
-      {value}
+      {text}
       {saved && (
         <span className="ml-2 text-xs text-accent">Saved</span>
       )}

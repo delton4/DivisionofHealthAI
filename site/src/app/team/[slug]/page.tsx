@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EditableText } from "@/components/EditableText";
@@ -14,12 +15,10 @@ import {
 } from "@/data";
 import { AssociationManager } from "@/components/AssociationManager";
 import type { AssociationItem } from "@/components/AssociationManager";
+import { staticPhotos } from "@/data/static-photos";
+import type { Researcher } from "@/lib/types";
 
 export const revalidate = 60;
-
-const staticPhotos: Record<string, string> = {
-  "theodoros-zanos": "/zanos.jpg",
-};
 
 export async function generateStaticParams() {
   const visible = await getAllResearchersWithOverrides();
@@ -43,6 +42,84 @@ export async function generateMetadata({
   };
 }
 
+function SectionSkeleton({ title }: { title: string }) {
+  return (
+    <section className="mt-12 pt-8 border-t border-border">
+      <h2 className="font-display text-xl mb-4">{title}</h2>
+      <div className="space-y-3">
+        <div className="h-4 w-3/4 bg-surface rounded animate-pulse" />
+        <div className="h-4 w-1/2 bg-surface rounded animate-pulse" />
+      </div>
+    </section>
+  );
+}
+
+async function ResearcherProjects({ researcher }: { researcher: Researcher }) {
+  const { projectIds } = await getResearcherAssociations(
+    researcher.id,
+    researcher.publicationIds,
+    researcher.projectIds
+  );
+
+  const [relatedProjects, allProjects] = await Promise.all([
+    getProjectsByIds(projectIds),
+    getAllProjectsWithOverrides(),
+  ]);
+
+  return (
+    <AssociationManager
+      researcherId={researcher.id}
+      entityType="project"
+      sectionTitle="Research Projects"
+      currentItems={relatedProjects.map((p): AssociationItem => ({
+        id: p.id,
+        name: p.name,
+        slug: p.slug,
+      }))}
+      allItems={allProjects.map((p): AssociationItem => ({
+        id: p.id,
+        name: p.name,
+        slug: p.slug,
+      }))}
+    />
+  );
+}
+
+async function ResearcherPublications({ researcher }: { researcher: Researcher }) {
+  const { publicationIds } = await getResearcherAssociations(
+    researcher.id,
+    researcher.publicationIds,
+    researcher.projectIds
+  );
+
+  const [relatedPubs, allPubs] = await Promise.all([
+    getPublicationsByIds(publicationIds),
+    getAllPublicationsWithOverrides(),
+  ]);
+
+  return (
+    <AssociationManager
+      researcherId={researcher.id}
+      entityType="publication"
+      sectionTitle="Publications"
+      currentItems={relatedPubs.map((p): AssociationItem => ({
+        id: p.id,
+        name: p.name,
+        slug: p.slug,
+        journal: p.journal,
+        publicationUrl: p.publicationUrl,
+      }))}
+      allItems={allPubs.map((p): AssociationItem => ({
+        id: p.id,
+        name: p.name,
+        slug: p.slug,
+        journal: p.journal,
+        publicationUrl: p.publicationUrl,
+      }))}
+    />
+  );
+}
+
 export default async function ResearcherDetailPage({
   params,
 }: {
@@ -51,19 +128,6 @@ export default async function ResearcherDetailPage({
   const { slug } = await params;
   const researcher = await getResearcherWithOverrides(slug);
   if (!researcher) notFound();
-
-  const { publicationIds, projectIds } = await getResearcherAssociations(
-    researcher.id,
-    researcher.publicationIds,
-    researcher.projectIds
-  );
-
-  const [relatedProjects, relatedPubs, allProjects, allPubs] = await Promise.all([
-    getProjectsByIds(projectIds),
-    getPublicationsByIds(publicationIds),
-    getAllProjectsWithOverrides(),
-    getAllPublicationsWithOverrides(),
-  ]);
 
   const personJsonLd = {
     "@context": "https://schema.org",
@@ -170,41 +234,13 @@ export default async function ResearcherDetailPage({
           />
         </div>
 
-        <AssociationManager
-          researcherId={researcher.id}
-          entityType="project"
-          sectionTitle="Research Projects"
-          currentItems={relatedProjects.map((p): AssociationItem => ({
-            id: p.id,
-            name: p.name,
-            slug: p.slug,
-          }))}
-          allItems={allProjects.map((p): AssociationItem => ({
-            id: p.id,
-            name: p.name,
-            slug: p.slug,
-          }))}
-        />
+        <Suspense fallback={<SectionSkeleton title="Research Projects" />}>
+          <ResearcherProjects researcher={researcher} />
+        </Suspense>
 
-        <AssociationManager
-          researcherId={researcher.id}
-          entityType="publication"
-          sectionTitle="Publications"
-          currentItems={relatedPubs.map((p): AssociationItem => ({
-            id: p.id,
-            name: p.name,
-            slug: p.slug,
-            journal: p.journal,
-            publicationUrl: p.publicationUrl,
-          }))}
-          allItems={allPubs.map((p): AssociationItem => ({
-            id: p.id,
-            name: p.name,
-            slug: p.slug,
-            journal: p.journal,
-            publicationUrl: p.publicationUrl,
-          }))}
-        />
+        <Suspense fallback={<SectionSkeleton title="Publications" />}>
+          <ResearcherPublications researcher={researcher} />
+        </Suspense>
       </div>
     </div>
   );

@@ -4,10 +4,7 @@ import { memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Researcher } from "@/lib/types";
-
-const staticPhotos: Record<string, string> = {
-  "theodoros-zanos": "/zanos.jpg",
-};
+import { staticPhotos } from "@/data/static-photos";
 
 export const TeamCard = memo(function TeamCard({ researcher }: { researcher: Researcher }) {
   const photoUrl = researcher.photo || staticPhotos[researcher.slug];

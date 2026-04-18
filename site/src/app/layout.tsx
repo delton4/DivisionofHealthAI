@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import { Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
@@ -21,6 +21,11 @@ const inter = Inter({
   weight: ["400", "500", "600"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  themeColor: "#141211",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://divhealthai.org"),

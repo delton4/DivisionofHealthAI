@@ -35,7 +35,7 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="pt-36 pb-20">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="flex items-start justify-between gap-8 md:gap-12">
+          <div className="flex flex-col-reverse sm:flex-row sm:items-start sm:justify-between gap-8 md:gap-12">
             <div className="min-w-0 flex-1">
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1] text-foreground">
                 <span className="line-reveal"><span>Division of</span></span>

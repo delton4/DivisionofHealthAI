@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { LogoMark } from "@/components/LogoMark";
 import { useAdmin } from "@/components/AdminProvider";
 import { logout } from "@/lib/actions";
@@ -18,6 +19,14 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isAdmin = useAdmin();
+  const pathname = usePathname();
+
+  // Close mobile menu on browser back/forward navigation
+  useEffect(() => {
+    const handlePopState = () => setIsOpen(false);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -53,7 +62,12 @@ export function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm text-text-secondary hover:text-foreground transition-colors duration-200"
+                aria-current={pathname === link.href || pathname.startsWith(link.href + "/") ? "page" : undefined}
+                className={`text-sm transition-colors duration-200 ${
+                  pathname === link.href || pathname.startsWith(link.href + "/")
+                    ? "text-foreground"
+                    : "text-text-secondary hover:text-foreground"
+                }`}
               >
                 {link.label}
               </Link>
