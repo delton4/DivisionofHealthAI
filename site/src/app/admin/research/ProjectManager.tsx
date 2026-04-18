@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { addProject, deleteProject, restoreProject } from "@/lib/actions";
+import { RestoreRow } from "@/components/RestoreRow";
+import { ConfirmButton } from "@/components/ConfirmButton";
 import type { Project } from "@/lib/types";
 
 export function ProjectManager({
@@ -46,7 +48,11 @@ export function ProjectManager({
           <h3 className="text-sm font-medium mb-3">Removed projects ({hiddenProjects.length})</h3>
           <div className="space-y-2">
             {hiddenProjects.map((p) => (
-              <RestoreRow key={p.id} item={p} />
+              <RestoreRow
+                key={p.id}
+                label={p.name}
+                onRestore={() => restoreProject(p.id)}
+              />
             ))}
           </div>
         </div>
@@ -55,50 +61,19 @@ export function ProjectManager({
       <h3 className="text-sm font-medium mb-4">Active projects</h3>
       <div className="space-y-3">
         {projects.map((p) => (
-          <ProjectRow key={p.id} project={p} />
+          <div key={p.id} className="flex items-start justify-between gap-4 py-3 border-b border-border">
+            <div className="min-w-0">
+              <p className="text-sm text-foreground">{p.name}</p>
+              {p.about && <p className="text-xs text-text-muted mt-0.5 line-clamp-1">{p.about}</p>}
+            </div>
+            <ConfirmButton
+              label="Remove"
+              confirmLabel="Remove?"
+              onConfirm={() => deleteProject(p.id)}
+            />
+          </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function ProjectRow({ project }: { project: Project }) {
-  const [isPending, startTransition] = useTransition();
-  const [removed, setRemoved] = useState(false);
-  if (removed) return null;
-
-  return (
-    <div className="flex items-start justify-between gap-4 py-3 border-b border-border">
-      <div className="min-w-0">
-        <p className="text-sm text-foreground">{project.name}</p>
-        {project.about && <p className="text-xs text-text-muted mt-0.5 line-clamp-1">{project.about}</p>}
-      </div>
-      <button
-        onClick={() => startTransition(async () => { await deleteProject(project.id); setRemoved(true); })}
-        disabled={isPending}
-        className="text-xs text-text-muted hover:text-accent-warm transition-colors shrink-0 disabled:opacity-50"
-      >
-        {isPending ? "Removing..." : "Remove"}
-      </button>
-    </div>
-  );
-}
-
-function RestoreRow({ item }: { item: { id: string; name: string } }) {
-  const [isPending, startTransition] = useTransition();
-  const [restored, setRestored] = useState(false);
-  if (restored) return null;
-
-  return (
-    <div className="flex items-center justify-between gap-4 text-sm">
-      <span className="text-text-muted truncate">{item.name}</span>
-      <button
-        onClick={() => startTransition(async () => { await restoreProject(item.id); setRestored(true); })}
-        disabled={isPending}
-        className="text-xs text-accent hover:text-foreground transition-colors shrink-0 disabled:opacity-50"
-      >
-        {isPending ? "Restoring..." : "Restore"}
-      </button>
     </div>
   );
 }

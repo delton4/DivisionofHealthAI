@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { addPublication, deletePublication, restorePublication } from "@/lib/actions";
+import { RestoreRow } from "@/components/RestoreRow";
+import { ConfirmButton } from "@/components/ConfirmButton";
 import type { Publication } from "@/lib/types";
 
 interface HiddenPub {
@@ -41,7 +43,11 @@ export function PublicationManager({
           <h3 className="text-sm font-medium mb-3">Removed publications ({hiddenPubs.length})</h3>
           <div className="space-y-2">
             {hiddenPubs.map((pub) => (
-              <RestoreRow key={pub.id} pub={pub} />
+              <RestoreRow
+                key={pub.id}
+                label={pub.name}
+                onRestore={() => restorePublication(pub.id)}
+              />
             ))}
           </div>
         </div>
@@ -51,7 +57,17 @@ export function PublicationManager({
       <h3 className="text-sm font-medium mb-4">Active publications</h3>
       <div className="space-y-3">
         {publications.map((pub) => (
-          <PubRow key={pub.id} pub={pub} />
+          <div key={pub.id} className="flex items-start justify-between gap-4 py-3 border-b border-border">
+            <div className="min-w-0">
+              <span className="text-xs italic text-text-muted">{pub.journal}</span>
+              <p className="text-sm text-foreground mt-0.5 leading-snug">{pub.name}</p>
+            </div>
+            <ConfirmButton
+              label="Remove"
+              confirmLabel="Remove?"
+              onConfirm={() => deletePublication(pub.id)}
+            />
+          </div>
         ))}
       </div>
     </div>
@@ -108,62 +124,5 @@ function AddForm({ onCancel }: { onCancel: () => void }) {
         </button>
       </div>
     </form>
-  );
-}
-
-function PubRow({ pub }: { pub: Publication }) {
-  const [isPending, startTransition] = useTransition();
-  const [removed, setRemoved] = useState(false);
-
-  if (removed) return null;
-
-  const handleRemove = () => {
-    startTransition(async () => {
-      await deletePublication(pub.id);
-      setRemoved(true);
-    });
-  };
-
-  return (
-    <div className="flex items-start justify-between gap-4 py-3 border-b border-border">
-      <div className="min-w-0">
-        <span className="text-xs italic text-text-muted">{pub.journal}</span>
-        <p className="text-sm text-foreground mt-0.5 leading-snug">{pub.name}</p>
-      </div>
-      <button
-        onClick={handleRemove}
-        disabled={isPending}
-        className="text-xs text-text-muted hover:text-accent-warm transition-colors shrink-0 disabled:opacity-50"
-      >
-        {isPending ? "Removing..." : "Remove"}
-      </button>
-    </div>
-  );
-}
-
-function RestoreRow({ pub }: { pub: HiddenPub }) {
-  const [isPending, startTransition] = useTransition();
-  const [restored, setRestored] = useState(false);
-
-  if (restored) return null;
-
-  const handleRestore = () => {
-    startTransition(async () => {
-      await restorePublication(pub.id);
-      setRestored(true);
-    });
-  };
-
-  return (
-    <div className="flex items-center justify-between gap-4 text-sm">
-      <span className="text-text-muted truncate">{pub.name}</span>
-      <button
-        onClick={handleRestore}
-        disabled={isPending}
-        className="text-xs text-accent hover:text-foreground transition-colors shrink-0 disabled:opacity-50"
-      >
-        {isPending ? "Restoring..." : "Restore"}
-      </button>
-    </div>
   );
 }

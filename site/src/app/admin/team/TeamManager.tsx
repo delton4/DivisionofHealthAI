@@ -7,6 +7,8 @@ import {
   deleteAlumni,
   restoreResearcher,
 } from "@/lib/actions";
+import { RestoreRow } from "@/components/RestoreRow";
+import { ConfirmButton } from "@/components/ConfirmButton";
 import type { Researcher } from "@/lib/types";
 
 interface DbAlumni {
@@ -61,7 +63,11 @@ export function TeamManager({
           <h3 className="text-sm font-medium mb-3">Moved to alumni ({hiddenResearchers.length})</h3>
           <div className="space-y-2">
             {hiddenResearchers.map((r) => (
-              <RestoreRow key={r.id} item={r} />
+              <RestoreRow
+                key={r.id}
+                label={r.name}
+                onRestore={() => restoreResearcher(r.id)}
+              />
             ))}
           </div>
         </div>
@@ -81,7 +87,14 @@ export function TeamManager({
           <h3 className="text-sm font-medium mb-4">Alumni</h3>
           <div className="space-y-2">
             {dbAlumni.map((a) => (
-              <AlumniRow key={a.id} alumni={a} />
+              <div key={a.id} className="flex items-center justify-between gap-4 text-sm">
+                <span className="text-text-muted">{a.name} {a.credentials}</span>
+                <ConfirmButton
+                  label="Remove"
+                  confirmLabel="Remove?"
+                  onConfirm={() => deleteAlumni(a.id)}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -141,44 +154,6 @@ function ResearcherRow({ researcher }: { researcher: Researcher }) {
           </button>
         </div>
       )}
-    </div>
-  );
-}
-
-function RestoreRow({ item }: { item: { id: string; name: string } }) {
-  const [isPending, startTransition] = useTransition();
-  const [restored, setRestored] = useState(false);
-  if (restored) return null;
-
-  return (
-    <div className="flex items-center justify-between gap-4 text-sm">
-      <span className="text-text-muted truncate">{item.name}</span>
-      <button
-        onClick={() => startTransition(async () => { await restoreResearcher(item.id); setRestored(true); })}
-        disabled={isPending}
-        className="text-xs text-accent hover:text-foreground transition-colors shrink-0 disabled:opacity-50"
-      >
-        {isPending ? "Restoring..." : "Restore"}
-      </button>
-    </div>
-  );
-}
-
-function AlumniRow({ alumni }: { alumni: DbAlumni }) {
-  const [isPending, startTransition] = useTransition();
-  const [removed, setRemoved] = useState(false);
-  if (removed) return null;
-
-  return (
-    <div className="flex items-center justify-between gap-4 text-sm">
-      <span className="text-text-muted">{alumni.name} {alumni.credentials}</span>
-      <button
-        onClick={() => startTransition(async () => { await deleteAlumni(alumni.id); setRemoved(true); })}
-        disabled={isPending}
-        className="text-xs text-text-muted hover:text-accent-warm transition-colors shrink-0 disabled:opacity-50"
-      >
-        {isPending ? "Removing..." : "Remove"}
-      </button>
     </div>
   );
 }
