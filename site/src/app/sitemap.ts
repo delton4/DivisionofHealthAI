@@ -1,9 +1,17 @@
 import type { MetadataRoute } from "next";
-import { researchers, projects } from "@/data";
+import {
+  getAllResearchersWithOverrides,
+  getAllProjectsWithOverrides,
+} from "@/data";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://divhealthai.org";
   const now = new Date();
+
+  const [allResearchers, allProjects] = await Promise.all([
+    getAllResearchersWithOverrides(),
+    getAllProjectsWithOverrides(),
+  ]);
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified: now, changeFrequency: "weekly", priority: 1 },
@@ -14,16 +22,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/join`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
   ];
 
-  const researcherPages: MetadataRoute.Sitemap = researchers
-    .filter((r) => !r.alumni)
-    .map((r) => ({
-      url: `${baseUrl}/team/${r.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }));
+  const researcherPages: MetadataRoute.Sitemap = allResearchers.map((r) => ({
+    url: `${baseUrl}/team/${r.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
 
-  const projectPages: MetadataRoute.Sitemap = projects.map((p) => ({
+  const projectPages: MetadataRoute.Sitemap = allProjects.map((p) => ({
     url: `${baseUrl}/research/${p.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,

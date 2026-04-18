@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AnimatedSection } from "@/components/AnimatedSection";
+import { Suspense } from "react";
 import { getAllPublicationsWithOverrides, getAllProjectsWithOverrides } from "@/data";
 import { PublicationFilter } from "./PublicationFilter";
 
@@ -10,7 +10,18 @@ export const metadata: Metadata = {
 };
 export const revalidate = 60;
 
-export default async function PublicationsPage() {
+const PAGE_SIZE = 50;
+
+async function PublicationsContent({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; journal?: string; project?: string }>;
+}) {
+  const params = await searchParams;
+  const page = Math.max(1, Number(params.page) || 1);
+  const journalFilter = params.journal || null;
+  const projectFilter = params.project || null;
+
   const [allPubs, allProjects] = await Promise.all([
     getAllPublicationsWithOverrides(),
     getAllProjectsWithOverrides(),
@@ -21,6 +32,21 @@ export default async function PublicationsPage() {
     name: p.name,
     pubIds: p.publicationIds,
   }));
+
+  // Apply server-side filters
+  let filtered = allPubs;
+  if (projectFilter) {
+    const proj = projectFilters.find((p) => p.id === projectFilter);
+    if (proj) filtered = filtered.filter((pub) => proj.pubIds.includes(pub.id));
+  }
+  if (journalFilter) {
+    filtered = filtered.filter((pub) => pub.journal === journalFilter);
+  }
+
+  const totalCount = filtered.length;
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const paginated = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
   const journals = Array.from(
     new Set(allPubs.map((p) => p.journal).filter(Boolean))
@@ -38,13 +64,39 @@ export default async function PublicationsPage() {
         </div>
       </section>
 
-      <AnimatedSection className="pb-24">
+      <section className="pb-24">
         <PublicationFilter
-          publications={allPubs}
+          publications={paginated}
           journals={journals}
           projectFilters={projectFilters}
+          totalCount={totalCount}
+          currentPage={safePage}
+          totalPages={totalPages}
+          activeJournal={journalFilter}
+          activeProject={projectFilter}
         />
-      </AnimatedSection>
+      </section>
     </>
+  );
+}
+
+export default function PublicationsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; journal?: string; project?: string }>;
+}) {
+  return (
+    <Suspense
+      fallback={
+        <div className="pt-36 pb-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="h-10 w-48 bg-surface rounded animate-pulse" />
+            <div className="mt-6 h-4 w-96 bg-surface rounded animate-pulse" />
+          </div>
+        </div>
+      }
+    >
+      <PublicationsContent searchParams={searchParams} />
+    </Suspense>
   );
 }
