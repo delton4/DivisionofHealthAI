@@ -17,33 +17,12 @@ import {
   removeDbAlumni,
   hideEntity,
   unhideEntity,
+  checkRateLimit,
 } from "./db";
 import { createSession, verifySession, deleteSession } from "./session";
 import { headers } from "next/headers";
 
-// Simple in-memory rate limiter for login attempts
-const loginAttempts = new Map<string, { count: number; resetAt: number }>();
-const MAX_ATTEMPTS = 5;
-const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-
-  // Prune expired entries to prevent unbounded growth
-  if (loginAttempts.size > 1000) {
-    for (const [key, val] of loginAttempts) {
-      if (now > val.resetAt) loginAttempts.delete(key);
-    }
-  }
-
-  const entry = loginAttempts.get(ip);
-  if (!entry || now > entry.resetAt) {
-    loginAttempts.set(ip, { count: 1, resetAt: now + WINDOW_MS });
-    return true;
-  }
-  entry.count++;
-  return entry.count <= MAX_ATTEMPTS;
-}
+// Rate limiting is handled by checkRateLimit() in db.ts (Neon-backed, works across serverless instances)
 
 // Exponential delay on failed attempts (best-effort, in-process only)
 function failDelay(attempt: number): Promise<void> {
@@ -77,7 +56,8 @@ export async function login(
   const headersList = await headers();
   const ip = headersList.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
 
-  if (!checkRateLimit(ip)) {
+  const allowed = await checkRateLimit(ip);
+  if (!allowed) {
     return { error: "Too many login attempts. Try again in 15 minutes." };
   }
 
@@ -96,8 +76,7 @@ export async function login(
 
   const valid = await compare(password, admin.password_hash);
   if (!valid) {
-    const entry = loginAttempts.get(ip);
-    await failDelay(entry?.count ?? 1);
+    await failDelay(3);
     return { error: "Invalid credentials." };
   }
 
@@ -110,24 +89,12 @@ export async function logout() {
   redirect("/");
 }
 
-const VALID_ENTITIES = new Set(["researcher", "project", "publication", "page"]);
-const VALID_FIELDS: Record<string, Set<string>> = {
-  researcher: new Set(["name", "title", "about", "photo", "credentials"]),
-  project: new Set(["name", "about"]),
-  publication: new Set(["name", "journal", "abstract", "publicationUrl"]),
-};
-
-// Page fields are validated per-page since each page defines its own field keys.
-const VALID_PAGE_IDS = new Set(["home", "about", "join"]);
-const VALID_PAGE_FIELDS: Record<string, Set<string>> = {
-  home: new Set(["subtitle", "highlight_desc"]),
-  about: new Set([
-    "intro1", "intro2", "approach1", "approach2",
-    "achieve1_title", "achieve1_desc", "achieve2_title", "achieve2_desc",
-    "achieve3_title", "achieve3_desc", "achieve4_title", "achieve4_desc",
-  ]),
-  join: new Set(["intro", "scholar_desc", "collab_desc", "location_desc"]),
-};
+import {
+  VALID_ENTITIES,
+  VALID_FIELDS,
+  VALID_PAGE_IDS,
+  VALID_PAGE_FIELDS,
+} from "./allowed-fields";
 
 type SaveResult = { success: true } | { error: string };
 
@@ -187,7 +154,7 @@ export async function addPublication(formData: FormData): Promise<void> {
   const abstract = getFormStringOptional(formData, "abstract");
   const publicationUrl = getFormStringOptional(formData, "publicationUrl");
 
-  const id = `custom-${Date.now()}`;
+  const id = `custom-${crypto.randomUUID()}`;
   await addCustomPublication({ id, name, journal, abstract, publicationUrl });
 
   revalidatePath("/publications");
@@ -233,7 +200,7 @@ export async function addProject(formData: FormData): Promise<void> {
   const name = getFormString(formData, "name");
   const about = getFormStringOptional(formData, "about");
 
-  const id = `custom-${Date.now()}`;
+  const id = `custom-${crypto.randomUUID()}`;
   await addCustomProject({ id, name, about });
 
   revalidatePath("/research");
@@ -279,7 +246,7 @@ export async function addResearcher(formData: FormData): Promise<void> {
   const name = getFormString(formData, "name");
   const title = getFormStringOptional(formData, "title");
 
-  const id = `custom-${Date.now()}`;
+  const id = `custom-${crypto.randomUUID()}`;
   await addCustomResearcher({ id, name, title });
 
   revalidatePath("/team");
@@ -353,7 +320,8 @@ export async function linkEntityToResearcher(
       entityId,
       "add"
     );
-  } catch {
+  } catch (err) {
+    console.error("linkEntityToResearcher failed:", err);
     return { error: "Failed to link. Please try again." };
   }
 
@@ -408,15 +376,8 @@ export async function uploadResearcherPhoto(formData: FormData) {
   const researcherId = getFormString(formData, "researcherId");
   const researcherSlug = getFormString(formData, "researcherSlug");
 
-  const MIME_TO_EXT: Record<string, string> = {
-    "image/jpeg": "jpg",
-    "image/png": "png",
-    "image/webp": "webp",
-    "image/gif": "gif",
-  };
-
-  const ext = MIME_TO_EXT[file.type];
-  if (!ext) {
+  const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
+  if (!ALLOWED_TYPES.has(file.type)) {
     return { error: "Only JPEG, PNG, WebP, and GIF images are allowed." };
   }
 
@@ -425,9 +386,19 @@ export async function uploadResearcherPhoto(formData: FormData) {
     return { error: "File must be under 5 MB." };
   }
 
-  const blob = await put(`photos/${researcherId}-${Date.now()}.${ext}`, file, {
-    access: "public",
-  });
+  // Resize and convert to WebP before uploading
+  const sharp = (await import("sharp")).default;
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const optimized = await sharp(buffer)
+    .resize(1200, 1200, { fit: "inside", withoutEnlargement: true })
+    .webp({ quality: 80 })
+    .toBuffer();
+
+  const blob = await put(
+    `photos/${researcherId}-${Date.now()}.webp`,
+    optimized,
+    { access: "public", contentType: "image/webp" }
+  );
 
   await upsertOverride("researcher", researcherId, "photo", blob.url);
 

@@ -1,4 +1,5 @@
 import type { Researcher, Project, Publication, Alumni } from "@/lib/types";
+import { VALID_FIELDS, VALID_PAGE_FIELDS } from "@/lib/allowed-fields";
 import researchersJson from "./researchers.json";
 import projectsJson from "./projects.json";
 import publicationsJson from "./publications.json";
@@ -62,7 +63,15 @@ async function mergeOverrides<T>(
     const { getOverrides } = await import("@/lib/db");
     const overrides = await getOverrides(entity, entityId);
     if (Object.keys(overrides).length === 0) return base;
-    return { ...base, ...overrides } as T;
+
+    // Only allow known fields to prevent overriding id, slug, etc.
+    const allowed = VALID_FIELDS[entity];
+    const safeOverrides = allowed
+      ? Object.fromEntries(
+          Object.entries(overrides).filter(([k]) => allowed.has(k))
+        )
+      : overrides;
+    return { ...base, ...safeOverrides } as T;
   } catch {
     return base;
   }
@@ -281,7 +290,14 @@ export async function getPageOverrides(
   if (process.env.GITHUB_ACTIONS === "true") return {};
   try {
     const { getOverrides } = await import("@/lib/db");
-    return getOverrides("page", pageId);
+    const overrides = await getOverrides("page", pageId);
+
+    // Only allow known page fields
+    const allowed = VALID_PAGE_FIELDS[pageId];
+    if (!allowed) return {};
+    return Object.fromEntries(
+      Object.entries(overrides).filter(([k]) => allowed.has(k))
+    );
   } catch {
     return {};
   }
