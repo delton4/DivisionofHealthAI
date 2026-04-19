@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { PublicationCard } from "@/components/PublicationCard";
+import { MonoTag } from "@/components/MonoTag";
 import type { Publication } from "@/lib/types";
 
 interface ProjectFilter {
@@ -43,21 +44,40 @@ export function PublicationFilter({
   const currentJournal = activeJournal ?? searchParams.get("journal");
   const currentProject = activeProject ?? searchParams.get("project");
 
+  const hasFilters = !!(currentProject || currentJournal);
+
   return (
     <div className="mx-auto max-w-6xl px-6">
       {/* Filters */}
-      <div className="mb-8 space-y-4">
-        {/* Project filter */}
+      <div className="mb-10 border border-border bg-surface/30 p-5 md:p-6">
+        <div className="flex items-center gap-3 mb-4">
+          <MonoTag accent="pulse">Filter · Query</MonoTag>
+          <span className="label-mono text-text-dim">
+            {totalCount} result{totalCount !== 1 ? "s" : ""}
+            {hasFilters && " · filtered"}
+            {totalPages > 1 && ` · page ${currentPage}/${totalPages}`}
+          </span>
+          {hasFilters && (
+            <Link
+              href="/publications"
+              className="ml-auto label-mono text-accent-pulse hover:text-foreground transition-colors duration-200"
+            >
+              Clear
+            </Link>
+          )}
+        </div>
+
+        {/* Project filter chips */}
         <div className="flex flex-wrap gap-2">
           <Link
             href={filterUrl({ journal: currentJournal })}
-            className={`text-xs px-3 py-1.5 rounded-md border transition-colors duration-200 ${
+            className={`label-mono px-3 py-1.5 border transition-colors duration-200 ${
               !currentProject
-                ? "border-accent text-accent"
-                : "border-border text-text-muted hover:text-foreground hover:border-text-muted"
+                ? "border-accent-pulse text-accent-pulse"
+                : "border-border text-text-muted hover:text-foreground hover:border-border-strong"
             }`}
           >
-            All projects
+            All
           </Link>
           {projectFilters.map((p) => (
             <Link
@@ -66,10 +86,10 @@ export function PublicationFilter({
                 project: currentProject === p.id ? null : p.id,
                 journal: currentJournal,
               })}
-              className={`text-xs px-3 py-1.5 rounded-md border transition-colors duration-200 ${
+              className={`label-mono px-3 py-1.5 border transition-colors duration-200 ${
                 currentProject === p.id
-                  ? "border-accent text-accent"
-                  : "border-border text-text-muted hover:text-foreground hover:border-text-muted"
+                  ? "border-accent-pulse text-accent-pulse"
+                  : "border-border text-text-muted hover:text-foreground hover:border-border-strong"
               }`}
             >
               {p.name}
@@ -78,16 +98,17 @@ export function PublicationFilter({
         </div>
 
         {/* Journal filter */}
-        <div>
+        <div className="mt-4 flex items-center gap-3">
+          <MonoTag accent="dim">Journal</MonoTag>
           <select
             value={currentJournal || ""}
             onChange={(e) => {
               const val = e.target.value || null;
               window.location.href = filterUrl({ project: currentProject, journal: val });
             }}
-            className="text-xs bg-surface border border-border rounded-md px-3 py-1.5 text-text-secondary appearance-none pr-8 focus:outline-none focus:border-accent transition-colors duration-200"
+            className="ticker-text text-xs bg-surface border border-border px-3 py-1.5 text-text-secondary appearance-none focus:outline-none focus:border-accent-pulse transition-colors duration-200 max-w-xs"
           >
-            <option value="">All journals</option>
+            <option value="">Any journal</option>
             {journals.map((j) => (
               <option key={j} value={j}>
                 {j}
@@ -98,24 +119,35 @@ export function PublicationFilter({
       </div>
 
       {/* Results */}
-      <p className="text-xs text-text-muted mb-6">
-        {totalCount} publication{totalCount !== 1 ? "s" : ""}
-        {currentProject || currentJournal ? " matching filters" : ""}
-        {totalPages > 1 && ` \u00b7 page ${currentPage} of ${totalPages}`}
-      </p>
-
-      <div className="max-w-3xl">
-        {publications.map((pub) => (
-          <PublicationCard key={pub.id} publication={pub} />
+      <div>
+        {publications.map((pub, i) => (
+          <PublicationCard
+            key={pub.id}
+            publication={pub}
+            index={(currentPage - 1) * 50 + i}
+          />
         ))}
         {publications.length === 0 && (
-          <p className="text-sm text-text-muted py-8">No publications match the selected filters.</p>
+          <div className="py-16 text-center">
+            <p className="font-display text-xl text-text-muted">
+              No publications match the selected filters.
+            </p>
+            <Link
+              href="/publications"
+              className="mt-3 inline-block label-mono text-accent-pulse hover:text-foreground transition-colors duration-200"
+            >
+              Reset filters →
+            </Link>
+          </div>
         )}
       </div>
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <nav className="mt-8 flex items-center gap-4 text-sm" aria-label="Pagination">
+        <nav
+          className="mt-12 pt-8 border-t border-border flex items-center justify-between"
+          aria-label="Pagination"
+        >
           {currentPage > 1 ? (
             <Link
               href={filterUrl({
@@ -123,15 +155,21 @@ export function PublicationFilter({
                 journal: currentJournal,
                 page: String(currentPage - 1),
               })}
-              className="text-text-muted hover:text-foreground transition-colors duration-200"
+              className="group flex items-center gap-2 label-mono text-text-secondary hover:text-accent-pulse transition-colors duration-200"
             >
+              <span
+                aria-hidden="true"
+                className="transform group-hover:-translate-x-1 transition-transform duration-200"
+              >
+                ←
+              </span>
               Previous
             </Link>
           ) : (
-            <span className="text-text-muted/40">Previous</span>
+            <span className="label-mono text-text-dim">← Previous</span>
           )}
-          <span className="text-text-muted">
-            {currentPage} / {totalPages}
+          <span className="label-mono text-text-muted tabular-nums">
+            {String(currentPage).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
           </span>
           {currentPage < totalPages ? (
             <Link
@@ -140,12 +178,18 @@ export function PublicationFilter({
                 journal: currentJournal,
                 page: String(currentPage + 1),
               })}
-              className="text-text-muted hover:text-foreground transition-colors duration-200"
+              className="group flex items-center gap-2 label-mono text-text-secondary hover:text-accent-pulse transition-colors duration-200"
             >
               Next
+              <span
+                aria-hidden="true"
+                className="transform group-hover:translate-x-1 transition-transform duration-200"
+              >
+                →
+              </span>
             </Link>
           ) : (
-            <span className="text-text-muted/40">Next</span>
+            <span className="label-mono text-text-dim">Next →</span>
           )}
         </nav>
       )}

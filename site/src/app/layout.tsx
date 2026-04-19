@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
-import { Instrument_Serif, Inter } from "next/font/google";
+import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
@@ -22,8 +22,15 @@ const inter = Inter({
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
 export const viewport: Viewport = {
-  themeColor: "#141211",
+  themeColor: "#0E0D0C",
   colorScheme: "dark",
 };
 
@@ -59,9 +66,9 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${inter.variable} h-full antialiased`}
+      className={`${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-background">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -113,9 +120,12 @@ export default async function RootLayout({
             }),
           }}
         />
+        {/* Global film-grain overlay — fixed, non-interactive, behind content */}
+        <div className="bg-noise" aria-hidden="true" />
+
         <AdminProvider isAdmin={isAdmin}>
           <Navigation />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 relative">{children}</main>
           <Footer />
         </AdminProvider>
         <Analytics />

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EditableText } from "@/components/EditableText";
 import { PhotoUpload } from "@/components/PhotoUpload";
+import { MonoTag } from "@/components/MonoTag";
 import {
   getAllResearchersWithOverrides,
   getResearcherWithOverrides,
@@ -166,7 +167,7 @@ export default async function ResearcherDetailPage({
   };
 
   return (
-    <div className="pt-36 pb-20">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -175,65 +176,96 @@ export default async function ResearcherDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <div className="mx-auto max-w-3xl px-6">
-        <Link
-          href="/team"
-          className="text-sm text-text-muted hover:text-text-secondary transition-colors duration-200"
-        >
-          Back to Team
-        </Link>
 
-        <PhotoUpload
-          researcherId={researcher.id}
-          researcherSlug={researcher.slug}
-          researcherName={researcher.name}
-          photoUrl={researcher.photo || staticPhotos[researcher.slug]}
-        />
+      <section className="relative pt-32 pb-12 border-b border-border overflow-hidden">
+        <div className="absolute inset-0 bg-grid opacity-50 pointer-events-none" />
+        <div className="relative mx-auto max-w-5xl px-6">
+          <Link
+            href="/team"
+            className="label-mono text-text-muted hover:text-accent-pulse transition-colors duration-200 inline-flex items-center gap-2"
+          >
+            ← Team roster
+          </Link>
 
-        <h1 className="font-display text-3xl md:text-4xl tracking-tight mt-6">
-          <EditableText
-            entity="researcher"
-            entityId={researcher.id}
-            field="name"
-            value={researcher.name}
-            as="span"
-            className="font-display text-3xl md:text-4xl tracking-tight"
-          />
-        </h1>
-        <p className="text-text-muted mt-1">
-          <EditableText
-            entity="researcher"
-            entityId={researcher.id}
-            field="title"
-            value={researcher.title || "No title yet. Click to add one."}
-          />
-        </p>
+          <div className="mt-10 grid grid-cols-12 gap-8 items-end">
+            <div className="col-span-12 md:col-span-4">
+              <div className="border border-border bg-surface/30">
+                <PhotoUpload
+                  researcherId={researcher.id}
+                  researcherSlug={researcher.slug}
+                  researcherName={researcher.name}
+                  photoUrl={researcher.photo || staticPhotos[researcher.slug]}
+                />
+              </div>
+            </div>
+            <div className="col-span-12 md:col-span-8">
+              <MonoTag accent="pulse">Researcher profile</MonoTag>
+              <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,5rem)] tracking-[-0.02em] leading-[0.98]">
+                <EditableText
+                  entity="researcher"
+                  entityId={researcher.id}
+                  field="name"
+                  value={researcher.name}
+                  as="span"
+                  className="font-display tracking-[-0.02em]"
+                />
+              </h1>
+              <p className="mt-4 text-lg text-text-secondary leading-snug max-w-xl">
+                <EditableText
+                  entity="researcher"
+                  entityId={researcher.id}
+                  field="title"
+                  value={researcher.title || "No title yet. Click to add one."}
+                />
+              </p>
 
-        <div className="flex flex-wrap gap-4 mt-2 text-sm text-text-muted">
-          {researcher.email && (
-            <a href={`mailto:${researcher.email}`} className="hover:text-text-secondary transition-colors duration-200">
-              {researcher.email}
-            </a>
-          )}
-          {researcher.linkedin && (
-            <a href={researcher.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-text-secondary transition-colors duration-200">
-              LinkedIn
-            </a>
-          )}
+              <div className="mt-5 flex flex-wrap gap-4 label-mono">
+                {researcher.email && (
+                  <a
+                    href={`mailto:${researcher.email}`}
+                    className="text-text-muted hover:text-accent-pulse transition-colors duration-200"
+                  >
+                    ✉ {researcher.email}
+                  </a>
+                )}
+                {researcher.linkedin && (
+                  <a
+                    href={researcher.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-muted hover:text-accent-pulse transition-colors duration-200"
+                  >
+                    LinkedIn ↗
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div className="mt-6">
-          <EditableText
-            entity="researcher"
-            entityId={researcher.id}
-            field="about"
-            value={researcher.about || "No bio yet. Click to add one."}
-            multiline
-            as="p"
-            className="text-text-secondary leading-relaxed"
-          />
+      <section className="py-16">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="grid grid-cols-12 gap-8">
+            <div className="col-span-12 md:col-span-3">
+              <MonoTag accent="dim">Bio</MonoTag>
+            </div>
+            <div className="col-span-12 md:col-span-9 max-w-3xl">
+              <EditableText
+                entity="researcher"
+                entityId={researcher.id}
+                field="about"
+                value={researcher.about || "No bio yet. Click to add one."}
+                multiline
+                as="p"
+                className="text-lg text-foreground/90 leading-relaxed"
+              />
+            </div>
+          </div>
         </div>
+      </section>
 
+      <div className="mx-auto max-w-5xl px-6">
         <Suspense fallback={<SectionSkeleton title="Research Projects" />}>
           <ResearcherProjects researcher={researcher} />
         </Suspense>
@@ -242,6 +274,7 @@ export default async function ResearcherDetailPage({
           <ResearcherPublications researcher={researcher} />
         </Suspense>
       </div>
-    </div>
+      <div className="pb-20" />
+    </>
   );
 }

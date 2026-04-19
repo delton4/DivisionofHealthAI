@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getAllPublicationsWithOverrides, getAllProjectsWithOverrides } from "@/data";
 import { PublicationFilter } from "./PublicationFilter";
+import { MonoTag } from "@/components/MonoTag";
 
 export const metadata: Metadata = {
   title: "Publications",
-  description: "Peer-reviewed publications from the Division of Health AI, spanning clinical decision support, wearable monitoring, neural decoding, and medical imaging.",
+  description:
+    "Peer-reviewed publications from the Division of Health AI, spanning clinical decision support, wearable monitoring, neural decoding, and medical imaging.",
   alternates: { canonical: "/publications" },
 };
 export const revalidate = 60;
@@ -33,7 +35,6 @@ async function PublicationsContent({
     pubIds: p.publicationIds,
   }));
 
-  // Apply server-side filters
   let filtered = allPubs;
   if (projectFilter) {
     const proj = projectFilters.find((p) => p.id === projectFilter);
@@ -54,17 +55,28 @@ async function PublicationsContent({
 
   return (
     <>
-      <section className="pt-36 pb-12">
-        <div className="mx-auto max-w-6xl px-6">
-          <h1 className="font-display text-4xl md:text-5xl tracking-tight">Publications</h1>
-          <p className="mt-6 text-text-secondary max-w-2xl leading-relaxed">
-            {allPubs.length} peer-reviewed publications in journals including
-            Nature Communications, PNAS, JAMA, and Nature Machine Intelligence.
-          </p>
+      <section className="relative pt-32 pb-12 border-b border-border overflow-hidden">
+        <div className="absolute inset-0 bg-grid opacity-50 pointer-events-none" />
+        <div className="relative mx-auto max-w-6xl px-6">
+          <MonoTag accent="pulse">Publications · Archive</MonoTag>
+          <div className="mt-4 grid grid-cols-12 gap-6 items-end">
+            <div className="col-span-12 md:col-span-8">
+              <h1 className="font-display text-[clamp(3rem,8vw,6rem)] tracking-[-0.02em] leading-[0.95]">
+                <span className="italic text-text-secondary">The</span> archive
+              </h1>
+            </div>
+            <div className="col-span-12 md:col-span-4">
+              <p className="text-text-secondary leading-relaxed">
+                {allPubs.length} peer-reviewed papers in
+                Nature Communications, PNAS, JAMA, NEJM AI, Nature Machine
+                Intelligence and beyond.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="pb-24">
+      <section className="pt-12 pb-24">
         <PublicationFilter
           publications={paginated}
           journals={journals}
@@ -88,7 +100,7 @@ export default function PublicationsPage({
   return (
     <Suspense
       fallback={
-        <div className="pt-36 pb-20">
+        <div className="pt-32 pb-20">
           <div className="mx-auto max-w-6xl px-6">
             <div className="h-10 w-48 bg-surface rounded animate-pulse" />
             <div className="mt-6 h-4 w-96 bg-surface rounded animate-pulse" />

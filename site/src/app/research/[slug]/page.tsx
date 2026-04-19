@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EditableText } from "@/components/EditableText";
+import { MonoTag } from "@/components/MonoTag";
 import {
   getAllProjectsWithOverrides,
   getProjectWithOverrides,
@@ -42,10 +43,14 @@ export default async function ProjectDetailPage({
   const project = await getProjectWithOverrides(slug);
   if (!project) notFound();
 
-  const [teamMembers, pubs] = await Promise.all([
+  const [teamMembers, pubs, allProjects] = await Promise.all([
     getResearchersForProject(project.id, project.researcherIds),
     getPublicationsByIds(project.publicationIds),
+    getAllProjectsWithOverrides(),
   ]);
+
+  const projectIndex = allProjects.findIndex((p) => p.id === project.id);
+  const indexLabel = projectIndex >= 0 ? String(projectIndex + 1).padStart(2, "0") : project.id.padStart(2, "0");
 
   const projectJsonLd = {
     "@context": "https://schema.org",
@@ -76,7 +81,7 @@ export default async function ProjectDetailPage({
   };
 
   return (
-    <div className="pt-36 pb-20">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
@@ -85,96 +90,152 @@ export default async function ProjectDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <div className="mx-auto max-w-3xl px-6">
-        <Link
-          href="/research"
-          className="text-sm text-text-muted hover:text-text-secondary transition-colors duration-200"
-        >
-          Back to Research
-        </Link>
 
-        <div className="mt-8">
-          <h1 className="font-display text-3xl md:text-4xl tracking-tight">
+      {/* Header */}
+      <section className="relative pt-32 pb-12 border-b border-border overflow-hidden">
+        <div className="absolute inset-0 bg-grid opacity-50 pointer-events-none" />
+        <div className="relative mx-auto max-w-5xl px-6">
+          <Link
+            href="/research"
+            className="label-mono text-text-muted hover:text-accent-pulse transition-colors duration-200 inline-flex items-center gap-2"
+          >
+            ← Research index
+          </Link>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <MonoTag accent="pulse">Vertical · {indexLabel}</MonoTag>
+            <span className="label-mono text-text-dim">
+              {teamMembers.length} researcher{teamMembers.length !== 1 ? "s" : ""} · {pubs.length} paper{pubs.length !== 1 ? "s" : ""}
+            </span>
+          </div>
+
+          <h1 className="mt-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] tracking-[-0.02em] leading-[1.0]">
             <EditableText
               entity="project"
               entityId={project.id}
               field="name"
               value={project.name}
               as="span"
-              className="font-display text-3xl md:text-4xl tracking-tight"
+              className="font-display tracking-[-0.02em] leading-[1.0]"
             />
           </h1>
-          <p className="text-sm text-text-muted mt-2">
-            {teamMembers.length} researchers · {pubs.length} publications
-          </p>
         </div>
+      </section>
 
-        <div className="mt-8">
-          <EditableText
-            entity="project"
-            entityId={project.id}
-            field="about"
-            value={project.about}
-            multiline
-            as="p"
-            className="text-text-secondary leading-relaxed"
-          />
-        </div>
-
-        {teamMembers.length > 0 && (
-          <section className="mt-12 pt-8 border-t border-border">
-            <h2 className="font-display text-xl mb-4">Team</h2>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {teamMembers.map((r) => (
-                <li key={r.id}>
-                  <Link
-                    href={`/team/${r.slug}`}
-                    className="block py-2 text-sm"
-                  >
-                    <span className="text-foreground hover:underline underline-offset-4 decoration-text-muted/40">
-                      {r.name}
-                    </span>
-                    {r.title && (
-                      <span className="text-text-muted ml-1.5 text-xs">
-                        {r.title}
-                      </span>
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {pubs.length > 0 && (
-          <section className="mt-12 pt-8 border-t border-border">
-            <h2 className="font-display text-xl mb-4">
-              Publications ({pubs.length})
-            </h2>
-            <div className="space-y-4">
-              {pubs.map((pub) => (
-                <div key={pub.id} className="border-b border-border pb-4">
-                  <span className="text-xs italic text-text-muted">
-                    {pub.journal}
-                  </span>
-                  {pub.publicationUrl ? (
-                    <a
-                      href={pub.publicationUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-sm font-medium mt-0.5 text-foreground hover:underline underline-offset-4 decoration-text-muted/40"
-                    >
-                      {pub.name}
-                    </a>
-                  ) : (
-                    <p className="text-sm font-medium mt-0.5">{pub.name}</p>
-                  )}
-                </div>
-              ))}
+      {/* Description */}
+      <section className="py-16">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="grid grid-cols-12 gap-8">
+            <div className="col-span-12 md:col-span-3">
+              <MonoTag accent="dim">Abstract</MonoTag>
             </div>
-          </section>
-        )}
-      </div>
-    </div>
+            <div className="col-span-12 md:col-span-9 max-w-3xl">
+              <EditableText
+                entity="project"
+                entityId={project.id}
+                field="about"
+                value={project.about}
+                multiline
+                as="p"
+                className="text-lg text-foreground/90 leading-relaxed"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team */}
+      {teamMembers.length > 0 && (
+        <section className="py-16 border-t border-border bg-surface/30">
+          <div className="mx-auto max-w-5xl px-6">
+            <div className="grid grid-cols-12 gap-8">
+              <div className="col-span-12 md:col-span-3">
+                <MonoTag accent="dim">Team · {teamMembers.length}</MonoTag>
+                <h2 className="font-display text-3xl tracking-[-0.015em] mt-3 leading-tight">
+                  Who&apos;s working on this
+                </h2>
+              </div>
+              <div className="col-span-12 md:col-span-9">
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border">
+                  {teamMembers.map((r, i) => (
+                    <li key={r.id} className="bg-background">
+                      <Link
+                        href={`/team/${r.slug}`}
+                        className="group block p-4 hover:bg-surface/50 transition-colors duration-200"
+                      >
+                        <div className="flex items-baseline gap-3">
+                          <span className="label-mono text-text-dim w-8 tabular-nums">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <span className="font-display text-lg text-foreground group-hover:text-accent-pulse transition-colors duration-200 block leading-tight">
+                              {r.name}
+                            </span>
+                            {r.title && (
+                              <span className="text-xs text-text-muted block mt-0.5">
+                                {r.title}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Publications */}
+      {pubs.length > 0 && (
+        <section className="py-16 border-t border-border">
+          <div className="mx-auto max-w-5xl px-6">
+            <div className="grid grid-cols-12 gap-8">
+              <div className="col-span-12 md:col-span-3">
+                <MonoTag accent="dim">Papers · {pubs.length}</MonoTag>
+                <h2 className="font-display text-3xl tracking-[-0.015em] mt-3 leading-tight">
+                  Related publications
+                </h2>
+              </div>
+              <div className="col-span-12 md:col-span-9">
+                <div>
+                  {pubs.map((pub, i) => (
+                    <div
+                      key={pub.id}
+                      className="py-4 border-t border-border first:border-t-0"
+                    >
+                      <div className="flex items-baseline gap-3">
+                        <span className="label-mono text-text-dim tabular-nums">
+                          {String(i + 1).padStart(3, "0")}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <MonoTag accent="secondary">{pub.journal}</MonoTag>
+                          {pub.publicationUrl ? (
+                            <a
+                              href={pub.publicationUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block mt-1.5 font-display text-lg text-foreground hover:text-accent-pulse transition-colors duration-200 leading-snug"
+                            >
+                              {pub.name}
+                            </a>
+                          ) : (
+                            <p className="mt-1.5 font-display text-lg text-foreground leading-snug">
+                              {pub.name}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   );
 }

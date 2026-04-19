@@ -8,11 +8,11 @@ import { useAdmin } from "@/components/AdminProvider";
 import { logout } from "@/lib/actions";
 
 const links = [
-  { href: "/about", label: "About" },
-  { href: "/team", label: "Team" },
-  { href: "/research", label: "Research" },
-  { href: "/publications", label: "Publications" },
-  { href: "/join", label: "Join Us" },
+  { href: "/about", label: "About", code: "A" },
+  { href: "/team", label: "Team", code: "T" },
+  { href: "/research", label: "Research", code: "R" },
+  { href: "/publications", label: "Publications", code: "P" },
+  { href: "/join", label: "Join", code: "J" },
 ];
 
 export function Navigation() {
@@ -21,7 +21,6 @@ export function Navigation() {
   const isAdmin = useAdmin();
   const pathname = usePathname();
 
-  // Close mobile menu on browser back/forward navigation
   useEffect(() => {
     const handlePopState = () => setIsOpen(false);
     window.addEventListener("popstate", handlePopState);
@@ -29,78 +28,112 @@ export function Navigation() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(href + "/");
+
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-surface/85 backdrop-blur-md border-border/80"
-          : "bg-surface border-border"
+          ? "bg-background/85 backdrop-blur-md border-b border-border"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
+      {/* Top meta strip (hidden when scrolled) */}
+      <div
+        className={`hidden md:block overflow-hidden transition-all duration-300 border-b border-border/40 ${
+          scrolled ? "max-h-0 opacity-0" : "max-h-10 opacity-100"
+        }`}
+      >
+        <div className="mx-auto max-w-6xl px-6 h-8 flex items-center justify-between label-mono text-text-dim">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-2">
+              <span className="status-pulse" />
+              <span className="text-text-muted">System nominal</span>
+            </span>
+            <span>Manhasset · Feinstein Institutes · Floor 3</span>
+          </div>
+          <div className="flex items-center gap-5">
+            <span>dhai.northwell</span>
+            <span className="hidden lg:inline">Ver. 2026.04</span>
+          </div>
+        </div>
+      </div>
+
       <div className="mx-auto max-w-6xl px-6">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-14 items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <LogoMark size={28} />
-            <div>
-              <span className="font-display text-base tracking-tight text-foreground leading-tight block">
+            <LogoMark size={24} />
+            <div className="flex flex-col leading-tight">
+              <span className="font-display text-[15px] tracking-tight text-foreground">
                 Division of Health AI
               </span>
-              <span className="text-[10px] uppercase tracking-[0.15em] text-text-muted leading-tight block">
-                Northwell Health
+              <span className="label-mono text-text-dim mt-0.5">
+                Northwell · Feinstein
               </span>
             </div>
           </Link>
 
           {/* Desktop */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-7">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                aria-current={pathname === link.href || pathname.startsWith(link.href + "/") ? "page" : undefined}
-                className={`text-sm transition-colors duration-200 ${
-                  pathname === link.href || pathname.startsWith(link.href + "/")
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`group relative flex items-center gap-1.5 text-sm transition-colors duration-200 ${
+                  isActive(link.href)
                     ? "text-foreground"
                     : "text-text-secondary hover:text-foreground"
                 }`}
               >
-                {link.label}
+                <span
+                  className={`label-mono transition-colors duration-200 ${
+                    isActive(link.href) ? "text-accent-pulse" : "text-text-dim"
+                  } group-hover:text-accent-pulse`}
+                >
+                  {link.code}
+                </span>
+                <span>{link.label}</span>
+                {isActive(link.href) && (
+                  <span className="absolute -bottom-[18px] left-0 right-0 h-px bg-accent-pulse" />
+                )}
               </Link>
             ))}
             {isAdmin && (
-              <>
+              <span className="flex items-center gap-3 pl-4 ml-2 border-l border-border">
                 <Link
                   href="/admin/team"
-                  className="text-xs text-text-muted hover:text-accent transition-colors duration-200"
+                  className="label-mono text-text-muted hover:text-accent transition-colors duration-200"
                 >
-                  Team
+                  Adm·T
                 </Link>
                 <Link
                   href="/admin/research"
-                  className="text-xs text-text-muted hover:text-accent transition-colors duration-200"
+                  className="label-mono text-text-muted hover:text-accent transition-colors duration-200"
                 >
-                  Research
+                  Adm·R
                 </Link>
                 <Link
                   href="/admin/publications"
-                  className="text-xs text-text-muted hover:text-accent transition-colors duration-200"
+                  className="label-mono text-text-muted hover:text-accent transition-colors duration-200"
                 >
-                  Pubs
+                  Adm·P
                 </Link>
                 <form action={logout}>
                   <button
                     type="submit"
-                    className="text-xs text-text-muted hover:text-accent-warm transition-colors duration-200"
+                    className="label-mono text-text-muted hover:text-accent-warm transition-colors duration-200"
                   >
-                    Logout
+                    Out
                   </button>
                 </form>
-              </>
+              </span>
             )}
           </div>
 
@@ -112,11 +145,11 @@ export function Navigation() {
             aria-expanded={isOpen}
           >
             {isOpen ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M3 12h18M3 6h18M3 18h18" />
               </svg>
             )}
@@ -126,7 +159,7 @@ export function Navigation() {
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden border-t border-border bg-surface overflow-hidden transition-all duration-300 ${
+        className={`md:hidden border-t border-border bg-background overflow-hidden transition-all duration-300 ${
           isOpen ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
@@ -136,24 +169,25 @@ export function Navigation() {
               key={link.href}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="block py-3 text-sm text-text-secondary hover:text-foreground transition-colors duration-200"
+              className="flex items-center gap-3 py-3 text-sm text-text-secondary hover:text-foreground transition-colors duration-200"
             >
-              {link.label}
+              <span className="label-mono text-text-dim w-4">{link.code}</span>
+              <span>{link.label}</span>
             </Link>
           ))}
           {isAdmin && (
             <div className="pt-3 mt-3 border-t border-border space-y-1">
-              <Link href="/admin/team" onClick={() => setIsOpen(false)} className="block py-2 text-xs text-text-muted hover:text-accent transition-colors duration-200">
-                Admin: Team
+              <Link href="/admin/team" onClick={() => setIsOpen(false)} className="block py-2 label-mono text-text-muted hover:text-accent transition-colors duration-200">
+                Admin · Team
               </Link>
-              <Link href="/admin/research" onClick={() => setIsOpen(false)} className="block py-2 text-xs text-text-muted hover:text-accent transition-colors duration-200">
-                Admin: Research
+              <Link href="/admin/research" onClick={() => setIsOpen(false)} className="block py-2 label-mono text-text-muted hover:text-accent transition-colors duration-200">
+                Admin · Research
               </Link>
-              <Link href="/admin/publications" onClick={() => setIsOpen(false)} className="block py-2 text-xs text-text-muted hover:text-accent transition-colors duration-200">
-                Admin: Pubs
+              <Link href="/admin/publications" onClick={() => setIsOpen(false)} className="block py-2 label-mono text-text-muted hover:text-accent transition-colors duration-200">
+                Admin · Pubs
               </Link>
               <form action={logout}>
-                <button type="submit" className="block py-2 text-xs text-text-muted hover:text-accent-warm transition-colors duration-200">
+                <button type="submit" className="block py-2 label-mono text-text-muted hover:text-accent-warm transition-colors duration-200">
                   Logout
                 </button>
               </form>
