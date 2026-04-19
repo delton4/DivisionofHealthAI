@@ -3,12 +3,21 @@ import { SignJWT, jwtVerify, type JWTPayload } from "jose";
 import { cookies } from "next/headers";
 
 const SECRET_KEY = process.env.SESSION_SECRET;
-if (!SECRET_KEY && process.env.NODE_ENV !== "development" && !process.env.GITHUB_ACTIONS) {
-  throw new Error("SESSION_SECRET must be set");
-}
-const key = new TextEncoder().encode(SECRET_KEY || "dev-secret-change-me");
 const COOKIE_NAME = "session";
 const ADMIN_HINT_COOKIE = "admin_logged_in";
+
+// Encode lazily — throwing at module load breaks `next build`'s page-data
+// collection even for pages that never touch a session. The throw still
+// fires on the first real session operation if the secret is missing.
+let cachedKey: Uint8Array | null = null;
+function getKey(): Uint8Array {
+  if (cachedKey) return cachedKey;
+  if (!SECRET_KEY && process.env.NODE_ENV !== "development") {
+    throw new Error("SESSION_SECRET must be set");
+  }
+  cachedKey = new TextEncoder().encode(SECRET_KEY || "dev-secret-change-me");
+  return cachedKey;
+}
 
 interface SessionPayload {
   userId: number;
@@ -29,12 +38,12 @@ async function encrypt(payload: SessionPayload): Promise<string> {
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("7d")
-    .sign(key);
+    .sign(getKey());
 }
 
 async function decrypt(token: string): Promise<SessionPayload | null> {
   try {
-    const { payload } = await jwtVerify(token, key, { algorithms: ["HS256"] });
+    const { payload } = await jwtVerify(token, getKey(), { algorithms: ["HS256"] });
     if (!isSessionPayload(payload)) return null;
     return payload;
   } catch {
