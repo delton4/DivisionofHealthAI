@@ -17,6 +17,8 @@ export const ProjectCard = memo(function ProjectCard({
   return (
     <Link
       href={`/research/${project.slug}`}
+      data-cursor="card"
+      data-cursor-label="Open →"
       className="group block py-7 border-t border-border transition-colors duration-300 hover:bg-surface/40"
     >
       <div className="mx-auto max-w-6xl px-6">

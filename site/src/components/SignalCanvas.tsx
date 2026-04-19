@@ -3,49 +3,30 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Bioelectric signal canvas. Renders a continuous stream of synthesised
- * physiological-looking waveforms (a smoothed sine, a slow breathing envelope
- * and sparse QRS-style spikes) on a transparent canvas with a faint grid.
- *
- * The visual is intentionally evocative rather than literal — this isn't
- * patient data, it's a research lab signature.
+ * Bioelectric signal canvas. Multi-track: a fast composite (ECG-ish)
+ * with a travelling QRS pulse, a slower brain-wave band, and a faint
+ * respiration envelope. Cursor position perturbs the fast track — the
+ * curve bulges toward the pointer like a held stethoscope.
  */
-
-type Sample = { t: number; v: number };
-
-function qrsSpike(phase: number): number {
-  // Compact Gaussian-like pulse. Phase is normalised to [0, 1).
-  if (phase < 0 || phase > 1) return 0;
-  const x = (phase - 0.5) * 14;
-  const env = Math.exp(-x * x);
-  const fast = Math.sin(phase * Math.PI * 2 * 3) * 0.35;
-  return env * (1 + fast);
-}
 
 export function SignalCanvas({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number | null>(null);
-  const samplesRef = useRef<Sample[]>([]);
-  const mountedRef = useRef(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const parent = canvas.parentElement;
     if (!parent) return;
-
-    const reduceMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    mountedRef.current = true;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let width = parent.clientWidth;
     let height = parent.clientHeight;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const mouse = { x: -9999, y: -9999, active: false };
 
     const resize = () => {
       width = parent.clientWidth;
@@ -61,155 +42,172 @@ export function SignalCanvas({ className = "" }: { className?: string }) {
     const ro = new ResizeObserver(resize);
     ro.observe(parent);
 
-    const start = performance.now();
-    const nextSpikeAt = { t: 900 };
+    const onMove = (e: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    };
+    const onLeave = () => {
+      mouse.active = false;
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerleave", onLeave);
 
-    // Precompute grid path (cheap enough, but nicer to keep flat).
-    const gridPath = new Path2D();
-    const gridSpacing = 28;
-    for (let x = 0; x <= 2000; x += gridSpacing) {
-      gridPath.moveTo(x, 0);
-      gridPath.lineTo(x, 2000);
-    }
-    for (let y = 0; y <= 2000; y += gridSpacing) {
-      gridPath.moveTo(0, y);
-      gridPath.lineTo(2000, y);
-    }
+    const start = performance.now();
+    const spike = { next: 1200 };
+
+    const qrs = (phase: number): number => {
+      if (phase < 0 || phase > 1) return 0;
+      const x = (phase - 0.5) * 14;
+      const env = Math.exp(-x * x);
+      const fast = Math.sin(phase * Math.PI * 2 * 3) * 0.35;
+      return env * (1 + fast);
+    };
 
     const draw = (now: number) => {
-      if (!mountedRef.current) return;
-      const t = (now - start) / 1000; // seconds
+      const t = (now - start) / 1000;
 
-      // Clear and paint faint backdrop grid.
       ctx.clearRect(0, 0, width, height);
 
+      // Faint vertical gridlines (ECG paper-ish).
       ctx.save();
-      ctx.strokeStyle = "rgba(237, 234, 229, 0.035)";
+      ctx.strokeStyle = "rgba(237, 234, 229, 0.025)";
       ctx.lineWidth = 1;
-      ctx.stroke(gridPath);
+      for (let x = 0; x < width; x += 40) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
       ctx.restore();
 
-      // Baseline (centre of canvas) with a gentle breathing drift.
-      const baseline = height * 0.56 + Math.sin(t * 0.45) * (height * 0.015);
-
-      // Waveform sampling across the canvas.
-      const samples: Sample[] = [];
-      const step = 2.2;
-      const freq1 = 0.018;
-      const freq2 = 0.006;
-      const freq3 = 0.042;
+      // Main baseline.
+      const base = height * 0.55 + Math.sin(t * 0.4) * height * 0.015;
       const amp = height * 0.1;
 
-      // Trigger a new spike every ~1.3s (heart rate ~46 bpm visual feel).
-      if (t * 1000 > nextSpikeAt.t) {
-        nextSpikeAt.t = t * 1000 + 1250 + Math.random() * 220;
+      if (t * 1000 > spike.next) {
+        spike.next = t * 1000 + 1250 + Math.random() * 200;
       }
-      const spikeLife = 1.25; // seconds
-      const spikePhase = ((t * 1000 - (nextSpikeAt.t - 1250)) / 1000) / spikeLife;
-      const spikeCentreX = width * 0.72;
+      const spikeLife = 1.25;
+      const sp = ((t * 1000 - (spike.next - 1250)) / 1000) / spikeLife;
+      const spikeX = width * 0.72;
 
+      // Main track.
+      const mainPath: [number, number][] = [];
+      const step = 2.2;
       for (let x = 0; x <= width + step; x += step) {
-        // Base composite wave.
         let v =
-          Math.sin(x * freq1 + t * 1.1) * amp * 0.55 +
-          Math.sin(x * freq2 - t * 0.7) * amp * 0.25 +
-          Math.sin(x * freq3 + t * 2.2) * amp * 0.1;
+          Math.sin(x * 0.018 + t * 1.1) * amp * 0.55 +
+          Math.sin(x * 0.006 - t * 0.7) * amp * 0.25 +
+          Math.sin(x * 0.042 + t * 2.2) * amp * 0.1;
 
-        // Localised QRS-like pulse travelling near `spikeCentreX`.
-        const dist = Math.abs(x - spikeCentreX);
-        const spread = width * 0.09;
-        if (dist < spread && spikePhase >= 0 && spikePhase <= 1) {
-          const localPhase = 0.5 + (x - spikeCentreX) / (spread * 2);
-          v -= qrsSpike(localPhase) * amp * 2.1 * (1 - Math.abs(spikePhase - 0.4));
+        // Cursor bulge.
+        if (mouse.active) {
+          const dx = x - mouse.x;
+          const dy = base - mouse.y;
+          const d2 = dx * dx + dy * dy;
+          const bulge = Math.exp(-d2 / (120 * 120)) * 40;
+          v -= bulge;
         }
 
-        samples.push({ t: x, v: baseline + v });
-      }
-      samplesRef.current = samples;
+        const dist = Math.abs(x - spikeX);
+        const spread = width * 0.09;
+        if (dist < spread && sp >= 0 && sp <= 1) {
+          const local = 0.5 + (x - spikeX) / (spread * 2);
+          v -= qrs(local) * amp * 2.1 * (1 - Math.abs(sp - 0.4));
+        }
 
-      // Main waveform — two passes for a glow feel.
+        mainPath.push([x, base + v]);
+      }
+
+      // Glow pass.
       ctx.save();
-      ctx.lineCap = "round";
       ctx.lineJoin = "round";
-
-      // Outer glow.
+      ctx.lineCap = "round";
       ctx.strokeStyle = "rgba(142, 227, 200, 0.18)";
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 5;
       ctx.beginPath();
-      ctx.moveTo(samples[0].t, samples[0].v);
-      for (let i = 1; i < samples.length; i++) {
-        ctx.lineTo(samples[i].t, samples[i].v);
-      }
+      mainPath.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
       ctx.stroke();
 
-      // Core line.
-      ctx.strokeStyle = "rgba(237, 234, 229, 0.88)";
+      // Crisp line.
+      ctx.strokeStyle = "rgba(237, 234, 229, 0.92)";
       ctx.lineWidth = 1.4;
       ctx.beginPath();
-      ctx.moveTo(samples[0].t, samples[0].v);
-      for (let i = 1; i < samples.length; i++) {
-        ctx.lineTo(samples[i].t, samples[i].v);
-      }
+      mainPath.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
       ctx.stroke();
       ctx.restore();
 
-      // Leading scanner dot.
-      const leadIdx = samples.length - 3;
-      const lead = samples[leadIdx];
+      // Leading scanner.
+      const lead = mainPath[mainPath.length - 3];
       if (lead) {
         ctx.save();
-        ctx.fillStyle = "rgba(240, 177, 90, 0.9)";
+        ctx.fillStyle = "rgba(240, 177, 90, 0.95)";
         ctx.beginPath();
-        ctx.arc(lead.t, lead.v, 3.2, 0, Math.PI * 2);
+        ctx.arc(lead[0], lead[1], 3.3, 0, Math.PI * 2);
         ctx.fill();
-
-        ctx.fillStyle = "rgba(240, 177, 90, 0.14)";
+        ctx.fillStyle = "rgba(240, 177, 90, 0.13)";
         ctx.beginPath();
-        ctx.arc(lead.t, lead.v, 10, 0, Math.PI * 2);
+        ctx.arc(lead[0], lead[1], 14, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       }
 
-      // Secondary slower trace below, sampled from a parallel rhythm.
+      // Brain-wave / alpha band — fast oscillation in a small band.
       ctx.save();
       ctx.strokeStyle = "rgba(106, 173, 206, 0.35)";
       ctx.lineWidth = 1;
       ctx.beginPath();
-      const baseline2 = height * 0.82;
-      for (let x = 0; x <= width; x += 3) {
-        const v2 =
-          Math.sin(x * 0.01 - t * 0.55) * height * 0.04 +
-          Math.sin(x * 0.025 + t * 1.5) * height * 0.012;
-        if (x === 0) ctx.moveTo(x, baseline2 + v2);
-        else ctx.lineTo(x, baseline2 + v2);
+      const alphaBase = height * 0.83;
+      for (let x = 0; x <= width; x += 2) {
+        const v =
+          Math.sin(x * 0.08 - t * 4.5) * height * 0.012 +
+          Math.sin(x * 0.16 + t * 2.2) * height * 0.008;
+        if (x === 0) ctx.moveTo(x, alphaBase + v);
+        else ctx.lineTo(x, alphaBase + v);
       }
       ctx.stroke();
       ctx.restore();
 
-      if (!reduceMotion) {
-        rafRef.current = requestAnimationFrame(draw);
+      // Respiration — slow, transparent sine.
+      ctx.save();
+      ctx.strokeStyle = "rgba(240, 177, 90, 0.14)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      const respBase = height * 0.18;
+      for (let x = 0; x <= width; x += 4) {
+        const v = Math.sin(x * 0.008 + t * 0.7) * height * 0.035;
+        if (x === 0) ctx.moveTo(x, respBase + v);
+        else ctx.lineTo(x, respBase + v);
       }
+      ctx.stroke();
+      ctx.restore();
+
+      // Tick marks.
+      ctx.save();
+      ctx.fillStyle = "rgba(167, 161, 153, 0.35)";
+      ctx.font = "9px ui-monospace, monospace";
+      ctx.textBaseline = "top";
+      for (let x = 80; x < width; x += 160) {
+        ctx.fillRect(x, 0, 1, 6);
+        ctx.fillText(`${Math.round((x / width) * 100)}%`, x + 4, 3);
+      }
+      ctx.restore();
+
+      if (!reduce) rafRef.current = requestAnimationFrame(draw);
     };
 
-    if (reduceMotion) {
-      // Render a single static frame and stop.
-      draw(performance.now());
-    } else {
-      rafRef.current = requestAnimationFrame(draw);
-    }
+    if (reduce) draw(performance.now());
+    else rafRef.current = requestAnimationFrame(draw);
 
     return () => {
-      mountedRef.current = false;
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
       ro.disconnect();
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerleave", onLeave);
     };
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className={className}
-      aria-hidden="true"
-    />
-  );
+  return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
 }

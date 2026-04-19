@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { AdminProvider } from "@/components/AdminProvider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { CustomCursor } from "@/components/CustomCursor";
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
@@ -124,6 +125,7 @@ export default async function RootLayout({
         <div className="bg-noise" aria-hidden="true" />
 
         <AdminProvider isAdmin={isAdmin}>
+          <CustomCursor />
           <Navigation />
           <main className="flex-1 relative">{children}</main>
           <Footer />

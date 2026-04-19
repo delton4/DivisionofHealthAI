@@ -27,6 +27,8 @@ export const TeamCard = memo(function TeamCard({
   return (
     <Link
       href={`/team/${researcher.slug}`}
+      data-cursor="card"
+      data-cursor-label="Profile →"
       className="panel group block p-0 rounded-sm"
     >
       <div className="flex items-stretch">
